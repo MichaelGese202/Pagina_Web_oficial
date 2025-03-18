@@ -978,7 +978,9 @@ document.addEventListener('click', function(e) {
                     if (badge.toLowerCase().includes('social')) badgeClass = 'badge-primary';
                     
                 }
-            }
+                badgesHTML += `<a href="${badgeUrl}" class="badge ${badgeClass}" target="_blank">${badgeText}</a>`;
+      });
+    }
         // Generar el HTML de los pasos de participación personalizados
 // Update the participationStepsHTML generation code:
 // Update the participationStepsHTML generation code:
