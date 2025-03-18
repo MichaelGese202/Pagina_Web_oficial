@@ -840,7 +840,31 @@
                     renderAirdrops(this.getAttribute('data-filter'));
                 });
             });
-            
+            // Add this new code to check URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('project');
+
+            if (projectId) {
+                // Find the airdrop with the matching ID
+                const airdrop = airdrops.find(a => a.id == projectId);
+                if (airdrop) {
+                     // Simulate clicking the details button for this project
+                    setTimeout(() => {
+                        // Create a temporary button with the project ID
+                        const tempBtn = document.createElement('button');
+                        tempBtn.classList.add('details-btn');
+                        tempBtn.setAttribute('data-id', projectId);
+                        // Trigger a click on this button
+                        const clickEvent = new MouseEvent('click', {
+                            bubbles: true,
+                            cancelable: true,
+                            view: window
+                        });
+                        tempBtn.dispatchEvent(clickEvent);
+                    }, 500); // Small delay to ensure the page has rendered
+                }
+          
+            }
             // Configurar búsqueda
             document.getElementById('search-input').addEventListener('keyup', function() {
                 const searchTerm = this.value.toLowerCase();
@@ -908,6 +932,37 @@
                 }
             });
         });
+// Add this to your DOMContentLoaded event
+window.addEventListener('popstate', function(event) {
+    // Check if there are any modals open
+    const openModal = document.querySelector('[style*="position: fixed"][style*="z-index: 1000"]');
+    if (openModal) {
+        // Remove the modal without changing the URL (browser already did that)
+        document.body.removeChild(openModal);
+    }
+    
+    // Check if there's a project ID in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('project');
+    
+    if (projectId) {
+        // Open the project modal (similar code as above)
+        const airdrop = airdrops.find(a => a.id == projectId);
+        if (airdrop) {
+            // Create and click a temporary button
+            const tempBtn = document.createElement('button');
+            tempBtn.classList.add('details-btn');
+            tempBtn.setAttribute('data-id', projectId);
+            
+            const clickEvent = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            tempBtn.dispatchEvent(clickEvent);
+        }
+    }
+});
     // Configurar botones de detalles
 // Configurar botones de detalles
 // Configurar botones de detalles
@@ -916,8 +971,7 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('details-btn') || e.target.closest('.details-btn')) {
         const button = e.target.classList.contains('details-btn') ? e.target : e.target.closest('.details-btn');
         const airdropId = button.getAttribute('data-id');
-        const airdrop = airdrops.find(a => a.id == airdropId);
-        
+        window.history.pushState({id: airdropId}, '', `?project=${airdropId}`);
         if (!airdrop) return;
         
         // Crear modal de detalles a pantalla completa
@@ -1238,11 +1292,13 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
         // Cerrar modal con botón de cierre
         modal.querySelector('.close-modal').addEventListener('click', function() {
             document.body.removeChild(modal);
+            window.history.pushState({}, '', window.location.pathname);
         });
         
         // Cerrar modal con botón de regresar
         modal.querySelector('.back-button').addEventListener('click', function() {
             document.body.removeChild(modal);
+            window.history.pushState({}, '', window.location.pathname);
         });
         
         // Actualizar el botón de bookmark
