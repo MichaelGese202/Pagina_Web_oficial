@@ -838,6 +838,39 @@
                     this.classList.add('active');
                     // Renderizar airdrops filtrados
                     renderAirdrops(this.getAttribute('data-filter'));
+                        // Add this updated URL parameter handling
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectParam = urlParams.get('project');
+
+    if (projectParam) {
+        // First try to find by ID (backwards compatibility)
+        let airdrop = airdrops.find(a => a.id == projectParam);
+        
+        // If not found by ID, try to find by slug (new format)
+        if (!airdrop) {
+            airdrop = airdrops.find(a => a.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '') === projectParam);
+        }
+        
+        if (airdrop) {
+            setTimeout(() => {
+                // Create a temporary button with the project ID
+                const tempBtn = document.createElement('button');
+                tempBtn.classList.add('details-btn');
+                tempBtn.setAttribute('data-id', airdrop.id);
+                // Trigger a click on this button
+                const clickEvent = new MouseEvent('click', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                });
+                tempBtn.dispatchEvent(clickEvent);
+            }, 500); // Small delay to ensure the page has rendered
+        }
+    }
+    
+    // Rest of your initialization code...
+});
+
                 });
             });
             // Add this new code to check URL parameters
@@ -941,18 +974,24 @@ window.addEventListener('popstate', function(event) {
         document.body.removeChild(openModal);
     }
     
-    // Check if there's a project ID in the URL
+    // Check if there's a project parameter in the URL
     const urlParams = new URLSearchParams(window.location.search);
-    const projectId = urlParams.get('project');
+    const projectParam = urlParams.get('project');
     
-    if (projectId) {
-        // Open the project modal (similar code as above)
-        const airdrop = airdrops.find(a => a.id == projectId);
+    if (projectParam) {
+        // First try to find by ID (backwards compatibility)
+        let airdrop = airdrops.find(a => a.id == projectParam);
+        
+        // If not found by ID, try to find by slug (new format)
+        if (!airdrop) {
+            airdrop = airdrops.find(a => a.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '') === projectParam);
+        }
+        
         if (airdrop) {
             // Create and click a temporary button
             const tempBtn = document.createElement('button');
             tempBtn.classList.add('details-btn');
-            tempBtn.setAttribute('data-id', projectId);
+            tempBtn.setAttribute('data-id', airdrop.id);
             
             const clickEvent = new MouseEvent('click', {
                 bubbles: true,
@@ -971,6 +1010,8 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('details-btn') || e.target.closest('.details-btn')) {
         const button = e.target.classList.contains('details-btn') ? e.target : e.target.closest('.details-btn');
         const airdropId = button.getAttribute('data-id');
+        const airdrop = airdrops.find(a => a.id == airdropId);
+        const titleSlug = airdrop.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
         window.history.pushState({id: airdropId}, '', `?project=${airdropId}`);
         if (!airdrop) return;
         
