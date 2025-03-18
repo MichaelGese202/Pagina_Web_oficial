@@ -828,7 +828,22 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Renderizar airdrops iniciales
             renderAirdrops();
-            
+            fetchCryptoPrices();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('project');
+            if (projectId) {
+                openProjectDetails(projectId);
+            }
+            window.addEventListener('popstate', function(event) {
+                const existingModal = document.getElementById('project-modal');
+                if (existingModal) {
+                    document.body.removeChild(existingModal);
+                }
+                if (event.state && event.state.id) {
+                    openProjectDetails(event.state.id);
+                }
+            });
             // Configurar filtros
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -916,10 +931,17 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('details-btn') || e.target.closest('.details-btn')) {
         const button = e.target.classList.contains('details-btn') ? e.target : e.target.closest('.details-btn');
         const airdropId = button.getAttribute('data-id');
+
+        cconst newUrl = window.location.origin + window.location.pathname + '?project=' + airdropId;
+        history.pushState({ id: airdropId }, '', newUrl);
+        
+        // Open the project details
+        openProjectDetails(airdropId);
+    }
+});
+    function openProjectDetails(airdropId) {
         const airdrop = airdrops.find(a => a.id == airdropId);
-        
         if (!airdrop) return;
-        
         // Crear modal de detalles a pantalla completa
         const modal = document.createElement('div');
         modal.style.position = 'fixed';
@@ -954,12 +976,9 @@ document.addEventListener('click', function(e) {
                     if (badge.toLowerCase().includes('staking')) badgeClass = 'badge-success';
                     if (badge.toLowerCase().includes('gaming')) badgeClass = 'badge-danger';
                     if (badge.toLowerCase().includes('social')) badgeClass = 'badge-primary';
+                    
                 }
-                
-                badgesHTML += `<a href="${badgeUrl}" class="badge ${badgeClass}" target="_blank">${badgeText}</a>`;
-            });
-        }
-        
+            }
         // Generar el HTML de los pasos de participación personalizados
 // Update the participationStepsHTML generation code:
 // Update the participationStepsHTML generation code:
@@ -1238,11 +1257,13 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
         // Cerrar modal con botón de cierre
         modal.querySelector('.close-modal').addEventListener('click', function() {
             document.body.removeChild(modal);
+            history.pushState({}, '', window.location.origin + window.location.pathname);
         });
         
         // Cerrar modal con botón de regresar
         modal.querySelector('.back-button').addEventListener('click', function() {
             document.body.removeChild(modal);
+            history.pushState({}, '', window.location.origin + window.location.pathname);
         });
         
         // Actualizar el botón de bookmark
