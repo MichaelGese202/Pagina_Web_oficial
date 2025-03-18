@@ -919,7 +919,9 @@ document.addEventListener('click', function(e) {
         const airdrop = airdrops.find(a => a.id == airdropId);
         
         if (!airdrop) return;
-        
+        const projectSlug = airdrop.title.toLowerCase().replace(/\s+/g, '-');
+        const newUrl = `${window.location.pathname}?project=${projectSlug}-${airdropId}`;
+        window.history.pushState({ id: airdropId }, '', newUrl);
         // Crear modal de detalles a pantalla completa
         const modal = document.createElement('div');
         modal.style.position = 'fixed';
@@ -959,7 +961,30 @@ document.addEventListener('click', function(e) {
                 badgesHTML += `<a href="${badgeUrl}" class="badge ${badgeClass}" target="_blank">${badgeText}</a>`;
             });
         }
+
+// Handle browser back/forward navigation
+window.addEventListener('popstate', function(event) {
+    // Remove any open modals
+    const openModals = document.querySelectorAll('div[style*="position: fixed"][style*="z-index: 1000"]');
+    openModals.forEach(modal => document.body.removeChild(modal));
+    
+    // Check if there's a project parameter and open the modal if needed
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectParam = urlParams.get('project');
+    
+    if (projectParam) {
+        const projectId = projectParam.split('-').pop();
+        const airdrop = airdrops.find(a => a.id == projectId);
         
+        if (airdrop) {
+            // Find and click the details button
+            setTimeout(() => {
+                const detailsBtn = document.querySelector(`.details-btn[data-id="${projectId}"]`);
+                if (detailsBtn) detailsBtn.click();
+            }, 100);
+        }
+    }
+});
         // Generar el HTML de los pasos de participación personalizados
 // Update the participationStepsHTML generation code:
 // Update the participationStepsHTML generation code:
@@ -1238,11 +1263,13 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
         // Cerrar modal con botón de cierre
         modal.querySelector('.close-modal').addEventListener('click', function() {
             document.body.removeChild(modal);
+            window.history.pushState({}, '', window.location.pathname);
         });
         
         // Cerrar modal con botón de regresar
         modal.querySelector('.back-button').addEventListener('click', function() {
             document.body.removeChild(modal);
+            window.history.pushState({}, '', window.location.pathname);
         });
         
         // Actualizar el botón de bookmark
@@ -1411,7 +1438,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide trending section initially
     const trendingSection = document.querySelector('.trending-prices');
     trendingSection.style.display = 'none';
-    
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectParam = urlParams.get('project');
+    if (projectParam) {
+        // Extract the project ID from the URL (format: project-name-ID)
+        const projectId = projectParam.split('-').pop();
+        
+        // Find the airdrop
+        const airdrop = airdrops.find(a => a.id == projectId);
+        
+        // If found, open the details modal
+        if (airdrop) {
+            // Simulate clicking the details button for this airdrop
+            setTimeout(() => {
+                // First render airdrops to ensure they're on the page
+                renderAirdrops();
+                
+                // Then find and click the button
+                const detailsBtn = document.querySelector(`.details-btn[data-id="${projectId}"]`);
+                if (detailsBtn) detailsBtn.click();
+            }, 100);
+        }
+    }
     // Pre-fetch prices in the background
     fetchCryptoPrices(true);
     
