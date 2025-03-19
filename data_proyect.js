@@ -1,4 +1,33 @@
 const airdrops = [
+                                    {
+                id: 21,
+                title: " OPTIMAI",
+                type: "depin",
+                description: "Complete the tasks to qualify for potential airdrops and rewards ",
+                launchDate: " ",
+                publishDate: new Date(2025, 3, 16),
+                status: "Confirmed", 
+                image: "https://pbs.twimg.com/profile_images/1897892548016050176/b5yKaYUc_400x400.jpg",
+                referenceImage: "https://x.com/i/status/1879402223232524653 ",
+                webUrl: "https://node.optimai.network/register?ref=6A0B9D92",
+                docsUrl: " https://optimai.network/ ",
+                xUrl: "https://x.com/OptimaiNetwork",
+                badges: ["Web","Docs","X"],
+                info: " Learn how OptimAI Network empowers individuals to craft a decentralized data ecosystem that fuels the next wave of AI innovation.  ",
+                funds:"$ 0.00 ",
+                link: "https://node.optimai.network/register?ref=6A0B9D92",
+                participationSteps: [
+                        { step: "Create an account with your email address.", icon: "fa-envelope" },
+                        { step: "Create and save your wallet.", icon: "fa-wallet" },
+                        { step: "Download the Node extension.", icon: "fa-download" },
+                        { step: "Or use Telegram Node Lite:", icon: "fa-telegram" },
+                        { step: "Run the extension every day.", icon: "fa-play-circle" },
+                        { step: "Enter a referral code.", icon: "fa-code" },
+                        { step: "Complete the available tasks.", icon: "fa-tasks" },
+                        { step: "Invite your friends and perform tasks.", icon: "fa-users" }
+                ]
+ 
+            },
                              {
                 id: 20,
                 title: "Stork",
