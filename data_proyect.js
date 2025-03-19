@@ -8,7 +8,7 @@ const airdrops = [
                 publishDate: new Date(2025, 3, 16),
                 status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1897892548016050176/b5yKaYUc_400x400.jpg",
-                referenceImage: "https://x.com/i/status/1879402223232524653 ",
+                referenceImage: "image2/optimenode.jpg ",
                 webUrl: "https://node.optimai.network/register?ref=6A0B9D92",
                 docsUrl: " https://optimai.network/ ",
                 xUrl: "https://x.com/OptimaiNetwork",
