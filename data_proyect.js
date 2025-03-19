@@ -2,7 +2,7 @@ const airdrops = [
                                     {
                 id: 21,
                 title: " OPTIMAI",
-                type: "depin",
+                type: "node",
                 description: "Complete the tasks to qualify for potential airdrops and rewards ",
                 launchDate: " ",
                 publishDate: new Date(2025, 3, 16),
