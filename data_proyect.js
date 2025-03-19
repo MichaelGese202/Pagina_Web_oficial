@@ -5,7 +5,7 @@ const airdrops = [
                 type: "node",
                 description: "Complete the tasks to qualify for potential airdrops and rewards ",
                 launchDate: " ",
-                publishDate: new Date(2025, 3, 16),
+                publishDate: new Date(2025, 3, 17),
                 status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1897892548016050176/b5yKaYUc_400x400.jpg",
                 referenceImage: "image2/optimenode.jpg ",
