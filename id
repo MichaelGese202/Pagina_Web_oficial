@@ -3,7 +3,7 @@ const airdrops = [
                 id: 19,
                 title: "DeSpeed",
                 type: "depin",
-                description: "Complete the tasks to qualify for potential EarnOS  airdrops and rewards ",
+                description: "Complete the tasks to qualify for potential  airdrops and rewards ",
                 launchDate: "January 1, 2025",
                 publishDate: new Date(2025, 3, 16),
                 status: "Confirmed", 
