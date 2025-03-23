@@ -733,7 +733,15 @@
                 const card = document.createElement('div');
                 card.className = 'airdrop-card';
                 card.setAttribute('data-type', airdrop.type);
-                const isNew = airdrop.publishDate && (new Date() - airdrop.publishDate) / (1000 * 60 * 60 * 24) < 4;
+                let isNew = false;
+                if (airdrop.publishDate) {
+                    const pubDate = airdrop.publishDate instanceof Date ? 
+                        airdrop.publishDate : 
+                        new Date(airdrop.publishDate);
+                    const diffDays = (new Date() - pubDate) / (1000 * 60 * 60 * 24);
+                    isNew = !isNaN(diffDays) && diffDays < 4;
+                }
+                
                 const publishDateFormatted = airdrop.publishDate ? 
                     new Intl.DateTimeFormat('es-ES', {
                         day: 'numeric',
