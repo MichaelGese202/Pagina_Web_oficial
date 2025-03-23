@@ -1,5 +1,32 @@
 const airdrops = [
                                     {
+                id: 22,
+                title: "Toggle",
+                type: "depin",
+                description: "Complete the tasks to qualify for potential  airdrops and rewards ",
+                launchDate: " 23 Sep 2024",
+                publishDate: new Date(2025, 3, 23),
+                status: "Confirmed", 
+                image: "https://img.cryptorank.io/coins/toggle1741968646331.png",
+                referenceImage: "https://img.cryptorank.io/image-hub/togg_11742223623522.png",
+                webUrl: "https://toggle.pro/sign-up/8b5eb010-db7f-4bf5-89f5-482af9ed1ea8 ",
+                docsUrl: "  ",
+                xUrl: " https://x.com/toggle",
+                badges: ["Web","Docs","X"],
+                info: "   ",
+                funds:"$ 0.00 ",
+               
+                link: "https://toggle.pro/sign-up/8b5eb010-db7f-4bf5-89f5-482af9ed1ea8",
+                participationSteps: [
+                    { step: " Register with your email address.", icon: "fa-envelope"},
+                    { step: "Download the Toggle ​​extension ", icon: "fa-download" },
+                  
+                    { step: "complete the available tasks", icon: "fa-tasks" },
+                    { step: "Invite your friends and perform tasks",icon: "fa-users" }
+                ]
+ 
+            },
+                                    {
                 id: 21,
                 title: " OPTIMAI",
                 type: "node",
