@@ -5,7 +5,7 @@ const airdrops = [
                 type: "node",
                 description: "Complete the tasks to qualify for potential airdrops and rewards ",
                 launchDate: " ",
-                publishDate: new Date(2025, 3, 17),
+                publishDate: new Date(2025, 17, 3),
                 status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1897892548016050176/b5yKaYUc_400x400.jpg",
                 referenceImage: "image2/optimenode.jpg ",
@@ -34,7 +34,7 @@ const airdrops = [
                 type: "depin",
                 description: "Complete the tasks to qualify for potential airdrops and rewards  ",
                 launchDate: " 26 Feb 2025",
-                publishDate: new Date(2025, 3, 17),
+               
                 status: "Potential", 
                 image: "https://img.cryptorank.io/coins/stork1724329585160.png",
                 referenceImage: "https://img.cryptorank.io/image-hub/stork1740740785208.png",
@@ -61,7 +61,7 @@ const airdrops = [
                 type: "depin",
                 description: "Complete the tasks to qualify for potential  airdrops and rewards ",
                 launchDate: "January 1, 2025",
-                publishDate: new Date(2025, 3, 16),
+                
                 status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1875067374841610240/AyK4vr2p_400x400.jpg",
                 referenceImage: "https://despeed.gitbook.io/~gitbook/image?url=https%3A%2F%2Flh7-rt.googleusercontent.com%2Fdocsz%2FAD_4nXdYFVE-TeXvJWhT8NGsG1-HvKbj3shTL78qyMSLOCklpepBkAA9DYPt_EpG7ZrqIN673Fhp6T3bfrw1r6HQCltVG27M4y0z3jSAu8z98pKbc3uYBFw0sOyjI7P6MJWGi2hJkdw3%3Fkey%3Dv0_VhRhEnl3rsz0n9dii_FO3&width=768&dpr=1&quality=100&sign=43e54f32&sv=2",
@@ -88,7 +88,7 @@ const airdrops = [
                 type: "node",
                 description: "Complete the tasks to qualify for potential  airdrops and rewards ",
                 launchDate: " ",
-                publishDate: new Date(2025, 3, 15),
+                 
                 status: "Confirmed", 
                 image: "image2/StarTower-LOGO.webp",
                 referenceImage: " image2/startoer.jpeg",
@@ -114,7 +114,7 @@ const airdrops = [
                 type: "depin",
                 description: "Complete the tasks to qualify for potential  airdrops and rewards ",
                 launchDate: "February 19, 2025",
-                publishDate: new Date(2025, 3, 15),
+                 
                 status: "Confirmed", 
                 image: "image2/HgbWnhZK_400x400.jpg",
                 referenceImage: "image2/meganet.jpg",
@@ -139,7 +139,7 @@ const airdrops = [
                 type: "social",
                 description: "Complete the tasks to qualify for potential airdrops and rewards ",
                 launchDate: "",
-                publishDate: new Date(2025, 3, 12),
+                
                 status: "Confirmed", 
                 image: "image2/Liftoff-Monster-LOGO.png ",
                 referenceImage: "image2/LOX.jpg",
@@ -187,7 +187,7 @@ const airdrops = [
                 type: "social",
                 description: "Complete the tasks to qualify for potential EarnOS  airdrops and rewards ",
                 launchDate: " ",
-                publishDate: new Date(2025, 3, 12),
+                
                 status: "Confirmed", 
                 image: "image2/earn_os.png ",
                 referenceImage: "image2/earnos fondos.jpeg",
@@ -212,7 +212,7 @@ const airdrops = [
                 type: "social",
                 description: "Complete the tasks to qualify for potential Billions network airdrops and rewards ",
                 launchDate: "28 Feb 2025",
-                publishDate: new Date(2025, 3, 12),
+                 
                 status: "Confirmed", 
                 image: "Imagen/billions_network.png ",
                 referenceImage: "Imagen/billion.jpg",
@@ -261,7 +261,7 @@ const airdrops = [
                 type: "depin",
                 description: " Learn about MinionLab and its decentralized network of autonomous AI agents.",
                 launchDate: "January 24, 2025",
-                publishDate: new Date(2025, 3, 12),
+                 
                 status: "Confirmed", 
                 image: "Imagen/minion_lab.png ",
                 referenceImage: "Imagen/fondosminionlab.jpeg",
@@ -286,7 +286,7 @@ const airdrops = [
                 type: "depin",
                 description: " The OpenLedger Testnet is the foundational step in building the OpenLedger ecosystem.",
                 launchDate: "December 16, 2024",
-                publishDate: new Date(2025, 3, 12),
+                 
                 status: "Confirmed", 
                 image: "Imagen/open_ledger.png ",
                 referenceImage: "Imagen/fondosopenledger.jpeg",
@@ -310,7 +310,7 @@ const airdrops = [
                 type: "social",
                 description: "TEKO is an optimized lending platform that maximizes yields",
                 launchDate: "February 24, 2025",
-                publishDate: new Date(2025, 3, 12),
+                 
                 image: " Imagen/teko.png",
                 badges: ["Web", "X",],
                 info: "TEKO is an optimized lending platform that maximizes yields, boosts capital efficiency, and minimizes risk with unparalleled speed and precision.",
@@ -350,7 +350,7 @@ const airdrops = [
                 description: "LayerEdge is the first decentralized network that enhances the capabilities of Bitcoin Blockspace with ZK & BitVM, enabling every layer to be secured on Bitcoin.",
                 launchDate: " January 22, 2025",
                 status: "Confirmed", 
-                publishDate: new Date(2025, 3, 12),
+                 
                 image: "Imagen/layeredge.png",
                 webUrl: "https://layeredge.io/",
                 docsUrl: "https://docs.layeredge.io/",
@@ -370,7 +370,7 @@ const airdrops = [
                 description: "3DOS™ is a global, decentralized manufacturing network for everyone.",
                 launchDate: "February 11, 2025",
                 status: "Confirmed", 
-                publishDate: new Date(2025, 3, 12),
+                
                 image: "Imagen/3dos.png",
                 webUrl: "https://3dos.gitbook.io/why-3dos-matters",
                 docsUrl: "https://3dos.gitbook.io/why-3dos-matters",
@@ -389,7 +389,7 @@ const airdrops = [
                 description: "Naoris Protocol is a self-validating cybersecurity enforcement protocol that restores cyber-trust across digital systems.",
                 launchDate: "January 30, 2025",
                 status: "Confirmed", 
-                publishDate: new Date(2025, 3, 12),
+                
                 image: "Imagen/naoris_protocol.png",
                 webUrl: " https://www.naorisprotocol.com/",
                 docsUrl: "",
@@ -409,7 +409,7 @@ const airdrops = [
                 description: "DePINed.org is a revolutionary platform in GPU rental and AI development with one mission.",
                 launchDate: "January 11, 2025",
                 status: "Confirmed", 
-                publishDate: new Date(2025, 3, 12),
+                 
                 image: "Imagen/de_pi_ned.png",
                 webUrl: "https://www.depined.org/",
                 docsUrl: "https://www.depined.org/",
@@ -429,7 +429,7 @@ const airdrops = [
                 description: "MyGate Network transforms everyday devices—your computer, smartphone, tablet—into powerful Virtual Private Servers (VPS)",
                 launchDate: "January 1, 2025",
                 status: "Confirmed", 
-                publishDate: new Date(2025, 3, 12),
+                 
                 image: "Imagen/my_gate_network.png",
                 webUrl: " https://app.mygate.network/login?code=5HLopj",
                 docsUrl: "https://mygate-network.gitbook.io/mygate-network",
@@ -447,7 +447,7 @@ const airdrops = [
                 description: "Complete Missions",
                 launchDate: "",
                 status: "Confirmed", 
-                publishDate: new Date(2025, 3, 12),
+                
                 image: "Imagen/fireverse.png",
                 referenceImage: "Imagen/fireverse fondo.jpg", 
                 webUrl: "https://web3.fireverseai.com/login/?invite=ZCVLUA&url=https://app.fireverseai.com/user?task=1",
