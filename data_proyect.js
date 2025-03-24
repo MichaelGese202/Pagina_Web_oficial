@@ -10,10 +10,10 @@ const airdrops = [
                 image: " https://pbs.twimg.com/profile_images/1895673355388452864/bNhtvp5K_400x400.jpg",
                 referenceImage: "image2/flow3 raiseng.jpg ",
                 webUrl: "https://dashboard.flow3.tech?ref=LgWHaNsyq ",
-                docsUrl: "https://dashboard.flow3.tech?ref=LgWHaNsyq ",
+                docsUrl: " https://flow3network.gitbook.io/docs ",
                 xUrl: " https://x.com/flow3_tech",
                 badges: ["Web","Docs","X"],
-                info: " ",
+                info: "Flow3 Network is a Decentralized Wireless Network that transforms idle internet bandwidth and AI CPU power into real rewards. As a DePIN (Decentralized Physical Infrastructure Network), Flow3 Network leverages the power of the decentralized model to create a peer-to-peer ecosystem where users contribute and earn from their unused resources. With just a simple app or browser extension, you can start earning Flow3 Network Points, convert them into Flow3 Network Tokens, and watch your internet connection generate income even while you sleep. ",
                 funds:"$ 22.00 M ",
                
                 link: "https://dashboard.flow3.tech?ref=LgWHaNsyq ",
