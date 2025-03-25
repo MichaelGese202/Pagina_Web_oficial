@@ -5,7 +5,7 @@ const airdrops = [
                 type: "depin",
                 description: "Complete the tasks to qualify for potential  airdrops and rewards ",
                 launchDate: " ",
-                publishDate: new Date(2025, 3, 16),
+                publishDate: new Date(2025, 3, ),
                 status: "Confirmed", 
                 image: " ",
                 referenceImage: " ",
@@ -19,7 +19,7 @@ const airdrops = [
                 link: " ",
                 participationSteps: [
                     { step: " Register with your email address.", icon: "fa-envelope"},
-                    { step: "Download the DeSpeed ​​extension ", icon: "fa-download" },
+                    { step: "Download the ​​extension ", icon: "fa-download" },
                     {step: "introduzca un código de referido", icon: "fa-code"},
                     { step: "complete the available tasks", icon: "fa-tasks" },
                     { step: "Invite your friends and perform tasks",icon: "fa-users" }
