@@ -32,34 +32,7 @@ const airdrops = [
                 ]
  
             },
-                                    {
-                id: 24 ,
-                title: " CRYPLEX ",
-                type: "depin",
-                description: "Complete the tasks to qualify for potential  airdrops and rewards ",
-                launchDate: " ",
-                publishDate: new Date(2025, 2, 25),
-                status: "Confirmed", 
-                image: " https://pbs.twimg.com/profile_images/1897461359832711168/svGQB2wP_400x400.png",
-                referenceImage: "https://pbs.twimg.com/media/Gm4C3vdaMAA1VUN?format=jpg&name=large ",
-                webUrl: "https://app.cryplex.ai/dashboard?ref=cim5r",
-                docsUrl: "  ",
-                xUrl: "https://x.com/CryplexAI ",
-                badges: ["Web","Docs","X"],
-                info: " ",
-                funds:"$ 18.3 M ",
-                code: " ",
-                link: " https://app.cryplex.ai/dashboard?ref=cim5r",
-                participationSteps: [
-                    { step: " Register with your email address.", icon: "fa-envelope"},
-                    { step: "Download the Cryplex ​​extension ", icon: "fa-download" },
-                    {step: "introduzca un código de referido", icon: "fa-code"},
-                    { step: "complete the available tasks", icon: "fa-tasks" },
-                    { step: "Invite your friends and perform tasks",icon: "fa-users" }
-                ]
  
-            },
-               
    
                                     {
                 id: 24 ,
