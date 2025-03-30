@@ -8,6 +8,10 @@ const airdrops = [
                 publishDate: new Date(2025, 2, 30),
                 status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1814556272127320065/PWwjbKUu_400x400.jpg ",
+                additionalImages:[
+                  "https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Roadmap.webp"
+                  " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Partners.webp"
+                ],
                 referenceImage: " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Tokenomics.webp",
                 webUrl: "https://t.me/VersusTrainerBot?start=7455236642 ",
                 docsUrl: " https://docsend.com/view/ye23ubfi64hjna8s ",
@@ -15,6 +19,10 @@ const airdrops = [
                 badges: ["Web","Docs","X"],
                 info: " Mage Labs is a game development studio founded in 2021 which seeks to develop the new gold standard of web3 gaming by marrying advanced AI technology and next-gen play to earn featuring stable coin earnings.",
                 funds:"$180 K",
+                investors: [
+                  {name: "ChainLink"},
+                  {url:"https://icodrops.com/vc/chainlink/"}
+                ],
                 code: " ",
                 link: " https://t.me/VersusTrainerBot?start=7455236642",
                 participationSteps: [
