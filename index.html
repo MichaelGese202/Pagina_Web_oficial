@@ -1,711 +1,4 @@
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airdrops Network Pro - Explora los Mejores Airdrops</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #94a3b8;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --border-radius: 12px;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-        
-        body {
-            background-color: #f1f5f9;
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 10;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .logo-icon {
-            font-size: 2rem;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            transition: background-color 0.3s;
-        }
-        
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .search-container {
-            display: flex;
-            margin-top: 1rem;
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: 0.8rem 1.2rem;
-            border: none;
-            border-radius: var(--border-radius) 0 0 var(--border-radius);
-            font-size: 1rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .search-btn {
-            background-color: white;
-            color: var(--primary);
-            border: none;
-            padding: 0 1.2rem;
-            font-size: 1.2rem;
-            border-radius: 0 var(--border-radius) var(--border-radius) 0;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .search-btn:hover {
-            background-color: #f8fafc;
-        }
-        
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero p {
-            color: var(--gray);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-        
-        main {
-            padding: 2rem 0;
-        }
-        
-        .filter-section {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .filter-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .filter-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-        
-        .filter-btn {
-            background-color: #f1f5f9;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            font-size: 0.9rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-        
-        .filter-btn:hover {
-            background-color: #e2e8f0;
-        }
-        
-        .filter-btn.active {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .airdrop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .airdrop-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-        }
-        
-        .airdrop-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .card-type {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            font-size: 0.8rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            z-index: 5; 
-        }
-        .new-badge{
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background-color: var(--danger);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            font-size: 0.8rem;
-            border-raius: 9999px;
-            font-weight: 600;
-            z-index: 5;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% {transform: scale(1);}
-            50% {transform: scale(1.05); }
-            100%{transform: scale(1);}
-        }
-        .publish-date{
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-top: 0.5rem;
-            text-align: center;
-            display: none;
-        }
-        .badge {
-            display: inline-block;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            margin-right: 0.6rem;
-            margin-bottom: 0.6rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-            text-decoration: none; 
-            
-        }
-        .badge: hover{
-            transform:  translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-        }
-        .card-image {
-            height: 120px;
-            width: 120px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            z-index: 1;
-            border-radius:50%;
-            margin: 1.5rem auto 0;
-            border: 3px solid var(--primary);
-        }
-        
-        .card-content {
-            padding: 1.5rem;
-        }
-        
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-        
-        .card-description {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-        
-        .card-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1.2rem;
-        }
-        
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-        
-        .detail-icon {
-            color: var(--primary);
-        }
-        
-        .card-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .action-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            font-size: 0.95rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.3);
-        }
-        .details-btn{
-            background-color: white;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            padding: 0.7rem 1.5rem;
-            font-size: 0.95rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-        .details-btn: hover{
-            background-color: #f8fafc;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .action-btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(99, 102, 241, 0.4);
-        }
-        
-        .bookmark-btn {
-            background-color: transparent;
-            border: none;
-            color: var(--gray);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .bookmark-btn:hover {
-            color: var(--primary);
-        }
-        
-        .bookmark-btn.saved {
-            color: var(--warning);
-        }
-        
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 1.5rem;
-            margin-top: 3rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-        
-        .footer-section h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: background-color 0.3s;
-            font-size: 1.2rem;
-        }
-        
-        .social-icon:hover {
-            background-color: var(--primary);
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            margin-right: 0.6rem;
-            margin-bottom: 0.6rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-        .badge:hover{
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-        }
-        .badge-primary {
-            background-color: #818cf8;
-            color: white;
-        }
-        
-        .badge-success {
-            background-color: #34d399;
-            color: white;
-        }
-        
-        .badge-warning {
-            background-color: #fbbf24;
-            color: white;
-        }
-        
-        .badge-danger {
-            background-color: #f87171;
-            color: white;
-        }
-        
-        .badge-info {
-            background-color: #38bdf8;
-            color: white;
-        }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            nav ul {
-                margin-top: 1rem;
-                flex-wrap: wrap;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .filter-options {
-                overflow-x: auto;
-                padding-bottom: 0.5rem;
-                flex-wrap: nowrap;
-            }
-        }
-
-        /* Dark mode toggle */
-        .theme-toggle {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .airdrop-card {
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 2rem;
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .empty-state-icon {
-            font-size: 3rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .empty-state p {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-        }
-        /* Estilos para la sección de precios de criptomonedas */
-.crypto-prices-container {
-    margin-top: 1rem;
-    position: relative;
-    min-height: 100px;
-}
-
-.loading-spinner {
-    text-align: center;
-    padding: 2rem;
-    color: var(--gray);
-    font-size: 1.1rem;
-}
-
-.crypto-price-card:hover {
-    cursor: pointer;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Añadir un tooltip para móviles */
-@media (max-width: 768px) {
-    .crypto-price-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .crypto-price-grid {
-        grid-template-columns: 1fr;
-    }
-}
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-parachute-box logo-icon"></i>
-                    <span>Airdrops Network Pro</span>
-                </div>
-                
-                <nav>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
-                        <li><a href="#"><i class="fas fa-fire"></i> Trending</a></li>
-                        <li><a href="#"><i class="fas fa-bookmark"></i> Guardados</a></li>
-                        <li><a href="#"><i class="fas fa-info-circle"></i> Acerca de</a></li>
-                        <li class="theme-toggle">
-                            <i class="fas fa-moon"></i>
-                            <span>Modo Oscuro</span>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            
-            <div class="search-container">
-                <input type="text" id="search-input" class="search-input" placeholder="Buscar airdrops...">
-                <button class="search-btn"><i class="fas fa-search"></i></button>
-            </div>
-        </div>
-    </header>
-    <!-- Añade esto después del cierre del header (</header>) y antes de la sección hero -->
-<section class="trending-prices container" style="margin-top: 2rem;">
-    <div class="filter-section">
-        <div class="filter-title">
-            <i class="fas fa-chart-line"></i>
-            <span>Trending Cryptocurrencies</span>
-        </div>
-        <div class="crypto-prices-container" id="crypto-prices-container">
-            <div class="loading-spinner">
-                <i class="fas fa-spinner fa-spin"></i> Loading cryptocurrency prices...
-            </div>
-        </div>
-    </div>
-</section>
-    <section class="hero container">
-        <h1>Discover the Best Crypto Airdrops</h1>
-        <p> Explore a curated selection of the most promising airdrops in the crypto and blockchain ecosystem. Find opportunities in testnets, staking, gaming, and more..</p>
-    </section>
-    
-    <main class="container">
-        <section class="filter-section">
-            <div class="filter-title">
-                <i class="fas fa-filter"></i>
-                <span>Filtrar por Categoría</span>
-            </div>
-            <div class="filter-options">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="social">Social</button>
-                <button class="filter-btn" data-filter="depin">DePIN</button>
-                <button class="filter-btn" data-filter="testnet">Testnet</button>
-                <button class="filter-btn" data-filter="node">Node</button>
-                <button class="filter-btn" data-filter="gaming">Gaming</button>
-                <button class="filter-btn" data-filter="staking">Staking</button>
-            </div>
-        </section>
-        
-        <div class="airdrop-grid" id="airdrop-grid">
-            <!-- Los cards se generarán dinámicamente con JavaScript -->
-        </div>
-    </main>
-    
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Airdrops Network Pro</h3>
-                    <p>Your destination for the best crypto airdrops and opportunities in the blockchain space.</p>
-                    <div class="social-links">
-                        <a href="https://x.com/proafinder25" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://t.me/CryptoAirdropFinder24" class="social-icon" target="_blank"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Enlaces Rápidos</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Explorar</a></li>
-                        <li><a href="#">Categorías</a></li>
-                        <li><a href="#">Guías</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Información</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of use</a></li>
-                        <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=proafinder@gmail.com" id="contact" target="_blank">Contact</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Suscribirse</h3>
-                    <p>Receive alerts about new airdrops directly to your email..</p>
-                    <form>
-                        <input type="email" placeholder="Your email" style="padding: 0.8rem; border-radius: var(--border-radius); border: none; width: 100%; margin-bottom: 0.8rem;">
-                        <button type="submit" class="action-btn" style="width: 100%;">Suscribirse</button>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2025 Airdrops Network Pro. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
-    
-    <script>
-        // Datos de Airdrops
-
-        
+ 
                // Función para renderizar airdrops
                function renderAirdrops(filterType = 'all') {
             const grid = document.getElementById('airdrop-grid');
@@ -918,8 +211,6 @@
         });
     // Configurar botones de detalles
 // Configurar botones de detalles
-// Configurar botones de detalles
-// Configurar botones de detalles
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('details-btn') || e.target.closest('.details-btn')) {
         const button = e.target.classList.contains('details-btn') ? e.target : e.target.closest('.details-btn');
@@ -1130,7 +421,10 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                 ${hasReferenceImage ? `
                                 <div style="margin-top: 2rem; border-top: 1px solid #f1f5f9; padding-top: 1.5rem;">
                                     <h3 style="font-size: 1.2rem; margin-bottom: 1rem; text-align: left;">Reference Image</h3>
-                                    <img src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                    <div class="reference-images-container">
+                                        </div src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;" onclick="openLightbox('${referenceImage}', ${JSON.stringify(airdrop.additionalImages || [])})">>
+                                  
+                                    </div>
                                 </div>
                                 ` : ''}
                             </div>
@@ -1158,6 +452,28 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                     <div style="width: 50px; height: 50px; border-radius: 50%; background-color: var(--success); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
                                         <i class="fas fa-coins"></i>
                                     </div>
+                                    <div style="flex: 1;">
+                                        <span style="display: block; color: var(--gray); font-size: 0.9rem;">Funding</span>
+                                        <strong style="font-size: 1.1rem;">${airdrop.funds}</strong>
+                                        ${airdrop.investors && airdrop.investors.length ? `
+                                            <div class="investor-list-container" style="margin-top: 0.5rem;"> 
+                                                <button class="toggle-investors-btn" style="background: none; border: none; color: var(--primary); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; padding: 0;">
+                                                    <i class="fas fa-chevron-down" style="margin-right: 0.25rem;"></i> View Investors
+                                                </button>
+                                                <div class="investors-list" style="display: none; margin-top: 0.5rem;">
+                                                    <ul style="list-style: none; padding-left: 0; margin: 0;">
+                                                        ${airdrop.investors.map(investor => `
+                                                            <li style="margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                                                <a href="${investor.url || '#'}" target="_blank" style="color: var(--primary); text-decoration: none; display: flex; align-items: center;">
+                                                                    <i class="fas fa-external-link-alt" style="margin-right: 0.5rem; font-size: 0.7rem;"></i>
+                                                                    ${investor.name}
+                                                                </a>
+                                                            </li>
+                                                        `).join('')}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        ` : ''}
                                     <div>
                                         <span style="display: block; color: var(--gray); font-size: 0.9rem;">Funding</span>
                                         <strong style="font-size: 1.1rem;">${airdrop.funds}</strong>
@@ -1510,6 +826,187 @@ document.addEventListener('DOMContentLoaded', function() {
             fetchCryptoPrices(false);
         }
     }, 30000); // Reduced to 30 seconds for more frequent updates
+});
+// Function to handle lightbox for reference images
+function openLightbox(mainImage, additionalImages = []) {
+    // Create array of all images
+    const allImages = [mainImage, ...additionalImages].filter(img => img);
+    
+    // If no images, return
+    if (allImages.length === 0) return;
+    
+    // Create lightbox container
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.style.position = 'fixed';
+    lightbox.style.top = '0';
+    lightbox.style.left = '0';
+    lightbox.style.width = '100%';
+    lightbox.style.height = '100%';
+    lightbox.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+    lightbox.style.zIndex = '2000';
+    lightbox.style.display = 'flex';
+    lightbox.style.flexDirection = 'column';
+    lightbox.style.justifyContent = 'center';
+    lightbox.style.alignItems = 'center';
+    
+    // Current image index
+    let currentIndex = 0;
+    
+    // Create image container
+    const imageContainer = document.createElement('div');
+    imageContainer.style.position = 'relative';
+    imageContainer.style.maxWidth = '90%';
+    imageContainer.style.maxHeight = '80%';
+    imageContainer.style.textAlign = 'center';
+    
+    // Create image element
+    const imgElement = document.createElement('img');
+    imgElement.src = allImages[currentIndex];
+    imgElement.style.maxWidth = '100%';
+    imgElement.style.maxHeight = '70vh';
+    imgElement.style.objectFit = 'contain';
+    imgElement.style.borderRadius = '8px';
+    imgElement.style.boxShadow = '0 4px 12px rgba(0,0,0,0.5)';
+    
+    // Add navigation arrows if more than one image
+    if (allImages.length > 1) {
+        // Previous button
+        const prevBtn = document.createElement('button');
+        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prevBtn.style.position = 'absolute';
+        prevBtn.style.left = '-50px';
+        prevBtn.style.top = '50%';
+        prevBtn.style.transform = 'translateY(-50%)';
+        prevBtn.style.backgroundColor = 'rgba(255,255,255,0.2)';
+        prevBtn.style.color = 'white';
+        prevBtn.style.border = 'none';
+        prevBtn.style.borderRadius = '50%';
+        prevBtn.style.width = '40px';
+        prevBtn.style.height = '40px';
+        prevBtn.style.fontSize = '1rem';
+        prevBtn.style.cursor = 'pointer';
+        
+        prevBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+            imgElement.src = allImages[currentIndex];
+            updateCounter();
+        });
+        
+        // Next button
+        const nextBtn = document.createElement('button');
+        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        nextBtn.style.position = 'absolute';
+        nextBtn.style.right = '-50px';
+        nextBtn.style.top = '50%';
+        nextBtn.style.transform = 'translateY(-50%)';
+        nextBtn.style.backgroundColor = 'rgba(255,255,255,0.2)';
+        nextBtn.style.color = 'white';
+        nextBtn.style.border = 'none';
+        nextBtn.style.borderRadius = '50%';
+        nextBtn.style.width = '40px';
+        nextBtn.style.height = '40px';
+        nextBtn.style.fontSize = '1rem';
+        nextBtn.style.cursor = 'pointer';
+        
+        nextBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex + 1) % allImages.length;
+            imgElement.src = allImages[currentIndex];
+            updateCounter();
+        });
+        
+        imageContainer.appendChild(prevBtn);
+        imageContainer.appendChild(nextBtn);
+        
+        // Image counter
+        const counter = document.createElement('div');
+        counter.style.position = 'absolute';
+        counter.style.bottom = '-30px';
+        counter.style.left = '0';
+        counter.style.right = '0';
+        counter.style.color = 'white';
+        counter.style.fontSize = '0.9rem';
+        counter.style.textAlign = 'center';
+        
+        function updateCounter() {
+            counter.textContent = `Image ${currentIndex + 1} of ${allImages.length}`;
+        }
+        
+        updateCounter();
+        imageContainer.appendChild(counter);
+    }
+    
+    // Close button
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '20px';
+    closeBtn.style.right = '20px';
+    closeBtn.style.backgroundColor = 'rgba(255,255,255,0.2)';
+    closeBtn.style.color = 'white';
+    closeBtn.style.border = 'none';
+    closeBtn.style.borderRadius = '50%';
+    closeBtn.style.width = '40px';
+    closeBtn.style.height = '40px';
+    closeBtn.style.fontSize = '1.2rem';
+    closeBtn.style.cursor = 'pointer';
+    
+    closeBtn.addEventListener('click', function() {
+        document.body.removeChild(lightbox);
+    });
+    
+    // Add elements to containers
+    imageContainer.appendChild(imgElement);
+    lightbox.appendChild(imageContainer);
+    lightbox.appendChild(closeBtn);
+    
+    // Add click event to close on background click
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            document.body.removeChild(lightbox);
+        }
+    });
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (document.body.contains(lightbox)) {
+                document.body.removeChild(lightbox);
+            }
+        } else if (e.key === 'ArrowLeft' && allImages.length > 1) {
+            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+            imgElement.src = allImages[currentIndex];
+            if (allImages.length > 1) updateCounter();
+        } else if (e.key === 'ArrowRight' && allImages.length > 1) {
+            currentIndex = (currentIndex + 1) % allImages.length;
+            imgElement.src = allImages[currentIndex];
+            if (allImages.length > 1) updateCounter();
+        }
+    });
+    
+    // Add to body
+    document.body.appendChild(lightbox);
+}
+
+// Add event listeners for investor toggle buttons after the modal is created
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('toggle-investors-btn') || e.target.closest('.toggle-investors-btn')) {
+        const button = e.target.classList.contains('toggle-investors-btn') ? e.target : e.target.closest('.toggle-investors-btn');
+        const investorsList = button.nextElementSibling;
+        const icon = button.querySelector('i');
+        
+        if (investorsList.style.display === 'none') {
+            investorsList.style.display = 'block';
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+            button.innerHTML = button.innerHTML.replace('View Investors', 'Hide Investors');
+        } else {
+            investorsList.style.display = 'none';
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+            button.innerHTML = button.innerHTML.replace('Hide Investors', 'View Investors');
+        }
+    }
 });
 </script>
 </body>
