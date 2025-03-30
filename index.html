@@ -1130,7 +1130,24 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                 ${hasReferenceImage ? `
                                 <div style="margin-top: 2rem; border-top: 1px solid #f1f5f9; padding-top: 1.5rem;">
                                     <h3 style="font-size: 1.2rem; margin-bottom: 1rem; text-align: left;">Reference Image</h3>
-                                    <img src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                    <div class="reference-image-container" style="cursor: pointer;">
+                                        <img src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onclick="openLightbox('${referenceImage}', ${JSON.stringify(airdrop.additionalImages || [])})">
+                                        ${airdrop.additionalImages && airdrop.additionalImages.length > 0 ? '<div class="more-images-badge" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;"><i class="fas fa-images"></i> +' + airdrop.additionalImages.length + '</div>' : ''}
+                                    </div>
+                                </div>
+                                ` : ''}
+                                <!-- Nueva sección de Inversores -->
+                                ${airdrop.investors && airdrop.investors.length > 0 ? `
+                                <div style="margin-top: 2rem; border-top: 1px solid #f1f5f9; padding-top: 1.5rem;">
+                                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; text-align: left;">Investors</h3>
+                                    <div class="investors-container" style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                                        ${airdrop.investors.map(investor => `
+                                            <a href="${investor.url || '#'}" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: #f8fafc; border-radius: var(--border-radius); text-decoration: none; color: var(--dark); transition: all 0.3s;">
+                                                ${investor.logo ? `<img src="${investor.logo}" alt="${investor.name}" style="width: 24px; height: 24px; border-radius: 50%;">` : '<i class="fas fa-building"></i>'}
+                                                <span>${investor.name}</span>
+                                            </a>
+                                        `).join('')}
+                                     </div>
                                 </div>
                                 ` : ''}
                             </div>
