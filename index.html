@@ -1529,6 +1529,106 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 30000); // Reduced to 30 seconds for more frequent updates
 });
 </script>
+<!-- Lightbox Modal -->
+<div id="lightbox-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; flex-direction: column;">
+    <div style="position: absolute; top: 20px; right: 20px;">
+        <button id="close-lightbox" style="background: none; border: none; color: white; font-size: 2rem; cursor: pointer;">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div style="max-width: 90%; max-height: 80%;">
+        <img id="lightbox-image" src="" alt="Lightbox image" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
+    </div>
+    <div id="lightbox-nav" style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+        <button id="prev-image" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <div id="image-counter" style="color: white; display: flex; align-items: center;"></div>
+        <button id="next-image" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+// Lightbox functionality
+let currentImageIndex = 0;
+let allImages = [];
+
+function openLightbox(mainImage, additionalImages = []) {
+    // Combine main image with additional images
+    allImages = [mainImage, ...additionalImages].filter(img => img); // Remove any undefined or null
+    currentImageIndex = 0;
+    
+    // Show the modal
+    const modal = document.getElementById('lightbox-modal');
+    modal.style.display = 'flex';
+    
+    // Display the first image
+    updateLightboxImage();
+    
+    // Prevent scrolling on body
+    document.body.style.overflow = 'hidden';
+}
+
+function updateLightboxImage() {
+    const img = document.getElementById('lightbox-image');
+    img.src = allImages[currentImageIndex];
+    
+    // Update counter
+    document.getElementById('image-counter').textContent = `${currentImageIndex + 1} / ${allImages.length}`;
+    
+    // Toggle nav buttons visibility
+    document.getElementById('prev-image').style.visibility = currentImageIndex > 0 ? 'visible' : 'hidden';
+    document.getElementById('next-image').style.visibility = currentImageIndex < allImages.length - 1 ? 'visible' : 'hidden';
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Set up event listeners after DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('close-lightbox').addEventListener('click', closeLightbox);
+    
+    document.getElementById('prev-image').addEventListener('click', function() {
+        if (currentImageIndex > 0) {
+            currentImageIndex--;
+            updateLightboxImage();
+        }
+    });
+    
+    document.getElementById('next-image').addEventListener('click', function() {
+        if (currentImageIndex < allImages.length - 1) {
+            currentImageIndex++;
+            updateLightboxImage();
+        }
+    });
+    
+    // Close lightbox when clicking outside the image
+    document.getElementById('lightbox-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeLightbox();
+        }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (document.getElementById('lightbox-modal').style.display === 'flex') {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft' && currentImageIndex > 0) {
+                currentImageIndex--;
+                updateLightboxImage();
+            } else if (e.key === 'ArrowRight' && currentImageIndex < allImages.length - 1) {
+                currentImageIndex++;
+                updateLightboxImage();
+            }
+        }
+    });
+});
+</script>
 </body>
 </html>
 
