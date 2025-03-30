@@ -705,6 +705,7 @@
     <script>
         // Datos de Airdrops
 
+        
                // Función para renderizar airdrops
                function renderAirdrops(filterType = 'all') {
             const grid = document.getElementById('airdrop-grid');
@@ -917,6 +918,8 @@
         });
     // Configurar botones de detalles
 // Configurar botones de detalles
+// Configurar botones de detalles
+// Configurar botones de detalles
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('details-btn') || e.target.closest('.details-btn')) {
         const button = e.target.classList.contains('details-btn') ? e.target : e.target.closest('.details-btn');
@@ -1127,10 +1130,7 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                 ${hasReferenceImage ? `
                                 <div style="margin-top: 2rem; border-top: 1px solid #f1f5f9; padding-top: 1.5rem;">
                                     <h3 style="font-size: 1.2rem; margin-bottom: 1rem; text-align: left;">Reference Image</h3>
-                                    <div class="reference-images-container">
-                                        </div src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;" onclick="openLightbox('${referenceImage}', ${JSON.stringify(airdrop.additionalImages || [])})">>
-                                  
-                                    </div>
+                                    <img src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
                                 </div>
                                 ` : ''}
                             </div>
@@ -1161,35 +1161,14 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                     <div>
                                         <span style="display: block; color: var(--gray); font-size: 0.9rem;">Funding</span>
                                         <strong style="font-size: 1.1rem;">${airdrop.funds}</strong>
-                                        ${airdrop.investors && airdrop.investors.length ? `
-                                            <div class="investor-list-container" style="margin-top: 0.5rem;"> 
-                                                <button class="toggle-investors-btn" style="background: none; border: none; color: var(--primary); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; padding: 0;">
-                                                    <i class="fas fa-chevron-down" style="margin-right: 0.25rem;"></i> View Investors
-                                                </button>
-                                                <div class="investors-list" style="display: none; margin-top: 0.5rem;">
-                                                    <ul style="list-style: none; padding-left: 0; margin: 0;">
-                                                        ${airdrop.investors.map(investor => `
-                                                            <li style="margin-bottom: 0.5rem; font-size: 0.9rem;">
-                                                                <a href="${investor.url || '#'}" target="_blank" style="color: var(--primary); text-decoration: none; display: flex; align-items: center;">
-                                                                    <i class="fas fa-external-link-alt" style="margin-right: 0.5rem; font-size: 0.7rem;"></i>
-                                                                    ${investor.name}
-                                                                </a>
-                                                            </li>
-                                                        `).join('')}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        ` : ''}
-                                    <div>
-                                        <span style="display: block; color: var(--gray); font-size: 0.9rem;">Funding</span>
-                                        <strong style="font-size: 1.1rem;">${airdrop.funds}</strong>
                                     </div>
                                 </div>
                                 ` : ''}
                                 
                                 ${airdrop.status ? `
                                 <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
-                                    <div style="width: 50px; height: 50px; border-radius: 50%; background-color: ${getStatusColor(airdrop.status)}; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                                    <div style="width: 50px; height: 50px
+<div style="width: 50px; height: 50px; border-radius: 50%; background-color: ${getStatusColor(airdrop.status)}; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
                                         ${getStatusIcon(airdrop.status).replace('style="color: var', 'style="color: white')}
                                     </div>
                                     <div>
@@ -1531,187 +1510,6 @@ document.addEventListener('DOMContentLoaded', function() {
             fetchCryptoPrices(false);
         }
     }, 30000); // Reduced to 30 seconds for more frequent updates
-});
-// Function to handle lightbox for reference images
-function openLightbox(mainImage, additionalImages = []) {
-    // Create array of all images
-    const allImages = [mainImage, ...additionalImages].filter(img => img);
-    
-    // If no images, return
-    if (allImages.length === 0) return;
-    
-    // Create lightbox container
-    const lightbox = document.createElement('div');
-    lightbox.className = 'lightbox';
-    lightbox.style.position = 'fixed';
-    lightbox.style.top = '0';
-    lightbox.style.left = '0';
-    lightbox.style.width = '100%';
-    lightbox.style.height = '100%';
-    lightbox.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-    lightbox.style.zIndex = '2000';
-    lightbox.style.display = 'flex';
-    lightbox.style.flexDirection = 'column';
-    lightbox.style.justifyContent = 'center';
-    lightbox.style.alignItems = 'center';
-    
-    // Current image index
-    let currentIndex = 0;
-    
-    // Create image container
-    const imageContainer = document.createElement('div');
-    imageContainer.style.position = 'relative';
-    imageContainer.style.maxWidth = '90%';
-    imageContainer.style.maxHeight = '80%';
-    imageContainer.style.textAlign = 'center';
-    
-    // Create image element
-    const imgElement = document.createElement('img');
-    imgElement.src = allImages[currentIndex];
-    imgElement.style.maxWidth = '100%';
-    imgElement.style.maxHeight = '70vh';
-    imgElement.style.objectFit = 'contain';
-    imgElement.style.borderRadius = '8px';
-    imgElement.style.boxShadow = '0 4px 12px rgba(0,0,0,0.5)';
-    
-    // Add navigation arrows if more than one image
-    if (allImages.length > 1) {
-        // Previous button
-        const prevBtn = document.createElement('button');
-        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-        prevBtn.style.position = 'absolute';
-        prevBtn.style.left = '-50px';
-        prevBtn.style.top = '50%';
-        prevBtn.style.transform = 'translateY(-50%)';
-        prevBtn.style.backgroundColor = 'rgba(255,255,255,0.2)';
-        prevBtn.style.color = 'white';
-        prevBtn.style.border = 'none';
-        prevBtn.style.borderRadius = '50%';
-        prevBtn.style.width = '40px';
-        prevBtn.style.height = '40px';
-        prevBtn.style.fontSize = '1rem';
-        prevBtn.style.cursor = 'pointer';
-        
-        prevBtn.addEventListener('click', function() {
-            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
-            imgElement.src = allImages[currentIndex];
-            updateCounter();
-        });
-        
-        // Next button
-        const nextBtn = document.createElement('button');
-        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-        nextBtn.style.position = 'absolute';
-        nextBtn.style.right = '-50px';
-        nextBtn.style.top = '50%';
-        nextBtn.style.transform = 'translateY(-50%)';
-        nextBtn.style.backgroundColor = 'rgba(255,255,255,0.2)';
-        nextBtn.style.color = 'white';
-        nextBtn.style.border = 'none';
-        nextBtn.style.borderRadius = '50%';
-        nextBtn.style.width = '40px';
-        nextBtn.style.height = '40px';
-        nextBtn.style.fontSize = '1rem';
-        nextBtn.style.cursor = 'pointer';
-        
-        nextBtn.addEventListener('click', function() {
-            currentIndex = (currentIndex + 1) % allImages.length;
-            imgElement.src = allImages[currentIndex];
-            updateCounter();
-        });
-        
-        imageContainer.appendChild(prevBtn);
-        imageContainer.appendChild(nextBtn);
-        
-        // Image counter
-        const counter = document.createElement('div');
-        counter.style.position = 'absolute';
-        counter.style.bottom = '-30px';
-        counter.style.left = '0';
-        counter.style.right = '0';
-        counter.style.color = 'white';
-        counter.style.fontSize = '0.9rem';
-        counter.style.textAlign = 'center';
-        
-        function updateCounter() {
-            counter.textContent = `Image ${currentIndex + 1} of ${allImages.length}`;
-        }
-        
-        updateCounter();
-        imageContainer.appendChild(counter);
-    }
-    
-    // Close button
-    const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-    closeBtn.style.position = 'absolute';
-    closeBtn.style.top = '20px';
-    closeBtn.style.right = '20px';
-    closeBtn.style.backgroundColor = 'rgba(255,255,255,0.2)';
-    closeBtn.style.color = 'white';
-    closeBtn.style.border = 'none';
-    closeBtn.style.borderRadius = '50%';
-    closeBtn.style.width = '40px';
-    closeBtn.style.height = '40px';
-    closeBtn.style.fontSize = '1.2rem';
-    closeBtn.style.cursor = 'pointer';
-    
-    closeBtn.addEventListener('click', function() {
-        document.body.removeChild(lightbox);
-    });
-    
-    // Add elements to containers
-    imageContainer.appendChild(imgElement);
-    lightbox.appendChild(imageContainer);
-    lightbox.appendChild(closeBtn);
-    
-    // Add click event to close on background click
-    lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
-            document.body.removeChild(lightbox);
-        }
-    });
-    
-    // Add keyboard navigation
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            if (document.body.contains(lightbox)) {
-                document.body.removeChild(lightbox);
-            }
-        } else if (e.key === 'ArrowLeft' && allImages.length > 1) {
-            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
-            imgElement.src = allImages[currentIndex];
-            if (allImages.length > 1) updateCounter();
-        } else if (e.key === 'ArrowRight' && allImages.length > 1) {
-            currentIndex = (currentIndex + 1) % allImages.length;
-            imgElement.src = allImages[currentIndex];
-            if (allImages.length > 1) updateCounter();
-        }
-    });
-    
-    // Add to body
-    document.body.appendChild(lightbox);
-}
-
-// Add event listeners for investor toggle buttons after the modal is created
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('toggle-investors-btn') || e.target.closest('.toggle-investors-btn')) {
-        const button = e.target.classList.contains('toggle-investors-btn') ? e.target : e.target.closest('.toggle-investors-btn');
-        const investorsList = button.nextElementSibling;
-        const icon = button.querySelector('i');
-        
-        if (investorsList.style.display === 'none') {
-            investorsList.style.display = 'block';
-            icon.classList.remove('fa-chevron-down');
-            icon.classList.add('fa-chevron-up');
-            button.innerHTML = button.innerHTML.replace('View Investors', 'Hide Investors');
-        } else {
-            investorsList.style.display = 'none';
-            icon.classList.remove('fa-chevron-up');
-            icon.classList.add('fa-chevron-down');
-            button.innerHTML = button.innerHTML.replace('Hide Investors', 'View Investors');
-        }
-    }
 });
 </script>
 </body>
