@@ -26,7 +26,8 @@ const airdrops = [
                     { name: "Polychain Capital", amount: "$3M" },
                     { name: "Binance Labs", amount: "$2M" },
                     { name: "Coinbase Ventures", amount: "$1M" }
-                 ],
+                 ]
+                },
         
                 code: " ",
                 link: " https://t.me/VersusTrainerBot?start=7455236642",
