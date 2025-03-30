@@ -9,12 +9,25 @@ const airdrops = [
                 status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1814556272127320065/PWwjbKUu_400x400.jpg ",
                 referenceImage: " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Tokenomics.webp",
+                additionalImages: [
+                  " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Roadmap.webp"
+                  " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Partners.webp"
+                ],
                 webUrl: "https://t.me/VersusTrainerBot?start=7455236642 ",
                 docsUrl: " https://docsend.com/view/ye23ubfi64hjna8s ",
                 xUrl: " https://x.com/Mage_Labs",
                 badges: ["Web","Docs","X"],
                 info: " Mage Labs is a game development studio founded in 2021 which seeks to develop the new gold standard of web3 gaming by marrying advanced AI technology and next-gen play to earn featuring stable coin earnings.",
-                funds:"$ 180 K ",
+                funds: {
+                  total: "$15M",
+                  investors: [
+                    { name: "Sequoia Capital", amount: "$5M" },
+                    { name: "Andreessen Horowitz", amount: "$4M" },
+                    { name: "Polychain Capital", amount: "$3M" },
+                    { name: "Binance Labs", amount: "$2M" },
+                    { name: "Coinbase Ventures", amount: "$1M" }
+                 ],
+        
                 code: " ",
                 link: " https://t.me/VersusTrainerBot?start=7455236642",
                 participationSteps: [
