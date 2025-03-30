@@ -1106,20 +1106,13 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
             <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
                 <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-bottom: 2rem;">
                     <div>
-                        <div style="background-color: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); margin-bottom: 2rem;">
-                            <h2 style="font-size: 1.8rem; margin-bottom: 1rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem;">About ${airdrop.title}</h2>
-                            <p style="margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.7;">${airdrop.description}</p>
-                            <p style="margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.7;">${airdrop.info}</p>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;">
-                                <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
-                                    <div style="width: 50px; height: 50px; border-radius: 50%; background-color: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                                        <i class="fas fa-calendar-alt"></i>
-                                    </div>
-                                    </div>
-                                        <span style="display: block; color: var(--gray); font-size: 0.9rem;">Launch Date</span>
-                                        <strong style="font-size: 1.1rem;">${airdrop.launchDate}</strong>
-                                    </div>
-                                </div>
+                        <div style="background-color: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); text-align: center;">
+                            <div style="width: 180px; height: 180px; border-radius: 50%; background-image: url('${airdrop.image}'); background-size: cover; background-position: center; border: 4px solid var(--primary); margin: 0 auto 1.5rem;"></div>
+                            <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">${airdrop.title}</h1>
+                            <div style="margin: 1rem 0;">
+                                <span class="badge badge-${getTypeClass(airdrop.type)}" style="font-size: 1rem; padding: 0.5rem 1rem;">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</span>
+                            </div>
+                            <div style="margin: 1.5rem 0;">
                                 ${badgesHTML}
                             </div>
                             <div style="margin-top: 2rem;">
@@ -1135,7 +1128,7 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                 <div style="margin-top: 2rem; border-top: 1px solid #f1f5f9; padding-top: 1.5rem;">
                                     <h3 style="font-size: 1.2rem; margin-bottom: 1rem; text-align: left;">Reference Image</h3>
                                     <div class="reference-images-container">
-                                        <img src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;" onclick="openLightbox('${referenceImage}', ${JSON.stringify(airdrop.additionalImages || [])})">
+                                        </div src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;" onclick="openLightbox('${referenceImage}', ${JSON.stringify(airdrop.additionalImages || [])})">>
                                   
                                     </div>
                                 </div>
@@ -1189,6 +1182,7 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                         ` : ''}
                                     <div>
                                 </div>
+                                 
                                 ` : ''}
                                 
                                 ${airdrop.status ? `
