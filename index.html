@@ -1128,7 +1128,7 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                 <div style="margin-top: 2rem; border-top: 1px solid #f1f5f9; padding-top: 1.5rem;">
                                     <h3 style="font-size: 1.2rem; margin-bottom: 1rem; text-align: left;">Reference Image</h3>
                                     <div class="reference-images-container">
-                                        </div src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;" onclick="openLightbox('${referenceImage}', ${JSON.stringify(airdrop.additionalImages || [])})">>
+                                        <img src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;" onclick="openLightbox('${referenceImage}', ${JSON.stringify(airdrop.additionalImages || [])})">
                                   
                                     </div>
                                 </div>
@@ -1158,7 +1158,7 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                     <div style="width: 50px; height: 50px; border-radius: 50%; background-color: var(--success); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
                                         <i class="fas fa-coins"></i>
                                     </div>
-                                    <div style="flex: 1;">
+                                    <div>
                                         <span style="display: block; color: var(--gray); font-size: 0.9rem;">Funding</span>
                                         <strong style="font-size: 1.1rem;">${airdrop.funds}</strong>
                                         ${airdrop.investors && airdrop.investors.length ? `
@@ -1189,8 +1189,7 @@ if (airdrop.participationSteps && airdrop.participationSteps.length) {
                                 
                                 ${airdrop.status ? `
                                 <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
-                                    <div style="width: 50px; height: 50px
-<div style="width: 50px; height: 50px; border-radius: 50%; background-color: ${getStatusColor(airdrop.status)}; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                                    <div style="width: 50px; height: 50px; border-radius: 50%; background-color: ${getStatusColor(airdrop.status)}; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
                                         ${getStatusIcon(airdrop.status).replace('style="color: var', 'style="color: white')}
                                     </div>
                                     <div>
