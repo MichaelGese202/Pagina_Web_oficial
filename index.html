@@ -979,167 +979,44 @@ function renderAirdrops(filterType = 'all', page = 1) {
             });
             
             // Configurar búsqueda
-// Variables para el autocompletado
-let searchTimeout;
-let currentFocus = -1;
-
-// Función para mostrar sugerencias
-function showSuggestions(value) {
-    const suggestionsContainer = document.getElementById('search-suggestions');
-    suggestionsContainer.innerHTML = '';
-    
-    if (!value) {
-        suggestionsContainer.style.display = 'none';
-        return;
-    }
-    
-    // Filtrar airdrops que coincidan con el valor de búsqueda
-    const suggestions = airdrops.filter(airdrop => 
-        airdrop.title.toLowerCase().includes(value.toLowerCase()) || 
-        airdrop.description.toLowerCase().includes(value.toLowerCase()) ||
-        (airdrop.badges && airdrop.badges.some(b => b.toLowerCase().includes(value.toLowerCase())))
-    ).slice(0, 5); // Limitar a 5 sugerencias
-    
-    if (suggestions.length === 0) {
-        suggestionsContainer.style.display = 'none';
-        return;
-    }
-    
-    // Crear elementos de sugerencia
-    suggestions.forEach(airdrop => {
-        const suggestionItem = document.createElement('div');
-        suggestionItem.className = 'search-suggestion-item';
-        suggestionItem.innerHTML = `
-            <div style="font-weight: bold;">${airdrop.title}</div>
-            <div style="font-size: 0.8rem; color: var(--gray);">${airdrop.description.substring(0, 50)}...</div>
-        `;
-        
-        suggestionItem.addEventListener('click', function() {
-            document.getElementById('search-input').value = airdrop.title;
-            suggestionsContainer.style.display = 'none';
-            performSearch(airdrop.title);
-        });
-        
-        suggestionsContainer.appendChild(suggestionItem);
-    });
-    
-    suggestionsContainer.style.display = 'block';
-}
-
-// Función para realizar la búsqueda
-function performSearch(searchTerm) {
-    currentPage = 1;
-    
-    if (!searchTerm) {
-        renderAirdrops(document.querySelector('.filter-btn.active').getAttribute('data-filter'), currentPage);
-        return;
-    }
-    
-    const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-    const baseAirdrops = activeFilter === 'all' ? airdrops : airdrops.filter(a => a.type === activeFilter);
-    
-    // Filtrar por término de búsqueda
-    const filteredAirdrops = baseAirdrops.filter(airdrop => 
-        airdrop.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        airdrop.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (airdrop.badges && airdrop.badges.some(b => b.toLowerCase().includes(searchTerm.toLowerCase())))
-    );
-    
-    renderSearchResults(filteredAirdrops);
-}
-
-// Función para renderizar resultados de búsqueda
-function renderSearchResults(filteredAirdrops) {
-    const grid = document.getElementById('airdrop-grid');
-    grid.innerHTML = '';
-    
-    if (filteredAirdrops.length === 0) {
-        grid.innerHTML = `
-            <div class="empty-state" style="grid-column: 1 / -1;">
-                <div class="empty-state-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <h3>No se encontraron resultados</h3>
-                <p>No hay airdrops que coincidan con tu búsqueda.</p>
-                <button class="action-btn" onclick="renderAirdrops('${document.querySelector('.filter-btn.active').getAttribute('data-filter')}')">Ver todos los airdrops</button>
-            </div>
-        `;
-        return;
-    }
-    
-    filteredAirdrops.forEach(airdrop => {
-        const card = document.createElement('div');
-        card.className = 'airdrop-card';
-        card.setAttribute('data-type', airdrop.type);
-        
-        // (Aquí va el mismo código para crear cards que en la función renderAirdrops)
-        // ... (omitiendo esta parte por brevedad, pero debes incluirla)
-        
-        grid.appendChild(card);
-    });
-}
-
-// Modifica el event listener del input de búsqueda
-document.getElementById('search-input').addEventListener('input', function() {
-    clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-        showSuggestions(this.value);
-    }, 300);
-    
-    // Resetear el índice de foco
-    currentFocus = -1;
-});
-
-// Manejar teclas en el input de búsqueda
-document.getElementById('search-input').addEventListener('keydown', function(e) {
-    const suggestionsContainer = document.getElementById('search-suggestions');
-    const suggestions = suggestionsContainer.querySelectorAll('.search-suggestion-item');
-    
-    if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        currentFocus = Math.min(currentFocus + 1, suggestions.length - 1);
-        updateActiveSuggestion();
-    } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        currentFocus = Math.max(currentFocus - 1, -1);
-        updateActiveSuggestion();
-    } else if (e.key === 'Enter') {
-        e.preventDefault();
-        if (currentFocus > -1 && suggestions[currentFocus]) {
-            suggestions[currentFocus].click();
-        } else {
-            performSearch(this.value);
-            suggestionsContainer.style.display = 'none';
-        }
-    } else if (e.key === 'Escape') {
-        suggestionsContainer.style.display = 'none';
-    }
-});
-
-// Actualizar la sugerencia activa
-function updateActiveSuggestion() {
-    const suggestions = document.querySelectorAll('.search-suggestion-item');
-    
-    suggestions.forEach((item, index) => {
-        if (index === currentFocus) {
-            item.classList.add('highlighted');
-            item.scrollIntoView({ block: 'nearest' });
-        } else {
-            item.classList.remove('highlighted');
-        }
-    });
-    
-    if (currentFocus === -1) {
-        document.getElementById('search-input').focus();
-    }
-}
-
-// Cerrar sugerencias al hacer clic fuera
-document.addEventListener('click', function(e) {
-    if (!e.target.closest('.search-container')) {
-        document.getElementById('search-suggestions').style.display = 'none';
-    }
-});
+            document.getElementById('search-input').addEventListener('keyup', function() {
+                const searchTerm = this.value.toLowerCase();
+                currentPage = 1; 
+                
+                // Si no hay término de búsqueda, mostrar todos
+                if (!searchTerm) {
+                    renderAirdrops(document.querySelector('.filter-btn.active').getAttribute('data-filter'), currentPage);
+                    return;
+                }
+                
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                const baseAirdrops = activeFilter === 'all' ? airdrops : airdrops.filter(a => a.type === activeFilter);
+                
+                // Filtrar por término de búsqueda
+                const filteredAirdrops = baseAirdrops.filter(airdrop => 
+                    airdrop.title.toLowerCase().includes(searchTerm) || 
+                    airdrop.description.toLowerCase().includes(searchTerm) ||
+                    (airdrop.badges && airdrop.badges.some(b => b.toLowerCase().includes(searchTerm)))
+                );
+                
+                // Renderizar resultados de búsqueda
+                const grid = document.getElementById('airdrop-grid');
+                grid.innerHTML = '';
+                
+                if (filteredAirdrops.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state" style="grid-column: 1 / -1;">
+                            <div class="empty-state-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>No se encontraron resultados</h3>
+                            <p>No hay airdrops que coincidan con tu búsqueda.</p>
+                            <button class="action-btn" onclick="renderAirdrops('${activeFilter}')">Ver todos los airdrops</button>
+                        </div>
+                    `;
+                    return;
+                }
+                
                 // Renderizar cards filtrados
                 filteredAirdrops.forEach(airdrop => {
                     const card = document.createElement('div');
