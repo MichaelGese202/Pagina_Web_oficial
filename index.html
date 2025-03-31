@@ -1047,7 +1047,7 @@ function renderAirdrops(filterType = 'all', page = 1) {
                 const filteredAirdrops = baseAirdrops.filter(airdrop =>
                     airdrop.title.toLowerCase().includes(searchTerm) ||
                     airdrop.description.toLowerCase().includes(searchTerm) ||
-                    airdrop.badges && airdrop.badges.some(b => typeof b === 'string' && b.toLowerCase().includes(searchTerm))));
+                    airdrop.badges && airdrop.badges.some(b => typeof b === 'string' && b.toLowerCase().includes(searchTerm)));
                 renderSearchResults(filteredAirdrops, activeFilter);
 
             }
