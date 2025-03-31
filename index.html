@@ -1013,21 +1013,25 @@ function renderAirdrops(filterType = 'all', page = 1) {
                 suggestionsContainer.style.display = 'block';
             }
             function performSearch(searchTerm) {
-                currentPage = 1;
+                if (!searchTerm || searchTerm.trim() === '') {
+                    const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                    renderAirdrops(activeFilter);
+                    return;
+                }
                 const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                 const baseAirdrops = activeFilter === 'all' ? airdrops : airdrops.filter(a => a.type === activeFilter);
-                
-                // Filtrar por término de búsqueda
                 const filteredAirdrops = baseAirdrops.filter(airdrop => 
                     airdrop.title.toLowerCase().includes(searchTerm.toLowerCase()) ||  
                     airdrop.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    (airdrop.badges && airdrop.badges.some(b => b.toLowerCase().includes(searchTerm.toLowerCase())))
+                    (airdrop.badges && airdrop.badges.some(b =>
+                        typeof b === 'string' && b.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
                 );
                 renderSearchResults(filteredAirdrops);
+    
             }
             function renderSearchResults(filteredAirdrops) {
                 const grid = document.getElementById('airdrop-grid');
-                grid.innerHTML = '';
                 if (filteredAirdrops.length === 0) {
                     grid.innerHTML = `
                         <div class="empty-state" style="grid-column: 1 / -1;">
@@ -1040,6 +1044,12 @@ function renderAirdrops(filterType = 'all', page = 1) {
                         </div>
                     `;
                     return;
+                }
+                grid.innerHTML = '';
+                filteredAirdrops.forEach(airdrop => {
+                    const card = createAirdropCard(airdrop);
+                    grid.appendChild(card);
+                });
                 }
                 filteredAirdrops.forEach(airdrop => {
                     const card = document.createElement('div');
