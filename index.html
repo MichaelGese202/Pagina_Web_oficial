@@ -580,6 +580,54 @@
 }
     </style>
 </head>
+<!-- Add this right before closing </body> tag -->
+<div id="pagination-controls" style="display: flex; justify-content: center; align-items: center; margin: 2rem 0; gap: 0.5rem;"></div>
+
+<style>
+.pagination-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: var(--primary);
+    color: white;
+}
+
+.pagination-btn.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-ellipsis {
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.airdrops-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+</style>
 <body>
     <header>
         <div class="container">
@@ -707,7 +755,7 @@
 
         
                // Función para renderizar airdrops
-               function renderAirdrops(filterType = 'all') {
+            function renderAirdrops(filterType = 'all') {
             const grid = document.getElementById('airdrop-grid');
             grid.innerHTML = '';
             
@@ -728,7 +776,226 @@
                 `;
                 return;
             }
+            // Pagination variables
+let currentPage = 1;
+const itemsPerPage = 12;
+let filteredAirdrops = [];
+
+// Modified renderAirdrops function to include pagination
+function renderAirdrops(filter = 'all', searchQuery = '') {
+    const container = document.getElementById('airdrops-container');
+    
+    // Apply filters
+    filteredAirdrops = airdrops.filter(airdrop => {
+        // Check if this airdrop matches the filter
+        const filterMatch = filter === 'all' || airdrop.type.toLowerCase() === filter.toLowerCase();
+        
+        // Check if this airdrop matches the search query
+        const searchMatch = searchQuery === '' || 
+            airdrop.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            (airdrop.description && airdrop.description.toLowerCase().includes(searchQuery.toLowerCase()));
+        
+        return filterMatch && searchMatch;
+    });
+    
+    // Calculate total pages
+    const totalPages = Math.ceil(filteredAirdrops.length / itemsPerPage);
+    
+    // Ensure current page is within bounds
+    if (currentPage > totalPages) {
+        currentPage = totalPages > 0 ? totalPages : 1;
+    }
+    
+    // Calculate start and end indices for the current page
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredAirdrops.length);
+    
+    // Get current page items
+    const currentItems = filteredAirdrops.slice(startIndex, endIndex);
+    
+    // Clear the container
+    container.innerHTML = '';
+    
+    // Check if there are any items to display
+    if (currentItems.length === 0) {
+        container.innerHTML = `
+            <div class="no-results" style="text-align: center; padding: 2rem; width: 100%;">
+                <i class="fas fa-search" style="font-size: 3rem; color: var(--gray); margin-bottom: 1rem;"></i>
+                <h3>No airdrops found</h3>
+                <p>Try changing your search or filter criteria.</p>
+            </div>
+        `;
+        
+        // Hide pagination
+        document.getElementById('pagination-controls').style.display = 'none';
+        return;
+    }
+    
+    // Create the grid for the airdrops
+    const grid = document.createElement('div');
+    grid.className = 'airdrops-grid';
+    
+    // Loop through the current page items and create the cards
+    currentItems.forEach(airdrop => {
+        const card = createAirdropCard(airdrop);
+        grid.appendChild(card);
+    });
+    
+    // Add the grid to the container
+    container.appendChild(grid);
+    
+    // Update pagination controls
+    renderPagination(totalPages);
+}
+
+// Function to render pagination controls
+function renderPagination(totalPages) {
+    const paginationContainer = document.getElementById('pagination-controls');
+    
+    // Show pagination only if we have more than one page
+    if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+        return;
+    }
+    
+    paginationContainer.style.display = 'flex';
+    paginationContainer.innerHTML = '';
+    
+    // Previous button
+    const prevButton = document.createElement('button');
+    prevButton.className = 'pagination-btn';
+    prevButton.disabled = currentPage === 1;
+    prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderAirdrops(currentFilter, currentSearch);
+            window.scrollTo(0, document.getElementById('filter-section').offsetTop - 20);
+        }
+    });
+    paginationContainer.appendChild(prevButton);
+    
+    // Page numbers
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    // Adjust start page if we're near the end
+    if (endPage - startPage + 1 < maxVisiblePages) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    // First page button (if not already visible)
+    if (startPage > 1) {
+        const firstPageBtn = document.createElement('button');
+        firstPageBtn.className = 'pagination-btn';
+        firstPageBtn.textContent = '1';
+        firstPageBtn.addEventListener('click', () => {
+            currentPage = 1;
+            renderAirdrops(currentFilter, currentSearch);
+            window.scrollTo(0, document.getElementById('filter-section').offsetTop - 20);
+        });
+        paginationContainer.appendChild(firstPageBtn);
+        
+        // Show ellipsis if there's a gap
+        if (startPage > 2) {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'pagination-ellipsis';
+            ellipsis.textContent = '...';
+            paginationContainer.appendChild(ellipsis);
+        }
+    }
+    
+    // Page number buttons
+    for (let i = startPage; i <= endPage; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = `pagination-btn ${i === currentPage ? 'active' : ''}`;
+        pageBtn.textContent = i;
+        pageBtn.addEventListener('click', () => {
+            currentPage = i;
+            renderAirdrops(currentFilter, currentSearch);
+            window.scrollTo(0, document.getElementById('filter-section').offsetTop - 20);
+        });
+        paginationContainer.appendChild(pageBtn);
+    }
+    
+    // Last page button (if not already visible)
+    if (endPage < totalPages) {
+        // Show ellipsis if there's a gap
+        if (endPage < totalPages - 1) {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'pagination-ellipsis';
+            ellipsis.textContent = '...';
+            paginationContainer.appendChild(ellipsis);
+        }
+        
+        const lastPageBtn = document.createElement('button');
+        lastPageBtn.className = 'pagination-btn';
+        lastPageBtn.textContent = totalPages;
+        lastPageBtn.addEventListener('click', () => {
+            currentPage = totalPages;
+            renderAirdrops(currentFilter, currentSearch);
+            window.scrollTo(0, document.getElementById('filter-section').offsetTop - 20);
+        });
+        paginationContainer.appendChild(lastPageBtn);
+    }
+    
+    // Next button
+    const nextButton = document.createElement('button');
+    nextButton.className = 'pagination-btn';
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderAirdrops(currentFilter, currentSearch);
+            window.scrollTo(0, document.getElementById('filter-section').offsetTop - 20);
+        }
+    });
+    paginationContainer.appendChild(nextButton);
+}
+
+// Keep track of current filter and search
+let currentFilter = 'all';
+let currentSearch = '';
+
+// Update event listeners for filters
+document.addEventListener('DOMContentLoaded', function() {
+    // Setup filter event listeners
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
             
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Get the filter value
+            currentFilter = this.getAttribute('data-filter');
+            
+            // Reset to first page when changing filter
+            currentPage = 1;
+            
+            // Apply the filter
+            renderAirdrops(currentFilter, currentSearch);
+        });
+    });
+    
+    // Setup search event listener
+    const searchInput = document.querySelector('input[type="search"]');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            currentSearch = this.value;
+            // Reset to first page when searching
+            currentPage = 1;
+            renderAirdrops(currentFilter, currentSearch);
+        });
+    }
+    
+    // Render airdrops on initial load
+    renderAirdrops();
+});
             filteredAirdrops.forEach(airdrop => {
                 const card = document.createElement('div');
                 card.className = 'airdrop-card';
