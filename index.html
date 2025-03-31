@@ -1046,93 +1046,136 @@ function renderAirdrops(filterType = 'all', page = 1) {
                     card.className = 'airdrop-card';
                     card.setAttribute('data-type', airdrop.type);
                     let isNew = false;
-        
-        if (airdrop.publishDate) {
-            const pubDate = airdrop.publishDate instanceof Date ? 
-                airdrop.publishDate : 
-                new Date(airdrop.publishDate);
-            const diffDays = (new Date() - pubDate) / (1000 * 60 * 60 * 24);
-            isNew = !isNaN(diffDays) && diffDays < 4;
-        }
-        
-        const publishDateFormatted = airdrop.publishDate ? 
-            new Intl.DateTimeFormat('es-ES', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            }).format(airdrop.publishDate) : '';
-        
-        let badgesHTML = '';
-        if (airdrop.badges && airdrop.badges.length) {
-            airdrop.badges.forEach(badge => {
-                let badgeClass = 'badge-primary';
-                let badgeText = '';
-                let badgeUrl = '';
-                if (typeof badge === 'string') {
-                    badgeText = badge;
-                    if (badge === 'Web' && airdrop.webUrl) {
-                        badgeUrl = airdrop.webUrl;
-                    } else if (badge === 'X' && airdrop.xUrl) {
-                        badgeUrl = airdrop.xUrl;
-                    } else if (badge === 'Docs' && airdrop.docsUrl) {
-                        badgeUrl = airdrop.docsUrl;
-                    } else {
-                        badgeUrl = '#';
+                    if (airdrop.publishDate) {
+                        const pubDate = airdrop.publishDate instanceof Date ? 
+                            airdrop.publishDate :
+                            new Date(airdrop.publishDate);
+                        const diffDays = (new Date() - pubDate) / (1000 * 60 * 60 * 24);
+                        isNew = !isNaN(diffDays) && diffDays < 4;
                     }
-                    if (badge.toLowerCase().includes('depin')) badgeClass = 'badge-info';
-                    if (badge.toLowerCase().includes('testnet')) badgeClass = 'badge-warning';
-                    if (badge.toLowerCase().includes('staking')) badgeClass = 'badge-success';
-                    if (badge.toLowerCase().includes('gaming')) badgeClass = 'badge-danger';
-                    if (badge.toLowerCase().includes('social')) badgeClass = 'badge-primary';
-                }
-                
-                badgesHTML += `<a href="${badgeUrl}" class="badge ${badgeClass}" target="_blank">${badgeText}</a>`;
+                    const publishDateFormatted = airdrop.publishDate ? 
+                        new Intl.DateTimeFormat('es-ES', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        }).format(airdrop.publishDate) : '';
+                    let badgesHTML = '';
+                    if (airdrop.badges && airdrop.badges.length) {
+                        airdrop.badges.forEach(badge => {
+                            let badgeClass = 'badge-primary';
+                            let badgeText = '';
+                            let badgeUrl = '';
+                            if (typeof badge === 'string') {
+                                badgeText = badge;
+                            if (badge === 'Web' && airdrop.webUrl) {
+                                badgeUrl = airdrop.webUrl;
+                            } else if (badge === 'X' && airdrop.xUrl) {
+                                badgeUrl = airdrop.xUrl;
+                            } else if (badge === 'Docs' && airdrop.docsUrl) {
+                                badgeUrl = airdrop.docsUrl;
+                            } else {
+                                badgeUrl = '#';
+                            }
+                            if (badge.toLowerCase().includes('depin')) badgeClass = 'badge-info';
+                            if (badge.toLowerCase().includes('testnet')) badgeClass = 'badge-warning';
+                            if (badge.toLowerCase().includes('staking')) badgeClass = 'badge-success';
+                            if (badge.toLowerCase().includes('gaming')) badgeClass = 'badge-danger';
+                            if (badge.toLowerCase().includes('social')) badgeClass = 'badge-primary';
+
+                        }
+                        badgesHTML += `<a href="${badgeUrl}" class="badge ${badgeClass}" target="_blank">${badgeText}</a>`;
+                        });
+                        
+                    }
+                    // Card content HTML
+                    card.innerHTML = `
+                        <div class="card-type">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</div>
+                        ${isNew ? '<div class="new-badge">NEW</div>' : ''}
+                        <div class="card-image" style="background-image: url('${airdrop.image}')"></div>
+                        <div class="publish-date">Publicado: ${publishDateFormatted}</div>
+                        <div class="card-content">
+                            <h3 class="card-title">${airdrop.title}</h3>
+                            <p class="card-description">${airdrop.description}</p>
+                            <div class="card-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-alt detail-icon"></i>
+                                    <span>Available: ${airdrop.launchDate}</span>
+                                </div>
+                                ${airdrop.funds ? `
+                                <div class="detail-item">
+                                        <i class="fas fa-dollar-sign detail-icon"></i>
+                                        <span>Funds: ${airdrop.funds}</span>
+                                    </div>
+                                ` : ''}
+                                ${airdrop.code ? `
+                                <div class="detail-item">
+                                        <i class="fas fa-code-branch detail-icon"></i>
+                                        <span>Code: ${airdrop.code}</span>
+                                    </div>
+                                ` : ''}
+                            <div>
+                            <div>
+                                ${badgesHTML}
+                            </div>
+                            <div class="card-actions">
+                                <div style="display: flex; gap: 0.5rem; flex: 1;">
+                                    <a href="${airdrop.link || '#'}" class="action-btn" target="_blank" style="flex: 1; text-align: center;">Learn More</a>
+                                    <button class="details-btn" data-id="${airdrop.id}" style="flex: 1; text-align: center;">See More</button>
+                                </div>
+                                <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
+                            </div>
+                        </div>
+                    `;
+  
+                    grid.appendChild(card);
+                });
+            }
+            document.getElementById('search-input').addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    showSuggestions(this.value);
+                }, 300);
+                currentFocus = -1;
             });
-        }
-        
-        // Card content HTML
-        card.innerHTML = `
-            <div class="card-type">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</div>
-            ${isNew ? '<div class="new-badge">NEW</div>' : ''}
-            <div class="card-image" style="background-image: url('${airdrop.image}')"></div>
-            <div class="publish-date">Publicado: ${publishDateFormatted}</div>
-            <div class="card-content">
-                <h3 class="card-title">${airdrop.title}</h3>
-                <p class="card-description">${airdrop.description}</p>
-                <div class="card-details">
-                    <div class="detail-item">
-                        <i class="fas fa-calendar-alt detail-icon"></i>
-                        <span>Available: ${airdrop.launchDate}</span>
-                    </div>
-                    ${airdrop.funds ? `
-                        <div class="detail-item">
-                            <i class="fas fa-coins detail-icon"></i>
-                            <span>Funding: ${airdrop.funds}</span>
-                        </div>
-                    ` : ''}
-                    ${airdrop.code ? `
-                        <div class="detail-item">
-                            <i class="fas fa-key detail-icon"></i>
-                            <span>Code: ${airdrop.code}</span>
-                        </div>
-                    ` : ''}
-                </div>
-                <div>
-                    ${badgesHTML}
-                </div>
-                <div class="card-actions">
-                    <div style="display: flex; gap: 0.5rem; flex: 1;">
-                        <a href="${airdrop.link || '#'}" class="action-btn" target="_blank" style="flex: 1; text-align: center;">Learn More</a>
-                        <button class="details-btn" data-id="${airdrop.id}" style="flex: 1; text-align: center;">See More</button>
-                    </div>
-                    <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
-                </div>
-            </div>
-        `;
-        
-        grid.appendChild(card);
-    });
- 
+            document.getElementById('search-input').addEventListener('keydown', function(e) {
+                const suggestionsContainer = document.getElementById('search-suggestions');
+                const suggestions = suggestionsContainer.querySelectorAll('.search-suggestion-item');
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    currentFocus = Math.min(currentFocus + 1, suggestions.length - 1);
+                    updateActiveSuggestion();
+
+                }else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    currentFocus = Math.max(currentFocus - 1, -1);
+                    updateActiveSuggestion();
+                }else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (currentFocus > -1 && suggestions[currentFocus]) {
+                        suggestions[currentFocus].click();
+                    } else {
+                        performSearch(this.value);
+                        suggestionsContainer.style.display = 'none';
+                    }
+                }else if (e.key === 'Escape') {
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+            function updateActiveSuggestion() {
+                const suggestions = document.querySelectorAll('.search-suggestion-item');
+                suggestions.forEach((item, index) => {
+                    item.classList.toggle('highlighted', index === currentFocus);
+                    if (index === currentFocus) {
+                        item.scrollIntoView({ block: 'nearest' });
+                    }
+                });
+            }
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-container')) {
+                    document.getElementById('search-suggestions').style.display = 'none';
+                }
+            });
+
 
 
 
