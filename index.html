@@ -1114,7 +1114,7 @@ document.addEventListener('click', function(e) {
                                 <div style="margin-top: 2rem; border-top: 1px solid #f1f5f9; padding-top: 1.5rem;">
                                     <h3 style="font-size: 1.2rem; margin-bottom: 1rem; text-align: left;">Reference Image</h3>
                                     <div class="reference-image-container" style="cursor: pointer; position: relative;">
-                                        <img src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onclick="openLightbox('${referenceImage}', ${JSON.stringify(hasAdditionalImages ? airdrop.additionalImages : [])})">
+                                        <img src="${referenceImage}" alt="${airdrop.title} reference" style="max-width: 100%; border-radius: var(--border-radius); box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onclick="openLightboxWithImages('${referenceImage}', ${airdrop.id})">
                                         ${hasAdditionalImages ? `<div class="more-images-badge" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;"><i class="fas fa-images"></i> +${airdrop.additionalImages.length}</div>` : ''}
                                     </div>
                                 </div>
@@ -1332,6 +1332,24 @@ function openLightbox(mainImage, additionalImages = []) {
         // Prevent scrolling on body
         document.body.style.overflow = 'hidden';
     }
+}
+
+// New function to handle opening the lightbox with airdrop images
+function openLightboxWithImages(mainImage, airdropId) {
+    // Find the airdrop by ID
+    const airdrop = airdrops.find(a => a.id == airdropId);
+    if (!airdrop) return;
+    
+    // Get all images for this airdrop
+    let allImages = [mainImage];
+    
+    // Add additional images if available
+    if (airdrop.additionalImages && Array.isArray(airdrop.additionalImages) && airdrop.additionalImages.length > 0) {
+        allImages = allImages.concat(airdrop.additionalImages);
+    }
+    
+    // Call the main lightbox function with the array of images
+    openLightbox(mainImage, allImages.slice(1));  // Pass all images except the main one as additional
 }
 
 // Helper function for type classes
@@ -1574,7 +1592,10 @@ let allImages = [];
 
 function openLightbox(mainImage, additionalImages = []) {
     // Combine main image with additional images
-    allImages = [mainImage, ...additionalImages].filter(img => img); // Remove any undefined or null
+    allImages =  [mainImage];
+    if (additionalImages && Array.isArray(additionalImages) && additionalImages.length > 0) {
+        allImages = allImages.concat(additionalImages);
+    }
     currentImageIndex = 0;
     
     // Show the modal
@@ -1586,6 +1607,7 @@ function openLightbox(mainImage, additionalImages = []) {
     
     // Prevent scrolling on body
     document.body.style.overflow = 'hidden';
+    console.log('Lightbox opened with images:', allImages);  // Add this for debugging
 }
 
 function updateLightboxImage() {
