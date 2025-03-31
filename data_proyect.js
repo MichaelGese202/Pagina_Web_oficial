@@ -9,7 +9,7 @@ const airdrops = [
                 status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1814556272127320065/PWwjbKUu_400x400.jpg ",
                 additionalImages:[
-                  "https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Roadmap.webp"
+                  "https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Roadmap.webp",
                   " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Partners.webp"
                 ],
                 referenceImage: " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Mage-Labs-Tokenomics.webp",
@@ -29,7 +29,6 @@ const airdrops = [
                    { step: "Complete all available tasks.", icon: "fa-tasks" },
                    { step: "Share with friends to earn more points.", icon: "fa-users" }
                 ]
-              }
             },
  
    
