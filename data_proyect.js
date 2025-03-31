@@ -20,7 +20,8 @@ const airdrops = [
                 info: " Mage Labs is a game development studio founded in 2021 which seeks to develop the new gold standard of web3 gaming by marrying advanced AI technology and next-gen play to earn featuring stable coin earnings.",
                 funds:"$180 K",
                 investors: [
-                  {name: "ChainLink", url:"https://icodrops.com/vc/chainlink/"}
+                  {name: "ChainLink", url:"https://icodrops.com/vc/chainlink/", icon: "https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/cache/e6/b5/e6b515e9edd0113bd6a5f363c5d0e85f.webp"},
+                  {name: "Immutable", url: "https://www.immutable.com/", icon: "https://cdn.prod.website-files.com/646557ee455c3e16e4a9bcb3/646557ee455c3e16e4a9bcbe_immutable-logo.svg"}
                 ],
                 code: " ",
                 link: " https://t.me/VersusTrainerBot?start=7455236642",
