@@ -399,40 +399,50 @@
         // Función para extraer términos de búsqueda
         function extractSearchTerms() {
             const terms = new Set();
+            if (!airdrops || !Array.isArray(airdrops)) {
+                console.error("Airdrops data is not loaded or invalid");
+                allSearchTerms = [];
+                return;
+            }
             airdrops.forEach(airdrop => {
-                airdrop.title.split(' ').forEach(word => {
-                    if (word.length > 2) terms.add(word.toLowerCase());
+                airdrop.title.split(/\s+/).forEach(word => {
+                    const cleanWord = word.toLowerCase().replace(/[^a-z0-9]/g, '');
+                    if (cleanWord.length > 2) terms.add(cleanWord);
                 });
-                airdrop.description.split(' ').forEach(word => {
-                    if (word.length > 3) terms.add(word.toLowerCase());
+                airdrop.description.split(/\s+/).forEach(word => {
+                    const cleanWord = word.toLowerCase().replace(/[^a-z0-9]/g, '');
+                    if (cleanWord.length > 3) terms.add(cleanWord);
                 });
-                if (airdrop.badges) {
+                if (airdrop.badges && Array.isArray(airdrop.badges)) {
                     airdrop.badges.forEach(badge => {
                         if (typeof badge === 'string') {
-                            badge.split(' ').forEach(word => {
-                                if (word.length > 2) terms.add(word.toLowerCase());
+                            badge.split(/\s+/).forEach(word => {
+                                const cleanWord = word.toLowerCase().replace(/[^a-z0-9]/g, '');
+                                if (cleanWord.length > 2) terms.add(cleanWord);
                             });
                         }
                     });
                 }
             });
-            allSearchTerms = Array.from(terms);
+            allSearchTerms = Array.from(terms).sort();
+            console.log("Extracted search terms:", allSearchTerms);
         }
 
         // Función para mostrar sugerencias
         function showSuggestions() {
             const input = document.getElementById('search-input');
             const suggestionsContainer = document.getElementById('search-suggestions');
-            const term = input.value.toLowerCase();
+            const term = input.value.toLowerCase().trim();
             
             if (term.length < 2) {
                 suggestionsContainer.style.display = 'none';
+                highlightedIndex = -1;
                 return;
             }
             
             currentSuggestions = allSearchTerms.filter(word => 
                 word.startsWith(term)
-            ).slice(0, 5);
+            ).slice(0, 8);
             
             if (currentSuggestions.length > 0) {
                 suggestionsContainer.innerHTML = currentSuggestions.map((suggestion, index) => `
@@ -450,15 +460,20 @@
                         suggestionsContainer.style.display = 'none';
                         performSearch();
                     });
+                    suggestion.addEventListener('mouseover', () => {
+                        highlightedIndex = index;
+                        showSuggestions(); // Actualizar para resaltar
+                    });
                 });
             } else {
                 suggestionsContainer.style.display = 'none';
+                highlightedIndex = -1;
             }
         }
 
         // Función para realizar la búsqueda
         function performSearch() {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
             currentPage = 1;
             
             if (!searchTerm) {
@@ -470,14 +485,13 @@
             const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
             const baseAirdrops = activeFilter === 'all' ? airdrops : airdrops.filter(a => a.type === activeFilter);
             
-            const filteredAirdrops = baseAirdrops.filter(airdrop =>
-                airdrop.title.toLowerCase().includes(searchTerm) ||
-                airdrop.description.toLowerCase().includes(searchTerm) ||
-                (airdrop.badges && airdrop.badges.some(b => 
-                    typeof b === 'string' && b.toLowerCase().includes(searchTerm)
-                ))
-            );
-            
+            const filteredAirdrops = baseAirdrops.filter(airdrop =>{
+                const titleMatch = airdrop.title.toLowerCase().includes(searchTerm);
+                const descMatch = airdrop.description.toLowerCase().includes(searchTerm);
+                const badgesMatch = airdrop.badges && airdrop.badges.some(b => 
+                    typeof b === 'string' && b.toLowerCase().includes(searchTerm));
+                return titleMatch || descMatch || badgesMatch;
+            });
             renderSearchResults(filteredAirdrops, activeFilter);
         }
 
@@ -759,8 +773,24 @@
 
         // Único DOMContentLoaded
         document.addEventListener('DOMContentLoaded', function() {
+            if (!document.getElementById('search-input') || 
+                !document.getElementById('search-suggestions')) {
+                console.error("Search elements not found in DOM");
+                return;
+                }
             // Renderizar airdrops iniciales
             renderAirdrops('all', currentPage);
+            extractSearchTerms();
+            // Configurar eventos del buscador
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.querySelector('.search-btn');
+            searchInput.addEventListener('input', showSuggestions);
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
             
             // Configurar filtros
             document.querySelectorAll('.filter-btn').forEach(btn => {
