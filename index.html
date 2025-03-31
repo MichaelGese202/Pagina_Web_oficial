@@ -612,6 +612,37 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+.search-container {
+    position: relative;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: none;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.search-suggestion {
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-suggestion:hover {
+    background-color: #f1f5f9;
+}
+
+.search-suggestion.highlighted {
+    background-color: #e2e8f0;
+}
     </style>
 </head>
 <body>
@@ -638,8 +669,9 @@
             </div>
             
             <div class="search-container">
-                <input type="text" id="search-input" class="search-input" placeholder="Buscar airdrops...">
+                <input type="text" id="search-input" class="search-input" placeholder="Buscar airdrops..." autocomplete="off">
                 <button class="search-btn"><i class="fas fa-search"></i></button>
+                <div id="search-suggestions" class="search-suggestions"></div>
             </div>
         </div>
     </header>
@@ -946,30 +978,82 @@ function renderAirdrops(filterType = 'all', page = 1) {
             });
             
             // Configurar búsqueda
-            document.getElementById('search-input').addEventListener('keyup', function() {
-                const searchTerm = this.value.toLowerCase();
-                currentPage = 1; 
-                
-                // Si no hay término de búsqueda, mostrar todos
+            let allSearchTerms = [];
+            let currentSuggestions = [];
+            let highlightedIndex = -1;
+            function extractSearchTerms() {
+                const terms = new Set();
+                airdrops.forEach(airdrop => {
+                    airdrop.title.split(' ').forEach(word => {
+                        if (word.length > 2) terms.add(word.toLowerCase());
+                    });
+                    airdrop.description.split(' ').forEach(word => {
+                        if (word.length > 3) terms.add(word.toLowerCase());
+                    });
+                    if (airdrop.badges) {
+                        airdrop.badges.forEach(badge => {
+                            if (typeof badge === 'string') {
+                                badge.split(' ').forEach(word => {
+                                    if (word.length > 2) terms.add(word.toLowerCase());
+                                });
+                            }
+                        });
+                    }
+                });
+                allSearchTerms = Array.from(terms);
+            }
+            // Función para mostrar sugerencias
+            function showSuggestions() {
+                const input = document.getElementById('search-input');
+                const suggestionsContainer = document.getElementById('search-suggestions');
+                const term = input.value.toLowerCase();
+                if (term.length < 2) {
+                    suggestionsContainer.style.display = 'none';
+                    return;
+                }
+                currentSuggestions = allSearchTerms.filter(word => 
+                    word.startsWith(term)
+                ).slice(0, 5);
+                if (currentSuggestions.length > 0) {
+                    suggestionsContainer.innerHTML = currentSuggestions.map((suggestion, index) => `
+                        <div class="search-suggestion ${index === highlightedIndex ? 'highlighted' : ''}"
+                            data-term="${suggestion}">
+                            <i class="fas fa-search" style="margin-right: 8px; color: var(--gray);"></i>
+                            ${suggestion}
+                        </div>
+                    `).join('');
+                    suggestionsContainer.style.display = 'block';
+                    document.querySelectorAll('.search-suggestion').forEach((suggestion, index) => {
+                        suggestion.addEventListener('click', () => {
+                            input.value = suggestion.getAttribute('data-term');
+                            suggestionsContainer.style.display = 'none';
+                            performSearch();
+                        });
+                    });
+
+                } else {
+                    suggestionsContainer.style.display = 'none';
+                }
+            }
+            function performSearch() {
+                const searchTerm = document.getElementById('search-input').value.toLowerCase();
+                currentPage = 1;
                 if (!searchTerm) {
                     renderAirdrops(document.querySelector('.filter-btn.active').getAttribute('data-filter'), currentPage);
                     return;
                 }
-                
                 const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                 const baseAirdrops = activeFilter === 'all' ? airdrops : airdrops.filter(a => a.type === activeFilter);
-                
-                // Filtrar por término de búsqueda
-                const filteredAirdrops = baseAirdrops.filter(airdrop => 
-                    airdrop.title.toLowerCase().includes(searchTerm) || 
+                const filteredAirdrops = baseAirdrops.filter(airdrop =>
+                    airdrop.title.toLowerCase().includes(searchTerm) ||
                     airdrop.description.toLowerCase().includes(searchTerm) ||
-                    (airdrop.badges && airdrop.badges.some(b => b.toLowerCase().includes(searchTerm)))
-                );
-                
-                // Renderizar resultados de búsqueda
+                    airdrop.badges && airdrop.badges.some(b => typeof b === 'string' && b.toLowerCase().includes(searchTerm))));
+                renderSearchResults(filteredAirdrops, activeFilter);
+
+            }
+            function renderSearchResults(filteredAirdrops, activeFilter) {
                 const grid = document.getElementById('airdrop-grid');
                 grid.innerHTML = '';
-                
                 if (filteredAirdrops.length === 0) {
                     grid.innerHTML = `
                         <div class="empty-state" style="grid-column: 1 / -1;">
@@ -983,19 +1067,51 @@ function renderAirdrops(filterType = 'all', page = 1) {
                     `;
                     return;
                 }
-                
-                // Renderizar cards filtrados
                 filteredAirdrops.forEach(airdrop => {
-                    const card = document.createElement('div');
-                    card.className = 'airdrop-card';
-                    
-                    // Resto del código para crear cards...
-                    // (Código omitido para brevedad, es el mismo que en renderAirdrops)
-                    
+                    const card = createAirdropCard(airdrop);
                     grid.appendChild(card);
                 });
-            });
+
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                extractSearchTerms();
+                const searchInput = document.getElementById('search-input');
+                const searchBtn = document.querySelector('.search-btn');
+                const suggestionsContainer = document.getElementById('search-suggestions');
+                searchInput.addEventListener('input', showSuggestions);
+                searchBtn.addEventListener('click', performSearch);
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        if (currentSuggestions.length > 0) {
+                            highlightedIndex = Math.min(highlightedIndex + 1, currentSuggestions.length - 1);
+                            showSuggestions();
+                        }
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        highlightedIndex = Math.max(highlightedIndex - 1, -1);
+                        showSuggestions();
+
+                    } else if (e.key === 'Enter' && highlightedIndex >= 0) {
+                        e.preventDefault();
+                        searchInput.value = currentSuggestions[highlightedIndex];
+                        suggestionsContainer.style.display = 'none';
+                        performSearch();
+                    }
+                });
+                document.addEventListener('click', function(e) {
+                    if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                        suggestionsContainer.style.display = 'none';
+                    }
+                });
             
+            });
+ 
             // Configurar toggle de modo oscuro
             document.querySelector('.theme-toggle').addEventListener('click', function() {
                 document.body.classList.toggle('dark-mode');
