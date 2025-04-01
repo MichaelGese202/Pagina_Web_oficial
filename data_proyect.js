@@ -6,7 +6,7 @@ const airdrops = [
                 description: "The Gradient Network project is similar to Grass, Nodepay and Dawn",
                 launchDate: "11 SEP, 2024",
                 image: "Imagen/gradient_network.png",
-                referenceImage:"",
+                referenceImage:"https://pbs.twimg.com/media/Gfim2W-bYAAI07C?format=jpg&name=small",
                 additionalImages:[
                   " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/covers/gradient-network_cover_1740116504.webp",
                   " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Gradient-Network-Investors.webp"
