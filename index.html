@@ -118,6 +118,22 @@
         .search-btn:hover {
             background-color: #f8fafc;
         }
+
+        .search-clear-btn {
+            position: absolute;
+            right: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            display: none;
+        }
+        
+        .search-clear-btn:hover {
+            color: var(--danger);
+        }
         
         /* Estilos para el autocompletado */
         .autocomplete-results {
@@ -987,24 +1003,35 @@ function searchAutocomplete(query) {
     const resultsContainer = document.getElementById('autocomplete-results');
     resultsContainer.innerHTML = '';
     
-    if (!query || query.length < 2) {
+    // Get the current active filter
+    const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+    
+    if (!query || query.length < 1) {
         resultsContainer.style.display = 'none';
+        // If search is cleared, reset to the filtered view based on active filter
+        renderAirdrops(activeFilter, 1);
         return;
     }
     
     const lowerQuery = query.toLowerCase();
-    const matchedAirdrops = airdrops.filter(airdrop => 
+    // Filter airdrops based on the query
+    const baseAirdrops = activeFilter === 'all' ? airdrops : airdrops.filter(a => a.type === activeFilter);
+    
+    const matchedAirdrops = baseAirdrops.filter(airdrop => 
         airdrop.title.toLowerCase().includes(lowerQuery) || 
         airdrop.description.toLowerCase().includes(lowerQuery) ||
         (airdrop.badges && airdrop.badges.some(badge => 
             typeof badge === 'string' && badge.toLowerCase().includes(lowerQuery)
         ))
-    ).slice(0, 5); // Limitar a 5 resultados
+    );
     
-    if (matchedAirdrops.length === 0) {
+    // Show autocomplete results (limited to 5)
+    const autocompleteResults = matchedAirdrops.slice(0, 5);
+    
+    if (autocompleteResults.length === 0) {
         resultsContainer.innerHTML = '<div class="autocomplete-item">No se encontraron resultados</div>';
     } else {
-        matchedAirdrops.forEach(airdrop => {
+        autocompleteResults.forEach(airdrop => {
             const item = document.createElement('div');
             item.className = 'autocomplete-item';
             item.innerHTML = `
@@ -1014,138 +1041,232 @@ function searchAutocomplete(query) {
             `;
             
             item.addEventListener('click', () => {
-                // Al hacer clic en un resultado, llenar el campo de búsqueda y realizar la búsqueda
+                // When clicking a result, fill the search input and perform the search
                 document.getElementById('search-input').value = airdrop.title;
                 resultsContainer.style.display = 'none';
                 
-                // Filtrar y mostrar solo este airdrop
-                const grid = document.getElementById('airdrop-grid');
-                grid.innerHTML = '';
-                
-                const card = document.createElement('div');
-                card.className = 'airdrop-card';
-                card.setAttribute('data-type', airdrop.type);
-                
-                // (Aquí iría el mismo código para crear la card que en renderAirdrops)
-                // Por brevedad, omitimos la duplicación del código de creación de cards
-                // En una implementación real, deberías reutilizar la función que crea las cards
-                
-                grid.appendChild(card);
+                // Show just this airdrop
+                renderFilteredResults([airdrop]);
             });
             
             resultsContainer.appendChild(item);
         });
     }
     
-    resultsContainer.style.display = matchedAirdrops.length ? 'block' : 'none';
+    resultsContainer.style.display = autocompleteResults.length ? 'block' : 'none';
+    
+    // Immediately display all matched airdrops (not just the autocomplete subset)
+    renderFilteredResults(matchedAirdrops);
 }
 
-        // Inicializar la aplicación
-        document.addEventListener('DOMContentLoaded', function() {
-            // Renderizar airdrops iniciales
-            renderAirdrops('all', currentPage);
-            
-            // Configurar filtros
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    currentPage = 1;
-                    // Remover clase active de todos los botones
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    // Añadir clase active al botón clickeado
-                    this.classList.add('active');
-                    // Renderizar airdrops filtrados
-                    renderAirdrops(this.getAttribute('data-filter'), currentPage);
-                });
-            });
-            
-            // Configurar búsqueda con autocompletado
-            const searchInput = document.getElementById('search-input');
-            const autocompleteResults = document.getElementById('autocomplete-results');
-            
-            searchInput.addEventListener('input', function() {
-                searchAutocomplete(this.value);
-            });
-            
-            // Ocultar autocompletado al hacer clic fuera
-            document.addEventListener('click', function(e) {
-                if (e.target !== searchInput && !autocompleteResults.contains(e.target)) {
-                    autocompleteResults.style.display = 'none';
-                }
-            });
-            
-            // Configurar búsqueda al presionar Enter
-            searchInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    autocompleteResults.style.display = 'none';
-                    const searchTerm = this.value.toLowerCase();
-                    
-                    if (!searchTerm) {
-                        renderAirdrops(document.querySelector('.filter-btn.active').getAttribute('data-filter'), currentPage);
-                        return;
+// New function to render filtered results
+function renderFilteredResults(filteredAirdrops) {
+    const grid = document.getElementById('airdrop-grid');
+    grid.innerHTML = '';
+    
+    // Remove previous pagination if it exists
+    const oldPagination = document.querySelector('.pagination');
+    if (oldPagination) {
+        oldPagination.remove();
+    }
+    
+    if (filteredAirdrops.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <div class="empty-state-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>No se encontraron resultados</h3>
+                <p>No hay airdrops que coincidan con tu búsqueda.</p>
+                <button class="action-btn" onclick="renderAirdrops(document.querySelector('.filter-btn.active').getAttribute('data-filter'))">Ver todos los airdrops</button>
+            </div>
+        `;
+        return;
+    }
+    
+    // Since we're doing real-time filtering, we'll show all matches without pagination
+    filteredAirdrops.forEach(airdrop => {
+        const card = document.createElement('div');
+        card.className = 'airdrop-card';
+        card.setAttribute('data-type', airdrop.type);
+        let isNew = false;
+        
+        if (airdrop.publishDate) {
+            const pubDate = airdrop.publishDate instanceof Date ? 
+                airdrop.publishDate : 
+                new Date(airdrop.publishDate);
+            const diffDays = (new Date() - pubDate) / (1000 * 60 * 60 * 24);
+            isNew = !isNaN(diffDays) && diffDays < 4;
+        }
+        
+        const publishDateFormatted = airdrop.publishDate ? 
+            new Intl.DateTimeFormat('es-ES', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            }).format(airdrop.publishDate) : '';
+        
+        let badgesHTML = '';
+        if (airdrop.badges && airdrop.badges.length) {
+            airdrop.badges.forEach(badge => {
+                let badgeClass = 'badge-primary';
+                let badgeText = '';
+                let badgeUrl = '';
+                if (typeof badge === 'string') {
+                    badgeText = badge;
+                    if (badge === 'Web' && airdrop.webUrl) {
+                        badgeUrl = airdrop.webUrl;
+                    } else if (badge === 'X' && airdrop.xUrl) {
+                        badgeUrl = airdrop.xUrl;
+                    } else if (badge === 'Docs' && airdrop.docsUrl) {
+                        badgeUrl = airdrop.docsUrl;
+                    } else {
+                        badgeUrl = '#';
                     }
-                    
-                    const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-                    const baseAirdrops = activeFilter === 'all' ? airdrops : airdrops.filter(a => a.type === activeFilter);
-                    
-                    // Filtrar por término de búsqueda
-                    const filteredAirdrops = baseAirdrops.filter(airdrop => 
-                        airdrop.title.toLowerCase().includes(searchTerm) || 
-                        airdrop.description.toLowerCase().includes(searchTerm) ||
-                        (airdrop.badges && airdrop.badges.some(b => b.toLowerCase().includes(searchTerm)))
-                    );
-                    
-                    // Renderizar resultados de búsqueda
-                    const grid = document.getElementById('airdrop-grid');
-                    grid.innerHTML = '';
-                    
-                    if (filteredAirdrops.length === 0) {
-                        grid.innerHTML = `
-                            <div class="empty-state" style="grid-column: 1 / -1;">
-                                <div class="empty-state-icon">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                                <h3>No se encontraron resultados</h3>
-                                <p>No hay airdrops que coincidan con tu búsqueda.</p>
-                                <button class="action-btn" onclick="renderAirdrops('${activeFilter}')">Ver todos los airdrops</button>
-                            </div>
-                        `;
-                        return;
-                    }
-                    
-                    // Renderizar cards filtrados
-                    filteredAirdrops.forEach(airdrop => {
-                        const card = document.createElement('div');
-                        card.className = 'airdrop-card';
-                        
-                        // Resto del código para crear cards...
-                        // (Código omitido para brevedad, es el mismo que en renderAirdrops)
-                        
-                        grid.appendChild(card);
-                    });
+                    if (badge.toLowerCase().includes('depin')) badgeClass = 'badge-info';
+                    if (badge.toLowerCase().includes('testnet')) badgeClass = 'badge-warning';
+                    if (badge.toLowerCase().includes('staking')) badgeClass = 'badge-success';
+                    if (badge.toLowerCase().includes('gaming')) badgeClass = 'badge-danger';
+                    if (badge.toLowerCase().includes('social')) badgeClass = 'badge-primary';
                 }
-            });
-            
-            // Configurar toggle de modo oscuro
-            document.querySelector('.theme-toggle').addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                const icon = this.querySelector('i');
-                const text = this.querySelector('span');
                 
-                if (document.body.classList.contains('dark-mode')) {
-                    icon.classList.remove('fa-moon');
-                    icon.classList.add('fa-sun');
-                    text.textContent = 'Modo Claro';
-                } else {
-                    icon.classList.remove('fa-sun');
-                    icon.classList.add('fa-moon');
-                    text.textContent = 'Modo Oscuro';
-                }
+                badgesHTML += `<a href="${badgeUrl}" class="badge ${badgeClass}" target="_blank">${badgeText}</a>`;
             });
+        }
+        
+        // Card content HTML
+        card.innerHTML = `
+            <div class="card-type">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</div>
+            ${isNew ? '<div class="new-badge">NEW</div>' : ''}
+            <div class="card-image" style="background-image: url('${airdrop.image}')"></div>
+            <div class="publish-date">Publicado: ${publishDateFormatted}</div>
+            <div class="card-content">
+                <h3 class="card-title">${airdrop.title}</h3>
+                <p class="card-description">${airdrop.description}</p>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <i class="fas fa-calendar-alt detail-icon"></i>
+                        <span>Available: ${airdrop.launchDate}</span>
+                    </div>
+                    ${airdrop.funds ? `
+                        <div class="detail-item">
+                            <i class="fas fa-coins detail-icon"></i>
+                            <span>Funding: ${airdrop.funds}</span>
+                        </div>
+                    ` : ''}
+                    ${airdrop.code ? `
+                        <div class="detail-item">
+                            <i class="fas fa-key detail-icon"></i>
+                            <span>Code: ${airdrop.code}</span>
+                        </div>
+                    ` : ''}
+                </div>
+                <div>
+                    ${badgesHTML}
+                </div>
+                <div class="card-actions">
+                    <div style="display: flex; gap: 0.5rem; flex: 1;">
+                        <a href="${airdrop.link || '#'}" class="action-btn" target="_blank" style="flex: 1; text-align: center;">Learn More</a>
+                        <button class="details-btn" data-id="${airdrop.id}" style="flex: 1; text-align: center;">See More</button>
+                    </div>
+                    <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
+                </div>
+            </div>
+        `;
+        
+        grid.appendChild(card);
+    });
+    
+    // Configure bookmark buttons
+    document.querySelectorAll('.bookmark-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.classList.toggle('saved');
+            const icon = this.querySelector('i');
+            icon.classList.toggle('far');
+            icon.classList.toggle('fas');
         });
-    // Configurar botones de detalles
-// Configurar botones de detalles
-// Configurar botones de detalles
-// Configurar botones de detalles
+    });
+}
+
+// Update event listener section in your DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Render initial airdrops
+    renderAirdrops('all', currentPage);
+    
+    // Configure filters
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            currentPage = 1;
+            // Remove active class from all buttons
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            // Clear search input
+            document.getElementById('search-input').value = '';
+            // Render filtered airdrops
+            renderAirdrops(this.getAttribute('data-filter'), currentPage);
+        });
+    });
+    
+    // Configure search with autocomplete
+    const searchInput = document.getElementById('search-input');
+    const autocompleteResults = document.getElementById('autocomplete-results');
+    
+    searchInput.addEventListener('input', function() {
+        searchAutocomplete(this.value);
+    });
+    
+    // Hide autocomplete when clicking outside
+    document.addEventListener('click', function(e) {
+        if (e.target !== searchInput && !autocompleteResults.contains(e.target)) {
+            autocompleteResults.style.display = 'none';
+        }
+    });
+    
+    // Search on Enter key press - We'll keep this for better UX
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            autocompleteResults.style.display = 'none';
+            // The search is already performed as you type, but we'll close the autocomplete dropdown
+        }
+    });
+    
+    // Add a clear button for search
+    const searchContainer = searchInput.parentElement;
+    if (!document.querySelector('.search-clear-btn')) {
+        const clearBtn = document.createElement('button');
+        clearBtn.className = 'search-clear-btn';
+        clearBtn.innerHTML = '<i class="fas fa-times"></i>';
+        clearBtn.style.position = 'absolute';
+        clearBtn.style.right = '10px';
+        clearBtn.style.top = '50%';
+        clearBtn.style.transform = 'translateY(-50%)';
+        clearBtn.style.background = 'none';
+        clearBtn.style.border = 'none';
+        clearBtn.style.display = 'none';
+        clearBtn.style.cursor = 'pointer';
+        clearBtn.style.color = 'var(--gray)';
+        
+        clearBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            this.style.display = 'none';
+            // Reset to the filtered view
+            renderAirdrops(document.querySelector('.filter-btn.active').getAttribute('data-filter'), 1);
+            autocompleteResults.style.display = 'none';
+        });
+        
+        searchContainer.appendChild(clearBtn);
+        
+        // Show/hide clear button as needed
+        searchInput.addEventListener('input', function() {
+            clearBtn.style.display = this.value ? 'block' : 'none';
+        });
+    }
+    
+    // Rest of your DOMContentLoaded code...
+});
+
 // Function to handle the details button click
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('details-btn') || e.target.closest('.details-btn')) {
