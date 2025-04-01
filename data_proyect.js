@@ -1,4 +1,26 @@
 const airdrops = [
+                {
+                id: 2,
+                title: "Gradient Network  ",
+               
+                description: "The Gradient Network project is similar to Grass, Nodepay and Dawn",
+                launchDate: "11 SEP, 2024",
+                image: "Imagen/gradient_network.png",
+                additionalImages:[
+                  " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/covers/gradient-network_cover_1740116504.webp",
+                  " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Gradient-Network-Investors.webp"
+                ],
+                type: "depin",
+                badges: ["Web", "X"],
+                info: "Complete the tasks to qualify for potential Gradient Network airdrops and rewards",
+                funds: "$0",
+                investors: [
+                  {name: " Multicoin Capital", url:"https://multicoin.capital/", logo: "https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/cache/3c/58/3c58e7002ed133ff3fd25c234b0e2f52.webp"},
+                  {name: "Pantera Capital", url: "https://panteracapital.com/ ", logo: " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/cache/13/28/1328238f459798f055c80f7a871fbbf8.webp"},
+                  {name: "HongShan (ex-Sequoia China)", url:"https://www.hsgcap.com/", logo:"https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/cache/68/a3/68a3d85a127e63c2aae68d76417c1a2b.webp"}
+                ],
+                link: " https://app.gradient.network/signup?code=SCCMOG"
+            },
                                       {
                 id: 25,
                 title: " Mage Labs",
@@ -432,19 +454,7 @@ const airdrops = [
                 funds: "$0",
                 link: "https://teko.finance/waitlist?ref_id=2TXNJSNXH"
             },
-                            {
-                id: 2,
-                title: "Gradient Network  ",
-               
-                description: "The Gradient Network project is similar to Grass, Nodepay and Dawn",
-                launchDate: "11 SEP, 2024",
-                image: "Imagen/gradient_network.png",
-                type: "depin",
-                badges: ["Web", "X"],
-                info: "Complete the tasks to qualify for potential Gradient Network airdrops and rewards",
-                funds: "$0",
-                link: " https://app.gradient.network/signup?code=SCCMOG"
-            },
+              
                            {
                 id: 3,
                 title: "Sparkchain",
