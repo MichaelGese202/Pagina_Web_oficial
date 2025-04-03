@@ -1,1 +1,1105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airdrops Network Pro - Explora los Mejores Airdrops</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Todos tus estilos CSS existentes permanecen igual */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border-radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        /* ... (todos los demás estilos permanecen igual) ... */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-parachute-box logo-icon"></i>
+                    <span>Airdrops Network Pro</span>
+                </div>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+                        <li><a href="#"><i class="fas fa-fire"></i> Trending</a></li>
+                        <li><a href="#"><i class="fas fa-bookmark"></i> Guardados</a></li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> Acerca de</a></li>
+                        <li class="theme-toggle">
+                            <i class="fas fa-moon"></i>
+                            <span>Modo Oscuro</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Buscar airdrops..." autocomplete="off">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+                <div class="autocomplete-results" id="autocomplete-results"></div>
+            </div>
+        </div>
+    </header>
 
+    <section class="trending-prices container" style="margin-top: 2rem; display: none;">
+        <div class="filter-section">
+            <div class="filter-title">
+                <i class="fas fa-chart-line"></i>
+                <span>Trending Cryptocurrencies</span>
+            </div>
+            <div class="crypto-prices-container" id="crypto-prices-container">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i> Loading cryptocurrency prices...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero container">
+        <h1>Discover the Best Crypto Airdrops</h1>
+        <p>Explore a curated selection of the most promising airdrops in the crypto and blockchain ecosystem. Find opportunities in testnets, staking, gaming, and more.</p>
+    </section>
+    
+    <main class="container">
+        <section class="filter-section">
+            <div class="filter-title">
+                <i class="fas fa-filter"></i>
+                <span>Filtrar por Categoría</span>
+            </div>
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="social">Social</button>
+                <button class="filter-btn" data-filter="depin">DePIN</button>
+                <button class="filter-btn" data-filter="testnet">Testnet</button>
+                <button class="filter-btn" data-filter="node">Node</button>
+                <button class="filter-btn" data-filter="gaming">Gaming</button>
+                <button class="filter-btn" data-filter="staking">Staking</button>
+            </div>
+        </section>
+        
+        <div class="airdrop-grid" id="airdrop-grid">
+            <!-- Los cards se generarán dinámicamente con JavaScript -->
+        </div>
+    </main>
+    
+    <footer>
+        <!-- Tu footer existente permanece igual -->
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; flex-direction: column;">
+        <div style="position: absolute; top: 20px; right: 20px;">
+            <button id="close-lightbox" style="background: none; border: none; color: white; font-size: 2rem; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div style="max-width: 90%; max-height: 80%;">
+            <img id="lightbox-image" src="" alt="Lightbox image" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
+        </div>
+        <div id="lightbox-nav" style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+            <button id="prev-image" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                <i class="fas fa-chevron-left"></i> Previous
+            </button>
+            <div id="image-counter" style="color: white; display: flex; align-items: center;"></div>
+            <button id="next-image" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                Next <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="investors.js"></script>
+    <script src="data_proyect.js"></script>
+    <script>
+    // Variables globales para la paginación
+    let currentPage = 1;
+    const itemsPerPage = 12;
+
+    // Función para renderizar airdrops con ordenamiento automático por fecha
+    function renderAirdrops(filterType = 'all', page = 1) {
+        const grid = document.getElementById('airdrop-grid');
+        grid.innerHTML = '';
+        
+        // Eliminar paginación anterior si existe
+        const oldPagination = document.querySelector('.pagination');
+        if (oldPagination) {
+            oldPagination.remove();
+        }
+        
+        // Obtener airdrops ordenados por fecha (más recientes primero)
+        const sortedAirdrops = getSortedAirdrops();
+        
+        const filteredAirdrops = filterType === 'all' 
+            ? sortedAirdrops 
+            : sortedAirdrops.filter(airdrop => airdrop.type === filterType);
+        
+        // Calcular índices para la paginación
+        const totalPages = Math.ceil(filteredAirdrops.length / itemsPerPage);
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, filteredAirdrops.length);
+        const paginatedAirdrops = filteredAirdrops.slice(startIndex, endIndex);
+        
+        if (paginatedAirdrops.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>No se encontraron airdrops</h3>
+                    <p>There are no airdrops available in this category. Please try another category.</p>
+                    <button class="action-btn" onclick="renderAirdrops('all')">Ver todos los airdrops</button>
+                </div>
+            `;
+            return;
+        }
+        
+        paginatedAirdrops.forEach(airdrop => {
+            const card = document.createElement('div');
+            card.className = 'airdrop-card';
+            card.setAttribute('data-type', airdrop.type);
+            let isNew = false;
+            
+            if (airdrop.publishDate) {
+                const pubDate = airdrop.publishDate instanceof Date ? 
+                    airdrop.publishDate : 
+                    new Date(airdrop.publishDate);
+                const diffDays = (new Date() - pubDate) / (1000 * 60 * 60 * 24);
+                isNew = !isNaN(diffDays) && diffDays < 4;
+            }
+            
+            const publishDateFormatted = airdrop.publishDate ? 
+                new Intl.DateTimeFormat('es-ES', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }).format(airdrop.publishDate) : '';
+            
+            let badgesHTML = '';
+            if (airdrop.badges && airdrop.badges.length) {
+                airdrop.badges.forEach(badge => {
+                    let badgeClass = 'badge-primary';
+                    let badgeText = '';
+                    let badgeUrl = '';
+                    if (typeof badge === 'string') {
+                        badgeText = badge;
+                        if (badge === 'Web' && airdrop.webUrl) {
+                            badgeUrl = airdrop.webUrl;
+                        } else if (badge === 'X' && airdrop.xUrl) {
+                            badgeUrl = airdrop.xUrl;
+                        } else if (badge === 'Docs' && airdrop.docsUrl) {
+                            badgeUrl = airdrop.docsUrl;
+                        } else {
+                            badgeUrl = '#';
+                        }
+                        if (badge.toLowerCase().includes('depin')) badgeClass = 'badge-info';
+                        if (badge.toLowerCase().includes('testnet')) badgeClass = 'badge-warning';
+                        if (badge.toLowerCase().includes('staking')) badgeClass = 'badge-success';
+                        if (badge.toLowerCase().includes('gaming')) badgeClass = 'badge-danger';
+                        if (badge.toLowerCase().includes('social')) badgeClass = 'badge-primary';
+                    }
+                    
+                    badgesHTML += `<a href="${badgeUrl}" class="badge ${badgeClass}" target="_blank">${badgeText}</a>`;
+                });
+            }
+            
+            // Card content HTML
+            card.innerHTML = `
+                <div class="card-type">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</div>
+                ${isNew ? '<div class="new-badge">NEW</div>' : ''}
+                <div class="card-image" style="background-image: url('${airdrop.image}')"></div>
+                <div class="publish-date">Publicado: ${publishDateFormatted}</div>
+                <div class="card-content">
+                    <h3 class="card-title">${airdrop.title}</h3>
+                    <p class="card-description">${airdrop.description}</p>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt detail-icon"></i>
+                            <span>Available: ${airdrop.launchDate}</span>
+                        </div>
+                        ${airdrop.funds ? `
+                            <div class="detail-item">
+                                <i class="fas fa-coins detail-icon"></i>
+                                <span>Funding: ${airdrop.funds}</span>
+                            </div>
+                        ` : ''}
+                        ${airdrop.code ? `
+                            <div class="detail-item">
+                                <i class="fas fa-key detail-icon"></i>
+                                <span>Code: ${airdrop.code}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div>
+                        ${badgesHTML}
+                    </div>
+                    <div class="card-actions">
+                        <div style="display: flex; gap: 0.5rem; flex: 1;">
+                            <a href="${airdrop.link || '#'}" class="action-btn" target="_blank" style="flex: 1; text-align: center;">Learn More</a>
+                            <button class="details-btn" data-id="${airdrop.id}" style="flex: 1; text-align: center;">See More</button>
+                        </div>
+                        <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
+                    </div>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        });
+        
+        // Configurar botones de favoritos
+        document.querySelectorAll('.bookmark-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('saved');
+                const icon = this.querySelector('i');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+            });
+        });
+        
+        // Renderizar controles de paginación
+        if (filteredAirdrops.length > itemsPerPage) {
+            const paginationContainer = document.createElement('div');
+            paginationContainer.className = 'pagination';
+            
+            // Botón Anterior
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn';
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevBtn.disabled = page === 1;
+            if (page > 1) {
+                prevBtn.addEventListener('click', () => renderAirdrops(filterType, page - 1));
+            }
+            
+            // Botones de página
+            const pageButtons = document.createElement('div');
+            pageButtons.style.display = 'flex';
+            pageButtons.style.gap = '0.5rem';
+            
+            // Mostrar máximo 5 páginas alrededor de la actual
+            const startPage = Math.max(1, page - 2);
+            const endPage = Math.min(totalPages, page + 2);
+            
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `pagination-btn ${i === page ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', () => renderAirdrops(filterType, i));
+                pageButtons.appendChild(pageBtn);
+            }
+            
+            // Botón Siguiente
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn';
+            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextBtn.disabled = page === totalPages;
+            if (page < totalPages) {
+                nextBtn.addEventListener('click', () => renderAirdrops(filterType, page + 1));
+            }
+            
+            paginationContainer.appendChild(prevBtn);
+            paginationContainer.appendChild(pageButtons);
+            paginationContainer.appendChild(nextBtn);
+            
+            grid.parentNode.insertBefore(paginationContainer, grid.nextSibling);
+        }
+    }
+
+    // Función para buscar sugerencias de autocompletado
+    function searchAutocomplete(query) {
+        const resultsContainer = document.getElementById('autocomplete-results');
+        resultsContainer.innerHTML = '';
+        
+        const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+        
+        if (!query || query.length < 1) {
+            resultsContainer.style.display = 'none';
+            renderAirdrops(activeFilter, 1);
+            return;
+        }
+        
+        const lowerQuery = query.toLowerCase();
+        const baseAirdrops = activeFilter === 'all' ? getSortedAirdrops() : getSortedAirdrops().filter(a => a.type === activeFilter);
+        
+        const matchedAirdrops = baseAirdrops.filter(airdrop => 
+            airdrop.title.toLowerCase().includes(lowerQuery) || 
+            airdrop.description.toLowerCase().includes(lowerQuery) ||
+            (airdrop.badges && airdrop.badges.some(badge => 
+                typeof badge === 'string' && badge.toLowerCase().includes(lowerQuery)
+            ))
+        );
+        
+        const autocompleteResults = matchedAirdrops.slice(0, 5);
+        
+        if (autocompleteResults.length === 0) {
+            resultsContainer.innerHTML = '<div class="autocomplete-item">No se encontraron resultados</div>';
+        } else {
+            autocompleteResults.forEach(airdrop => {
+                const item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                item.innerHTML = `
+                    <div class="item-image" style="background-image: url('${airdrop.image}')"></div>
+                    <div class="item-title">${airdrop.title}</div>
+                    <div class="item-type">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</div>
+                `;
+                
+                item.addEventListener('click', () => {
+                    document.getElementById('search-input').value = airdrop.title;
+                    resultsContainer.style.display = 'none';
+                    renderFilteredResults([airdrop]);
+                });
+                
+                resultsContainer.appendChild(item);
+            });
+        }
+        
+        resultsContainer.style.display = autocompleteResults.length ? 'block' : 'none';
+        renderFilteredResults(matchedAirdrops);
+    }
+
+    // Función para renderizar resultados filtrados
+    function renderFilteredResults(filteredAirdrops) {
+        const grid = document.getElementById('airdrop-grid');
+        grid.innerHTML = '';
+        
+        const oldPagination = document.querySelector('.pagination');
+        if (oldPagination) {
+            oldPagination.remove();
+        }
+        
+        if (filteredAirdrops.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>No se encontraron resultados</h3>
+                    <p>No hay airdrops que coincidan con tu búsqueda.</p>
+                    <button class="action-btn" onclick="renderAirdrops(document.querySelector('.filter-btn.active').getAttribute('data-filter'))">Ver todos los airdrops</button>
+                </div>
+            `;
+            return;
+        }
+        
+        filteredAirdrops.forEach(airdrop => {
+            const card = document.createElement('div');
+            card.className = 'airdrop-card';
+            card.setAttribute('data-type', airdrop.type);
+            let isNew = false;
+            
+            if (airdrop.publishDate) {
+                const pubDate = airdrop.publishDate instanceof Date ? 
+                    airdrop.publishDate : 
+                    new Date(airdrop.publishDate);
+                const diffDays = (new Date() - pubDate) / (1000 * 60 * 60 * 24);
+                isNew = !isNaN(diffDays) && diffDays < 4;
+            }
+            
+            const publishDateFormatted = airdrop.publishDate ? 
+                new Intl.DateTimeFormat('es-ES', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }).format(airdrop.publishDate) : '';
+            
+            let badgesHTML = '';
+            if (airdrop.badges && airdrop.badges.length) {
+                airdrop.badges.forEach(badge => {
+                    let badgeClass = 'badge-primary';
+                    let badgeText = '';
+                    let badgeUrl = '';
+                    if (typeof badge === 'string') {
+                        badgeText = badge;
+                        if (badge === 'Web' && airdrop.webUrl) {
+                            badgeUrl = airdrop.webUrl;
+                        } else if (badge === 'X' && airdrop.xUrl) {
+                            badgeUrl = airdrop.xUrl;
+                        } else if (badge === 'Docs' && airdrop.docsUrl) {
+                            badgeUrl = airdrop.docsUrl;
+                        } else {
+                            badgeUrl = '#';
+                        }
+                        if (badge.toLowerCase().includes('depin')) badgeClass = 'badge-info';
+                        if (badge.toLowerCase().includes('testnet')) badgeClass = 'badge-warning';
+                        if (badge.toLowerCase().includes('staking')) badgeClass = 'badge-success';
+                        if (badge.toLowerCase().includes('gaming')) badgeClass = 'badge-danger';
+                        if (badge.toLowerCase().includes('social')) badgeClass = 'badge-primary';
+                    }
+                    
+                    badgesHTML += `<a href="${badgeUrl}" class="badge ${badgeClass}" target="_blank">${badgeText}</a>`;
+                });
+            }
+            
+            card.innerHTML = `
+                <div class="card-type">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</div>
+                ${isNew ? '<div class="new-badge">NEW</div>' : ''}
+                <div class="card-image" style="background-image: url('${airdrop.image}')"></div>
+                <div class="publish-date">Publicado: ${publishDateFormatted}</div>
+                <div class="card-content">
+                    <h3 class="card-title">${airdrop.title}</h3>
+                    <p class="card-description">${airdrop.description}</p>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt detail-icon"></i>
+                            <span>Available: ${airdrop.launchDate}</span>
+                        </div>
+                        ${airdrop.funds ? `
+                            <div class="detail-item">
+                                <i class="fas fa-coins detail-icon"></i>
+                                <span>Funding: ${airdrop.funds}</span>
+                            </div>
+                        ` : ''}
+                        ${airdrop.code ? `
+                            <div class="detail-item">
+                                <i class="fas fa-key detail-icon"></i>
+                                <span>Code: ${airdrop.code}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div>
+                        ${badgesHTML}
+                    </div>
+                    <div class="card-actions">
+                        <div style="display: flex; gap: 0.5rem; flex: 1;">
+                            <a href="${airdrop.link || '#'}" class="action-btn" target="_blank" style="flex: 1; text-align: center;">Learn More</a>
+                            <button class="details-btn" data-id="${airdrop.id}" style="flex: 1; text-align: center;">See More</button>
+                        </div>
+                        <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
+                    </div>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        });
+        
+        document.querySelectorAll('.bookmark-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('saved');
+                const icon = this.querySelector('i');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+            });
+        });
+    }
+
+    // Función para manejar el botón de detalles
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('details-btn') || e.target.closest('.details-btn')) {
+            const button = e.target.classList.contains('details-btn') ? e.target : e.target.closest('.details-btn');
+            const airdropId = button.getAttribute('data-id');
+            const airdrop = getAirdropById(airdropId);
+            
+            if (!airdrop) return;
+            const projectSlug = airdrop.title.toLowerCase().replace(/\s+/g, '-');
+            const newUrl = `${window.location.pathname}?project=${projectSlug}-${airdropId}`;
+            window.history.pushState({ id: airdropId }, '', newUrl);
+            
+            // Crear modal de detalles
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'white';
+            modal.style.zIndex = '1000';
+            modal.style.overflow = 'auto';
+            
+            // Obtener badges HTML
+            let badgesHTML = '';
+            if (airdrop.badges && airdrop.badges.length) {
+                airdrop.badges.forEach(badge => {
+                    let badgeClass = 'badge-primary';
+                    let badgeText = '';
+                    let badgeUrl = '';
+                    if (typeof badge === 'string') {
+                        badgeText = badge;
+                        if (badge === 'Web' && airdrop.webUrl) {
+                            badgeUrl = airdrop.webUrl;
+                        } else if (badge === 'X' && airdrop.xUrl) {
+                            badgeUrl = airdrop.xUrl;
+                        } else if (badge === 'Docs' && airdrop.docsUrl) {
+                            badgeUrl = airdrop.docsUrl;
+                        } else {
+                            badgeUrl = '#';
+                        }
+                        if (badge.toLowerCase().includes('depin')) badgeClass = 'badge-info';
+                        if (badge.toLowerCase().includes('testnet')) badgeClass = 'badge-warning';
+                        if (badge.toLowerCase().includes('staking')) badgeClass = 'badge-success';
+                        if (badge.toLowerCase().includes('gaming')) badgeClass = 'badge-danger';
+                        if (badge.toLowerCase().includes('social')) badgeClass = 'badge-primary';
+                    }
+                    
+                    badgesHTML += `<a href="${badgeUrl}" class="badge ${badgeClass}" target="_blank">${badgeText}</a>`;
+                });
+            }
+            
+            // Generar HTML de los pasos de participación
+            let participationStepsHTML = '';
+            if (airdrop.participationSteps && airdrop.participationSteps.length) {
+                participationStepsHTML = `
+                    <div style="padding-left: 0;">
+                        ${airdrop.participationSteps.map((step, index) => {
+                            const iconHTML = `
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--primary); display: flex; align-items: center; justify-content: center; color: white; margin-right: 1rem;">
+                                    <i class="fas ${step.icon}"></i>
+                                </div>
+                            `;
+                            
+                            if (step.image) {
+                                return `
+                                    <div style="margin-bottom: 1.5rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
+                                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                            ${iconHTML}
+                                            <span style="font-size: 1.2rem; font-weight: 600;">${step.step}</span>
+                                        </div>
+                                        <div style="text-align: center; margin-top: 1rem;">
+                                            <img src="${step.image}" alt="${step.step}" style="max-width: 100%; max-height: 250px; border-radius: var(--border-radius); box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                                        </div>
+                                    </div>
+                                `;
+                            } else {
+                                return `
+                                    <div style="display: flex; align-items: center; margin-bottom: 1rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
+                                        ${iconHTML}
+                                        <span style="font-size: 1.1rem;">${step.step}</span>
+                                    </div>
+                                `;
+                            }
+                        }).join('')}
+                    </div>
+                `;
+            } else {
+                participationStepsHTML = `
+                    <div style="padding: 1.5rem; background-color: #f8fafc; border-radius: var(--border-radius); margin-bottom: 2rem;">
+                        <p style="font-size: 1.1rem; line-height: 1.7;">${airdrop.info || 'Visit the official website and follow the instructions to participate in this airdrop. Make sure to complete all required tasks to qualify for potential rewards.'}</p>
+                    </div>
+                `;
+            }
+            
+            // Obtener inversores usando la función de investors.js
+            const investorsHTML = airdrop.investorNames && airdrop.investorNames.length > 0 ? `
+                <div style="margin-top: 2rem; border-top: 1px solid #f1f5f9; padding-top: 1.5rem;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; text-align: left;">Investors</h3>
+                    <div class="investors-container" style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                        ${getInvestorsByNames(airdrop.investorNames).map(investor => `
+                            <a href="${investor.url || '#'}" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: #f8fafc; border-radius: var(--border-radius); text-decoration: none; color: var(--dark); transition: all 0.3s;">
+                                ${investor.logo ? `<img src="${investor.logo}" alt="${investor.name}" style="width: 24px; height: 24px; border-radius: 50%;">` : '<i class="fas fa-building"></i>'}
+                                <span style="font-weight: 700;">${investor.name}</span>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : '';
+            
+            // Contenido del modal
+            modal.innerHTML = `
+                <div style="position: sticky; top: 0; z-index: 100; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <button class="back-button" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center;">
+                            <i class="fas fa-arrow-left"></i>
+                            <span style="margin-left: 0.5rem;">Back</span>
+                        </button>
+                    </div>
+                    <h2 style="font-size: 1.5rem; margin: 0;">${airdrop.title}</h2>
+                    <button style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;" class="close-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div>
+                            <div style="background-color: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); text-align: center;">
+                                <div style="width: 180px; height: 180px; border-radius: 50%; background-image: url('${airdrop.image}'); background-size: cover; background-position: center; border: 4px solid var(--primary); margin: 0 auto 1.5rem;"></div>
+                                <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">${airdrop.title}</h1>
+                                <div style="margin: 1rem 0;">
+                                    <span class="badge badge-${getTypeClass(airdrop.type)}" style="font-size: 1rem; padding: 0.5rem 1rem;">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</span>
+                                </div>
+                                <div style="margin: 1.5rem 0;">
+                                    ${badgesHTML}
+                                </div>
+                                <div style="margin-top: 2rem;">
+                                    <a href="${airdrop.link || '#'}" class="action-btn" target="_blank" style="display: block; width: 100%; padding: 0.8rem; font-size: 1.1rem; margin-bottom: 1rem;">
+                                        <i class="fas fa-external-link-alt"></i> Join Airdrop
+                                    </a>
+                                    <button class="bookmark-btn" style="width: 100%; padding: 0.8rem; font-size: 1.1rem; background: transparent; border: 2px solid var(--primary); color: var(--primary); border-radius: var(--border-radius); cursor: pointer; transition: all 0.3s; font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
+                                        <i class="far fa-bookmark"></i> Add to Watchlist
+                                    </button>
+                                    
+                                    ${investorsHTML}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="background-color: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); margin-bottom: 2rem;">
+                                <h2 style="font-size: 1.8rem; margin-bottom: 1rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem;">About ${airdrop.title}</h2>
+                                <p style="margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.7;">${airdrop.description}</p>
+                                <p style="margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.7;">${airdrop.info}</p>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background-color: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div>
+                                            <span style="display: block; color: var(--gray); font-size: 0.9rem;">Launch Date</span>
+                                            <strong style="font-size: 1.1rem;">${airdrop.launchDate}</strong>
+                                        </div>
+                                    </div>
+                                    
+                                    ${airdrop.funds ? `
+                                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background-color: var(--success); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                                            <i class="fas fa-coins"></i>
+                                        </div>
+                                        <div>
+                                            <span style="display: block; color: var(--gray); font-size: 0.9rem;">Funding</span>
+                                            <strong style="font-size: 1.1rem;">${airdrop.funds}</strong>
+                                        </div>
+                                    </div>
+                                    ` : ''}
+                                    
+                                    ${airdrop.status ? `
+                                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background-color: ${getStatusColor(airdrop.status)}; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                                            ${getStatusIcon(airdrop.status).replace('style="color: var', 'style="color: white')}
+                                        </div>
+                                        <div>
+                                            <span style="display: block; color: var(--gray); font-size: 0.9rem;">Status</span>
+                                            <strong style="font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                                ${getStatusIcon(airdrop.status)} ${airdrop.status}
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    ` : ''}
+                                    
+                                    ${airdrop.code ? `
+                                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background-color: var(--secondary); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                                            <i class="fas fa-key"></i>
+                                        </div>
+                                        <div>
+                                            <span style="display: block; color: var(--gray); font-size: 0.9rem;">Referral Code</span>
+                                            <strong style="font-size: 1.1rem;">${airdrop.code}</strong>
+                                        </div>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            
+                            <div style="background-color: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+                                <h2 style="font-size: 1.8rem; margin-bottom: 1rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem;">How to Participate</h2>
+                                
+                                ${participationStepsHTML}
+                                
+                                <h3 style="font-size: 1.3rem; margin: 1.5rem 0 1rem;">Quick Links</h3>
+                                <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                                    <a href="${airdrop.link || '#'}" class="action-btn" target="_blank" style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-external-link-alt"></i> Official Website
+                                    </a>
+                                    
+                                    ${airdrop.xUrl ? `
+                                    <a href="${airdrop.xUrl}" class="details-btn" target="_blank" style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fab fa-twitter"></i> X (Twitter)
+                                    </a>
+                                    ` : ''}
+                                    
+                                    ${airdrop.docsUrl ? `
+                                    <a href="${airdrop.docsUrl}" class="details-btn" target="_blank" style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-book"></i> Documentation
+                                    </a>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); margin-bottom: 2rem;">
+                        <h2 style="font-size: 1.8rem; margin-bottom: 1rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem;">Community & Social</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                            ${airdrop.xUrl ? `
+                            <a href="${airdrop.xUrl}" target="_blank" style="display: flex; flex-direction: column; align-items: center; padding: 1.5rem; background-color: #f8fafc; border-radius: var(--border-radius); text-decoration: none; color: var(--dark); transition: transform 0.3s, box-shadow 0.3s;">
+                                <i class="fab fa-twitter" style="font-size: 2.5rem; color: #1DA1F2; margin-bottom: 1rem;"></i>
+                                <span>X (Twitter)</span>
+                            </a>
+                            ` : ''}
+                            
+                            <a href="https://t.me/airdropsnetworkpro" target="_blank" style="display: flex; flex-direction: column; align-items: center; padding: 1.5rem; background-color: #f8fafc; border-radius: var(--border-radius); text-decoration: none; color: var(--dark); transition: transform 0.3s, box-shadow 0.3s;">
+                                <i class="fab fa-telegram" style="font-size: 2.5rem; color: #0088cc; margin-bottom: 1rem;"></i>
+                                <span>Telegram</span>
+                            </a>
+                            
+                            <a href="#" style="display: flex; flex-direction: column; align-items: center; padding: 1.5rem; background-color: #f8fafc; border-radius: var(--border-radius); text-decoration: none; color: var(--dark); transition: transform 0.3s, box-shadow 0.3s;">
+                                <i class="fab fa-discord" style="font-size: 2.5rem; color: #5865F2; margin-bottom: 1rem;"></i>
+                                <span>Discord</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <a href="${airdrop.link || '#'}" class="action-btn" target="_blank" style="padding: 1rem 3rem; font-size: 1.2rem;">
+                            Join ${airdrop.title} Airdrop Now
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Configurar eventos del modal
+            modal.querySelector('.close-modal').addEventListener('click', function() {
+                document.body.removeChild(modal);
+                window.history.pushState({}, '', window.location.pathname);
+            });
+            
+            modal.querySelector('.back-button').addEventListener('click', function() {
+                document.body.removeChild(modal);
+                window.history.pushState({}, '', window.location.pathname);
+            });
+            
+            modal.querySelector('.bookmark-btn').addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.innerHTML = '<i class="fas fa-bookmark"></i> Added to Watchlist';
+                    this.style.backgroundColor = 'var(--primary)';
+                    this.style.color = 'white';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.innerHTML = '<i class="far fa-bookmark"></i> Add to Watchlist';
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = 'var(--primary)';
+                }
+            });
+        }
+    });
+
+    // Funciones auxiliares
+    function getStatusIcon(status) {
+        switch(status) {
+            case 'Confirmed': return '<i class="fas fa-check-circle" style="color: var(--success);"></i>';
+            case 'Potential': return '<i class="fas fa-question-circle" style="color: var(--warning);"></i>';
+            case 'Distributed': return '<i class="fas fa-parachute-box" style="color: var(--primary);"></i>';
+            case 'Verification': return '<i class="fas fa-clipboard-check" style="color: var(--info);"></i>';
+            default: return '<i class="fas fa-info-circle" style="color: var(--gray);"></i>';
+        }
+    }
+
+    function getStatusColor(status) {
+        switch(status) {
+            case 'Confirmed': return 'var(--success)';
+            case 'Potential': return 'var(--warning)';
+            case 'Distributed': return 'var(--primary)';
+            case 'Verification': return 'var(--info)';
+            default: return 'var(--gray)';
+        }
+    }
+
+    function getTypeClass(type) {
+        switch(type.toLowerCase()) {
+            case 'depin': return 'info';
+            case 'testnet': return 'warning';
+            case 'staking': return 'success';
+            case 'gaming': return 'danger';
+            case 'social': return 'primary';
+            default: return 'secondary';
+        }
+    }
+
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+        // Render inicial
+        renderAirdrops();
+        
+        // Configurar filtros
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentPage = 1;
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('search-input').value = '';
+                renderAirdrops(this.getAttribute('data-filter'), currentPage);
+            });
+        });
+        
+        // Configurar búsqueda
+        const searchInput = document.getElementById('search-input');
+        const autocompleteResults = document.getElementById('autocomplete-results');
+        
+        searchInput.addEventListener('input', function() {
+            searchAutocomplete(this.value);
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (e.target !== searchInput && !autocompleteResults.contains(e.target)) {
+                autocompleteResults.style.display = 'none';
+            }
+        });
+        
+        // Configurar botón de limpiar búsqueda
+        const searchContainer = searchInput.parentElement;
+        if (!document.querySelector('.search-clear-btn')) {
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'search-clear-btn';
+            clearBtn.innerHTML = '<i class="fas fa-times"></i>';
+            clearBtn.style.display = 'none';
+            
+            clearBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                this.style.display = 'none';
+                renderAirdrops(document.querySelector('.filter-btn.active').getAttribute('data-filter'), 1);
+                autocompleteResults.style.display = 'none';
+            });
+            
+            searchContainer.appendChild(clearBtn);
+            
+            searchInput.addEventListener('input', function() {
+                clearBtn.style.display = this.value ? 'block' : 'none';
+            });
+        }
+        
+        // Manejar parámetros de URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectParam = urlParams.get('project');
+        if (projectParam) {
+            const projectId = projectParam.split('-').pop();
+            const airdrop = getAirdropById(projectId);
+            
+            if (airdrop) {
+                setTimeout(() => {
+                    const detailsBtn = document.querySelector(`.details-btn[data-id="${projectId}"]`);
+                    if (detailsBtn) detailsBtn.click();
+                }, 100);
+            }
+        }
+        
+        // Configurar navegación
+        const navLinks = document.querySelectorAll('nav ul li a');
+        const trendingSection = document.querySelector('.trending-prices');
+        
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (this.innerHTML.includes('fa-fire') && this.innerHTML.includes('Trending')) {
+                    document.querySelector('.hero').style.display = 'none';
+                    document.querySelector('main.container').style.display = 'none';
+                    trendingSection.style.display = 'block';
+                    fetchCryptoPrices(true);
+                }
+                
+                if (this.innerHTML.includes('fa-home') && this.innerHTML.includes('Inicio')) {
+                    document.querySelector('.hero').style.display = 'block';
+                    document.querySelector('main.container').style.display = 'block';
+                    trendingSection.style.display = 'none';
+                }
+            });
+        });
+        
+        // Actualizar precios periódicamente
+        setInterval(function() {
+            if (trendingSection.style.display !== 'none') {
+                fetchCryptoPrices(false);
+            }
+        }, 30000);
+    });
+
+    // Lightbox functionality
+    let currentImageIndex = 0;
+    let allImages = [];
+
+    function openLightbox(mainImage, additionalImages = []) {
+        allImages = [mainImage, ...(additionalImages || [])].filter(img => img);
+        currentImageIndex = 0;
+        
+        const modal = document.getElementById('lightbox-modal');
+        modal.style.display = 'flex';
+        updateLightboxImage();
+        document.body.style.overflow = 'hidden';
+    }
+
+    function updateLightboxImage() {
+        const img = document.getElementById('lightbox-image');
+        img.src = allImages[currentImageIndex];
+        
+        document.getElementById('image-counter').textContent = `${currentImageIndex + 1} / ${allImages.length}`;
+        document.getElementById('prev-image').style.visibility = currentImageIndex > 0 ? 'visible' : 'hidden';
+        document.getElementById('next-image').style.visibility = currentImageIndex < allImages.length - 1 ? 'visible' : 'hidden';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Configurar eventos del lightbox
+    document.getElementById('close-lightbox').addEventListener('click', closeLightbox);
+    
+    document.getElementById('prev-image').addEventListener('click', function() {
+        if (currentImageIndex > 0) {
+            currentImageIndex--;
+            updateLightboxImage();
+        }
+    });
+    
+    document.getElementById('next-image').addEventListener('click', function() {
+        if (currentImageIndex < allImages.length - 1) {
+            currentImageIndex++;
+            updateLightboxImage();
+        }
+    });
+    
+    document.getElementById('lightbox-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeLightbox();
+        }
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        if (document.getElementById('lightbox-modal').style.display === 'flex') {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft' && currentImageIndex > 0) {
+                currentImageIndex--;
+                updateLightboxImage();
+            } else if (e.key === 'ArrowRight' && currentImageIndex < allImages.length - 1) {
+                currentImageIndex++;
+                updateLightboxImage();
+            }
+        }
+    });
+
+    // Función para obtener precios de criptomonedas
+    async function fetchCryptoPrices(showLoadingIndicator = true) {
+        const container = document.getElementById('crypto-prices-container');
+        
+        if (showLoadingIndicator) {
+            container.innerHTML = `
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i> Loading cryptocurrency prices...
+                </div>
+            `;
+        }
+        
+        try {
+            const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h');
+            const data = await response.json();
+            
+            container.innerHTML = '';
+            
+            const priceGrid = document.createElement('div');
+            priceGrid.className = 'crypto-price-grid';
+            priceGrid.style.display = 'grid';
+            priceGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(250px, 1fr))';
+            priceGrid.style.gap = '1rem';
+            
+            data.forEach(crypto => {
+                const priceChange = crypto.price_change_percentage_24h;
+                const isPositive = priceChange > 0;
+                
+                const card = document.createElement('div');
+                card.className = 'crypto-price-card';
+                card.style.backgroundColor = 'white';
+                card.style.borderRadius = 'var(--border-radius)';
+                card.style.padding = '1rem';
+                card.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)';
+                card.style.display = 'flex';
+                card.style.alignItems = 'center';
+                card.style.transition = 'transform 0.3s';
+                
+                card.innerHTML = `
+                    <img src="${crypto.image}" alt="${crypto.name}" style="width: 40px; height: 40px; margin-right: 1rem;">
+                    <div style="flex: 1;">
+                        <div style="font-weight: bold;">${crypto.name} (${crypto.symbol.toUpperCase()})</div>
+                        <div style="font-size: 1.2rem; font-weight: 600;">$${crypto.current_price.toLocaleString()}</div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                        <div style="font-size: 0.9rem; color: ${isPositive ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">
+                            ${isPositive ? '▲' : '▼'} ${Math.abs(priceChange).toFixed(2)}%
+                        </div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">24h</div>
+                    </div>
+                `;
+                
+                card.addEventListener('mouseover', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 15px rgba(0, 0, 0, 0.1)';
+                });
+                
+                card.addEventListener('mouseout', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)';
+                });
+                
+                priceGrid.appendChild(card);
+            });
+            
+            container.appendChild(priceGrid);
+            
+            const refreshButton = document.createElement('button');
+            refreshButton.className = 'action-btn';
+            refreshButton.style.marginTop = '1rem';
+            refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Prices';
+            refreshButton.style.display = 'block';
+            refreshButton.style.margin = '1rem auto 0';
+            
+            refreshButton.addEventListener('click', function() {
+                this.disabled = true;
+                this.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Updating...';
+                
+                fetchCryptoPrices(false).then(() => {
+                    this.disabled = false;
+                    this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Prices';
+                });
+            });
+            
+            container.appendChild(refreshButton);
+            
+            const timestamp = document.createElement('div');
+            timestamp.style.textAlign = 'center';
+            timestamp.style.marginTop = '0.5rem';
+            timestamp.style.fontSize = '0.9rem';
+            timestamp.style.color = 'var(--gray)';
+            timestamp.innerHTML = `Last updated: ${new Date().toLocaleTimeString()}`;
+            
+            container.appendChild(timestamp);
+            
+            return true;
+        } catch (error) {
+            console.error('Error fetching crypto prices:', error);
+            container.innerHTML = `
+                <div style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: var(--warning); margin-bottom: 1rem;"></i>
+                    <p>Failed to load cryptocurrency prices. Please try again later.</p>
+                    <button class="action-btn" onclick="fetchCryptoPrices()" style="margin-top: 1rem;">
+                        <i class="fas fa-sync-alt"></i> Try Again
+                    </button>
+                </div>
+            `;
+            return false;
+        }
+    }
+    </script>
+</body>
+</html>
