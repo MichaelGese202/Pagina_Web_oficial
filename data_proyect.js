@@ -501,6 +501,8 @@ const airdrops = [
                 funds:"$ 0",
                 code: "9VfoH6D0",
                 link: "https://dashboard.layeredge.io/",
+                investorNames: ["Founderheads","BreakOrbit","Normie Capital","Blockchain Founders Fund ","Paul Taylor"],
+               
                 
             },
 
