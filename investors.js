@@ -40,5 +40,5 @@ function getInvestorsByNames(names) {
             name: name,
             ...getInvestorByName(name)
         };
-    }).filter(inv => inv.url); // Filtramos los que no se encontraron
+    }).filter(inv => inv.url);
 }
