@@ -37,19 +37,20 @@ const investors = {
 function getInvestorsByNames(names) {
     if (!names || !Array.isArray(names)) return [];
     
-    return investorsData.filter(investor => 
-        names.some(name => 
-            investor.name.toLowerCase().includes(name.toLowerCase()) ||
-            name.toLowerCase().includes(investor.name.toLowerCase())
+    return investorsData
+        .filter(investor => 
+            names.some(name => 
+                investor.name.toLowerCase().includes(name.toLowerCase()) ||
+                name.toLowerCase().includes(investor.name.toLowerCase())
+            )
         )
         .map(investor => ({
             ...investor,
-            // Si no hay logo, usar un icono por defecto
             logo: investor.logo || 'https://cdn-icons-png.flaticon.com/512/2093/2093691.png'
         }));
 }
 
-// Exportar para usar en otros archivos
+// Exportar solo si es Node.js (no necesario para navegador)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { getInvestorsByNames };
 }
