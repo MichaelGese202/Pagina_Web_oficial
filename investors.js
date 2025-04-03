@@ -27,6 +27,10 @@ const investors = {
     "Pantera Capital": {
         url: "https://www.panteracapital.com/",
         logo: "https://example.com/pantera-logo.png"
+    },
+        "Blockchain Founders Fund ": {
+        url: "https://blockchainff.com/",
+        logo: "https://img.cryptorank.io/funds/150x150.blockchain_founders_fund1666619105678.png"
     }
 };
 
