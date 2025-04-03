@@ -590,8 +590,16 @@ const airdrops = [
             
             // Otros airdrops serán agregados después
         ];
-// Export the airdrops array so it can be used in other files
-// This is only needed if you're using modules (import/export)
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { airdrops };
+function getSortedAirdrops() {
+    return [...airdrops].sort((a, b) => {
+        if (!a.publishDate) return 1;
+        if (!b.publishDate) return -1;
+        const dateA = a.publishDate instanceof Date ? a.publishDate : new Date(a.publishDate);
+        const dateB = b.publishDate instanceof Date ? b.publishDate : new Date(b.publishDate);
+        return dateB - dateA;
+    });
+}
+
+function getAirdropById(id) {
+    return airdrops.find(airdrop => airdrop.id == id);
 }
