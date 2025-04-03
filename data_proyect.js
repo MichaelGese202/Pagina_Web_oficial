@@ -594,22 +594,17 @@ const airdrops = [
         ];
 function getSortedAirdrops() {
     return [...airdropsData].sort((a, b) => {
-        const dateA = a.publishDate instanceof Date ? a.publishDate : new Date(a.publishDate);
-        const dateB = b.publishDate instanceof Date ? b.publishDate : new Date(b.publishDate);
+        const dateA = new Date(a.publishDate);
+        const dateB = new Date(b.publishDate);
         return dateB - dateA; // Orden descendente (más reciente primero)
     });
 }
 
-/**
- * Función para buscar un airdrop por su ID
- * @param {string} id - ID del airdrop a buscar
- * @returns {Object|null} - Objeto del airdrop o null si no se encuentra
- */
 function getAirdropById(id) {
     return airdropsData.find(airdrop => airdrop.id === id) || null;
 }
 
-// Exportar para usar en otros archivos
+// Exportar corregido (usa 'undefined' con la 'f')
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { getSortedAirdrops, getAirdropById };
 }
