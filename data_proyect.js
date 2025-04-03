@@ -1,4 +1,25 @@
 const airdrops = [
+                           {
+                id: 5,
+                title: "3DOS",
+                type: "depin",
+                description: "3DOS™ is a global, decentralized manufacturing network for everyone.",
+                launchDate: "February 2, 2025",
+                status: "Confirmed", 
+                
+                image: "Imagen/3dos.png",
+                webUrl: "https://3dos.gitbook.io/why-3dos-matters",
+                docsUrl: "https://3dos.gitbook.io/why-3dos-matters",
+                xUrl: "https://x.com/3DOS",
+                badges: ["Web","Docs","X"
+                ],
+                info: "",
+                funds:"$ 1.05 M",
+                link: "https://dashboard.3dos.io/register?ref_code=caf5d1",
+                 investors: [
+                  {name: "Red Beard Ventures ", url:"https://redbeard.ventures/", logo: "https://img.cryptorank.io/funds/150x150.red_beard_ventures1664361192749.png"]
+                
+            },
                 {
                 id: 2,
                 title: "Gradient Network  ",
@@ -489,25 +510,7 @@ const airdrops = [
                 link: "https://dashboard.layeredge.io/",
                 
             },
-                         {
-                id: 5,
-                title: "3DOS",
-                type: "depin",
-                description: "3DOS™ is a global, decentralized manufacturing network for everyone.",
-                launchDate: "February 11, 2025",
-                status: "Confirmed", 
-                
-                image: "Imagen/3dos.png",
-                webUrl: "https://3dos.gitbook.io/why-3dos-matters",
-                docsUrl: "https://3dos.gitbook.io/why-3dos-matters",
-                xUrl: "https://x.com/3DOS",
-                badges: ["Web","Docs","X"
-                ],
-                info: "",
-                funds:"$ 0",
-                link: "https://dashboard.3dos.io/register?ref_code=caf5d1",
-                
-            },
+
                                    {
                 id: 6,
                 title: "NAORIS",
