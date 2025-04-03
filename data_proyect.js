@@ -17,7 +17,8 @@ const airdrops = [
                 funds:"$ 1.05 M",
                 link: "https://dashboard.3dos.io/register?ref_code=caf5d1",
                  investors: [
-                  {name: "Red Beard Ventures ", url:"https://redbeard.ventures/", logo: "https://img.cryptorank.io/funds/150x150.red_beard_ventures1664361192749.png"]
+                  {name: "Red Beard Ventures ", url:"https://redbeard.ventures/", logo: "https://img.cryptorank.io/funds/150x150.red_beard_ventures1664361192749.png"}
+                 ]
                 
             },
                 {
