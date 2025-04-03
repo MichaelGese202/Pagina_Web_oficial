@@ -593,15 +593,23 @@ const airdrops = [
             // Otros airdrops serán agregados después
         ];
 function getSortedAirdrops() {
-    return [...airdrops].sort((a, b) => {
-        if (!a.publishDate) return 1;
-        if (!b.publishDate) return -1;
+    return [...airdropsData].sort((a, b) => {
         const dateA = a.publishDate instanceof Date ? a.publishDate : new Date(a.publishDate);
         const dateB = b.publishDate instanceof Date ? b.publishDate : new Date(b.publishDate);
-        return dateB - dateA;
+        return dateB - dateA; // Orden descendente (más reciente primero)
     });
 }
 
+/**
+ * Función para buscar un airdrop por su ID
+ * @param {string} id - ID del airdrop a buscar
+ * @returns {Object|null} - Objeto del airdrop o null si no se encuentra
+ */
 function getAirdropById(id) {
-    return airdrops.find(airdrop => airdrop.id == id);
+    return airdropsData.find(airdrop => airdrop.id === id) || null;
+}
+
+// Exportar para usar en otros archivos
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { getSortedAirdrops, getAirdropById };
 }
