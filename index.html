@@ -1199,6 +1199,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const initialFilter = urlParams.get('filter') || 'all';
     const initialPage = parseInt(urlParams.get('page')) || 1;
+    currentPage = initialPage;
     document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.getAttribute('data-filter') === initialFilter) {
             btn.classList.add('active');
@@ -1216,7 +1217,6 @@ document.addEventListener('DOMContentLoaded', function() {
             currentPage = 1;
             // Remove active class from all buttons
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            // Add active class to clicked button
             this.classList.add('active');
             // Clear search input
             document.getElementById('search-input').value = '';
