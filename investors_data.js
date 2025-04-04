@@ -30,11 +30,7 @@ const investorsData = {
     }
 };
 
-/**
- * Obtiene URL y logo de un inversor (sin name/type)
- * @param {string} investorName - Nombre del inversor (ej: "ChainLink")
- * @returns {Object|null} - Objeto con {url, logo} o null si no existe
- */
+ 
 function getInvestorData(investorName) {
     const key = Object.keys(investorsData).find(key => 
         key.toLowerCase() === investorName.toLowerCase()
@@ -42,22 +38,8 @@ function getInvestorData(investorName) {
     return key ? investorsData[key] : null;
 }
 
-/**
- * Obtiene datos de múltiples inversores (solo url/logo)
- * @param {string[]} investorNames - Array de nombres (ej: ["ChainLink", "Immutable"])
- * @returns {Object[]} - Array de objetos {url, logo} (filtra inválidos)
- */
-function getMultipleInvestorsData(investorNames) {
-    return investorNames
-        .map(name => getInvestorData(name))
-        .filter(investor => investor !== null);
-}
-
-// Exportación para Node.js (opcional)
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        investorsData,
-        getInvestorData,
-        getMultipleInvestorsData
-    };
-}
+// Exportar como objeto global para acceso directo
+window.InvestorsData = {
+    data: investorsData,
+    getInvestor: getInvestorData
+};
