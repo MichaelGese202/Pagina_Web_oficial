@@ -40,7 +40,7 @@ const investorsData = {
 function getInvestorsByNames(names) {
     if (!names || !Array.isArray(names)) return [];
     
-    return Object.values(investorsData)
+    return investorsData
         .filter(investor => 
             names.some(name => 
                 investor.name.toLowerCase().includes(name.toLowerCase()) ||
@@ -48,13 +48,13 @@ function getInvestorsByNames(names) {
             )
         )
         .map(investor => ({
-            name: investor.name,
-            url: investor.url,
+            ...investor,
             logo: investor.logo || 'https://cdn-icons-png.flaticon.com/512/2093/2093691.png'
         }));
 }
 
 // Exportar solo si es Node.js (no necesario para navegador)
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { investorsData, getInvestorsByNames };
+    module.exports = { getInvestorsByNames };
 }
+
