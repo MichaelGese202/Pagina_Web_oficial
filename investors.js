@@ -30,13 +30,11 @@ const investors = {
     }
 };
 
-function getInvestorsByNames(names) {
-    return names.map(name => {
-        const investorData = investors[name] || {};
-        return {
-            name: name,  // Usamos la clave como nombre
-            url: investorData.url || "#",
-            logo: investorData.logo || null
-        };
-    }).filter(inv => inv.url && inv.url !== "#");
+function getInvestorData(investorName) {
+    return investorsData.find(investor => investor.name === investorName);
+}
+
+// Función para obtener datos de múltiples inversores
+function getMultipleInvestorsData(investorNames) {
+    return investorNames.map(name => getInvestorData(name)).filter(Boolean);
 }
