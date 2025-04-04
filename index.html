@@ -830,7 +830,6 @@ function loadAppState() {
     return savedState ? JSON.parse(savedState) : null;
 }
 function renderAirdrops(filterType = 'all', page = 1) {
-    currentPage = page;
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('filter', filterType);
     urlParams.set('page', page);
@@ -987,7 +986,6 @@ function renderAirdrops(filterType = 'all', page = 1) {
                 urlParams.set('page', page - 1);
                 window.history.pushState({}, '', `?${urlParams.toString()}`);
                 renderAirdrops(filterType, page - 1);
-                saveAppState();
             });
         }
         
@@ -1009,7 +1007,6 @@ function renderAirdrops(filterType = 'all', page = 1) {
                 urlParams.set('page', i);
                 window.history.pushState({}, '', `?${urlParams.toString()}`);
                 renderAirdrops(filterType, i);
-                saveAppState(); // Añadir esta línea
             });
             pageButtons.appendChild(pageBtn);
         }
@@ -1025,7 +1022,6 @@ function renderAirdrops(filterType = 'all', page = 1) {
                 urlParams.set('page', page + 1);
                 window.history.pushState({}, '', `?${urlParams.toString()}`);
                 renderAirdrops(filterType, page + 1);
-                saveAppState();
             });
         }
         
@@ -1042,15 +1038,6 @@ function searchAutocomplete(query) {
     const resultsContainer = document.getElementById('autocomplete-results');
     resultsContainer.innerHTML = '';
     
-    const urlParams = new URLSearchParams(window.location.search);
-    if (query && query.length > 0) {
-        urlParams.set('search', query);
-
-    } else {
-        urlParams.delete('search');
-    }
-    window.history.replaceState({}, '', `?${urlParams.toString()}`);
-
     // Get the current active filter
     const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
     
@@ -1058,7 +1045,6 @@ function searchAutocomplete(query) {
         resultsContainer.style.display = 'none';
         // If search is cleared, reset to the filtered view based on active filter
         renderAirdrops(activeFilter, 1);
-        saveAppState();
         return;
     }
     
@@ -1093,14 +1079,9 @@ function searchAutocomplete(query) {
                 // When clicking a result, fill the search input and perform the search
                 document.getElementById('search-input').value = airdrop.title;
                 resultsContainer.style.display = 'none';
-                const newUrlParams = new URLSearchParams(window.location.search);
-                newUrlParams.set('search', airdrop.title);
-                window.history.replaceState({}, '', `?${newUrlParams.toString()}`);
-
                 
                 // Show just this airdrop
                 renderFilteredResults([airdrop]);
-                saveAppState();
             });
             
             resultsContainer.appendChild(item);
@@ -1111,7 +1092,6 @@ function searchAutocomplete(query) {
     
     // Immediately display all matched airdrops (not just the autocomplete subset)
     renderFilteredResults(matchedAirdrops);
-    saveAppState();
 }
 
 // New function to render filtered results
@@ -1245,24 +1225,9 @@ function renderFilteredResults(filteredAirdrops) {
 
 // Update event listener section in your DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
-    const savedState = loadAppState();
     const urlParams = new URLSearchParams(window.location.search);
-    const initialFilter = urlParams.get('filter') || (savedState?.currentFilter || 'all');
-    const initialPage = parseInt(urlParams.get('page')) || (savedState?.currentPage || 1);
-    const initialSearch = urlParams.get('search') || (savedState?.searchQuery || '');
-    if (initialSearch) {
-        if (btn.getAttribute('data-filter') === initialFilter) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-    if (initialSearch) {
-        searchAutocomplete(initialSearch);
-
-    }else {
-        renderAirdrops(initialFilter, initialPage);
-    }
+    const initialFilter = urlParams.get('filter') || 'all';
+    const initialPage = parseInt(urlParams.get('page')) || 1;
     // Marcar el filtro activo
     document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.getAttribute('data-filter') === initialFilter) {
