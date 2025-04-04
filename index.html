@@ -837,13 +837,6 @@ function renderAirdrops(filterType = 'all', page = 1) {
      // Resto del código de la función permanece igual...
     const grid = document.getElementById('airdrop-grid');
     grid.innerHTML = '';
-
-    const airdropsToRender = [...airdrops].sort((a, b) => {
-        if (a._updatedAt && !b._updatedAt) return -1;
-        if (!a._updatedAt && b._updatedAt) return 1;
-        return (b._updatedAt || 0) - (a._updatedAt || 0);
-    });
-
     
     // Eliminar paginación anterior si existe
     const oldPagination = document.querySelector('.pagination');
@@ -1130,11 +1123,6 @@ function renderFilteredResults(filteredAirdrops) {
     filteredAirdrops.forEach(airdrop => {
         const card = document.createElement('div');
         card.className = 'airdrop-card';
-        card.innerHTML = `
-            <div class="card-title">${airdrop.title}</div>
-            <!-- ... (otros campos) ... -->
-        `;
-        grid.appendChild(card);
         card.setAttribute('data-type', airdrop.type);
         let isNew = false;
         
