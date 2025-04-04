@@ -616,3 +616,23 @@ if (typeof module !== 'undefined' && module.exports) {
         filterAirdropsByType
     };
 }
+// --- Código para probar la visualización ---
+document.addEventListener("DOMContentLoaded", () => {
+    const airdropsContainer = document.createElement("div");
+    airdropsContainer.id = "airdrops-container";
+    document.body.appendChild(airdropsContainer);
+
+    // Mostrar los primeros 3 airdrops como prueba
+    const sortedAirdrops = getSortedAirdrops().slice(0, 3);
+    sortedAirdrops.forEach(airdrop => {
+        const airdropElement = document.createElement("div");
+        airdropElement.innerHTML = `
+            <h2>${airdrop.title}</h2>
+            <p>${airdrop.description}</p>
+            <img src="${airdrop.image}" alt="${airdrop.title}" width="100">
+        `;
+        airdropsContainer.appendChild(airdropElement);
+    });
+
+    console.log("Airdrops cargados:", sortedAirdrops); // Verifica en la consola
+});
