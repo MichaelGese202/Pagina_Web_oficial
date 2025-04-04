@@ -16,7 +16,7 @@ const airdrops = [
                 info: "",
                 funds:"$ 1.05 M",
                 link: "https://dashboard.3dos.io/register?ref_code=caf5d1",
-                investors: ["Red Beard Ventures"],
+                investorNames: ["Red Beard Ventures", "Blockchain Capital"],
                 
                 
             },
