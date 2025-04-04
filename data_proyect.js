@@ -586,8 +586,6 @@ const airdrops = [
                     { step: "Complete registration", icon: "fa-user-plus" },
                     { step: "Follow social media accounts", icon: "fa-share-alt" }
                 ]
-                
-            },
 
             
             // Otros airdrops serán agregados después
