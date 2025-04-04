@@ -6,7 +6,6 @@
     <title>Airdrops Network Pro - Explora los Mejores Airdrops</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Todos los estilos originales permanecen exactamente igual */
         :root {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
@@ -686,7 +685,6 @@
     </style>
 </head>
 <body>
-    <!-- Todo el contenido HTML permanece igual -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -832,8 +830,8 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="investors.js"></script>
     <script src="data_proyect.js"></script>
+    <script src="investors.js"></script>
     <script>
     // Variables globales para la paginación
     let currentPage = 1;
@@ -841,6 +839,28 @@
     let currentFilter = 'all';
     let currentSearchQuery = '';
     let currentAirdropId = null;
+
+    // Función para obtener airdrops ordenados por fecha
+    function getSortedAirdrops() {
+        if (typeof airdrops !== 'undefined' && Array.isArray(airdrops)) {
+            return airdrops.sort((a, b) => {
+                const dateA = a.publishDate ? new Date(a.publishDate) : new Date(0);
+                const dateB = b.publishDate ? new Date(b.publishDate) : new Date(0);
+                return dateB - dateA;
+            });
+        } else {
+            console.error("No se encontraron datos de airdrops");
+            return [];
+        }
+    }
+
+    // Función para obtener un airdrop por ID
+    function getAirdropById(id) {
+        if (typeof airdrops !== 'undefined' && Array.isArray(airdrops)) {
+            return airdrops.find(a => a.id === id);
+        }
+        return null;
+    }
 
     // Función para renderizar airdrops con ordenamiento automático por fecha
     function renderAirdrops(filterType = 'all', page = 1, searchQuery = '') {
@@ -872,7 +892,7 @@
                 airdrop.description.toLowerCase().includes(lowerQuery) ||
                 (airdrop.badges && airdrop.badges.some(badge => 
                     typeof badge === 'string' && badge.toLowerCase().includes(lowerQuery)
-                )
+                ))
             );
         }
         
@@ -915,14 +935,15 @@
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric'
-                }).format(airdrop.publishDate) : '';
+                }).format(new Date(airdrop.publishDate)) : '';
             
             let badgesHTML = '';
             if (airdrop.badges && airdrop.badges.length) {
                 airdrop.badges.forEach(badge => {
                     let badgeClass = 'badge-primary';
                     let badgeText = '';
-                    let badgeUrl = '';
+                    let badgeUrl = '#';
+                    
                     if (typeof badge === 'string') {
                         badgeText = badge;
                         if (badge === 'Web' && airdrop.webUrl) {
@@ -931,9 +952,8 @@
                             badgeUrl = airdrop.xUrl;
                         } else if (badge === 'Docs' && airdrop.docsUrl) {
                             badgeUrl = airdrop.docsUrl;
-                        } else {
-                            badgeUrl = '#';
                         }
+                        
                         if (badge.toLowerCase().includes('depin')) badgeClass = 'badge-info';
                         if (badge.toLowerCase().includes('testnet')) badgeClass = 'badge-warning';
                         if (badge.toLowerCase().includes('staking')) badgeClass = 'badge-success';
@@ -949,7 +969,7 @@
             card.innerHTML = `
                 <div class="card-type">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</div>
                 ${isNew ? '<div class="new-badge">NEW</div>' : ''}
-                <div class="card-image" style="background-image: url('${airdrop.image}')"></div>
+                <div class="card-image" style="background-image: url('${airdrop.image || 'https://via.placeholder.com/120'}')"></div>
                 <div class="publish-date">Publicado: ${publishDateFormatted}</div>
                 <div class="card-content">
                     <h3 class="card-title">${airdrop.title}</h3>
@@ -957,7 +977,7 @@
                     <div class="card-details">
                         <div class="detail-item">
                             <i class="fas fa-calendar-alt detail-icon"></i>
-                            <span>Available: ${airdrop.launchDate}</span>
+                            <span>Available: ${airdrop.launchDate || 'N/A'}</span>
                         </div>
                         ${airdrop.funds ? `
                             <div class="detail-item">
@@ -1060,7 +1080,7 @@
         const resultsContainer = document.getElementById('autocomplete-results');
         resultsContainer.innerHTML = '';
         
-        const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+        const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
         
         if (!query || query.length < 1) {
             resultsContainer.style.display = 'none';
@@ -1076,7 +1096,7 @@
             airdrop.description.toLowerCase().includes(lowerQuery) ||
             (airdrop.badges && airdrop.badges.some(badge => 
                 typeof badge === 'string' && badge.toLowerCase().includes(lowerQuery)
-            ))
+            )
         );
         
         const autocompleteResults = matchedAirdrops.slice(0, 5);
@@ -1088,7 +1108,7 @@
                 const item = document.createElement('div');
                 item.className = 'autocomplete-item';
                 item.innerHTML = `
-                    <div class="item-image" style="background-image: url('${airdrop.image}')"></div>
+                    <div class="item-image" style="background-image: url('${airdrop.image || 'https://via.placeholder.com/30'}')"></div>
                     <div class="item-title">${airdrop.title}</div>
                     <div class="item-type">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</div>
                 `;
@@ -1144,7 +1164,7 @@
                 airdrop.badges.forEach(badge => {
                     let badgeClass = 'badge-primary';
                     let badgeText = '';
-                    let badgeUrl = '';
+                    let badgeUrl = '#';
                     if (typeof badge === 'string') {
                         badgeText = badge;
                         if (badge === 'Web' && airdrop.webUrl) {
@@ -1153,9 +1173,8 @@
                             badgeUrl = airdrop.xUrl;
                         } else if (badge === 'Docs' && airdrop.docsUrl) {
                             badgeUrl = airdrop.docsUrl;
-                        } else {
-                            badgeUrl = '#';
                         }
+                        
                         if (badge.toLowerCase().includes('depin')) badgeClass = 'badge-info';
                         if (badge.toLowerCase().includes('testnet')) badgeClass = 'badge-warning';
                         if (badge.toLowerCase().includes('staking')) badgeClass = 'badge-success';
@@ -1175,7 +1194,7 @@
                         ${airdrop.participationSteps.map((step, index) => {
                             const iconHTML = `
                                 <div style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--primary); display: flex; align-items: center; justify-content: center; color: white; margin-right: 1rem;">
-                                    <i class="fas ${step.icon}"></i>
+                                    <i class="fas ${step.icon || 'fa-question-circle'}"></i>
                                 </div>
                             `;
                             
@@ -1244,7 +1263,7 @@
                     <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-bottom: 2rem;">
                         <div>
                             <div style="background-color: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); text-align: center;">
-                                <div style="width: 180px; height: 180px; border-radius: 50%; background-image: url('${airdrop.image}'); background-size: cover; background-position: center; border: 4px solid var(--primary); margin: 0 auto 1.5rem;"></div>
+                                <div style="width: 180px; height: 180px; border-radius: 50%; background-image: url('${airdrop.image || 'https://via.placeholder.com/180'}'); background-size: cover; background-position: center; border: 4px solid var(--primary); margin: 0 auto 1.5rem;"></div>
                                 <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">${airdrop.title}</h1>
                                 <div style="margin: 1rem 0;">
                                     <span class="badge badge-${getTypeClass(airdrop.type)}" style="font-size: 1rem; padding: 0.5rem 1rem;">${airdrop.type.charAt(0).toUpperCase() + airdrop.type.slice(1)}</span>
@@ -1269,7 +1288,7 @@
                             <div style="background-color: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); margin-bottom: 2rem;">
                                 <h2 style="font-size: 1.8rem; margin-bottom: 1rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem;">About ${airdrop.title}</h2>
                                 <p style="margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.7;">${airdrop.description}</p>
-                                <p style="margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.7;">${airdrop.info}</p>
+                                <p style="margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.7;">${airdrop.info || ''}</p>
                                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
                                     <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background-color: #f8fafc; border-radius: var(--border-radius);">
                                         <div style="width: 50px; height: 50px; border-radius: 50%; background-color: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
@@ -1277,7 +1296,7 @@
                                         </div>
                                         <div>
                                             <span style="display: block; color: var(--gray); font-size: 0.9rem;">Launch Date</span>
-                                            <strong style="font-size: 1.1rem;">${airdrop.launchDate}</strong>
+                                            <strong style="font-size: 1.1rem;">${airdrop.launchDate || 'N/A'}</strong>
                                         </div>
                                     </div>
                                     
