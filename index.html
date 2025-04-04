@@ -1316,8 +1316,19 @@ document.addEventListener('click', function(e) {
         
         if (!airdrop) return;
         const projectSlug = airdrop.title.toLowerCase().replace(/\s+/g, '-');
-        const newUrl = `${window.location.pathname}?project=${projectSlug}-${airdropId}`;
-        window.history.pushState({ id: airdropId }, '', newUrl);
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('project', `${projectSlug}-${airdropId}`);
+        const currentFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+        const currentPage = currentPage;
+        urlParams.set('filter', currentFilter);
+        urlParams.set('page', currentPage);
+
+         window.history.pushState({ 
+            id: airdropId,
+            filter: currentFilter,
+            page: currentPage
+
+        }, '', `?${urlParams.toString()}`);
         // Crear modal de detalles a pantalla completa
         const modal = document.createElement('div');
         modal.style.position = 'fixed';
@@ -1676,8 +1687,18 @@ document.addEventListener('click', function(e) {
         
         // Cerrar modal con botón de cierre
         modal.querySelector('.close-modal').addEventListener('click', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.delete('project');
+            const currentFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+            const currentPage = currentPage;
+            urlParams.set('filter', currentFilter);
+            urlParams.set('page', currentPage);
+            window.history.pushState({ 
+                filter: currentFilter,
+                page: currentPage
+            }, '', `?${urlParams.toString()}`);
             document.body.removeChild(modal);
-            window.history.pushState({}, '', window.location.pathname);
+             
         });
         
         // Cerrar modal con botón de regresar
@@ -1904,12 +1925,25 @@ async function fetchCryptoPrices(showLoadingIndicator = true) {
 }
     // Inicializar la obtención de precios cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
-    // Hide trending section initially
-    const trendingSection = document.querySelector('.trending-prices');
-    trendingSection.style.display = 'none';
-
     const urlParams = new URLSearchParams(window.location.search);
     const projectParam = urlParams.get('project');
+    const filterParam = urlParams.get('filter') || 'all';
+    const pageParam = parseInt(urlParams.get('page')) || 1;
+    const trendingParam = urlParams.get('trending');
+     // Mostrar/ocultar secciones según parámetros
+    const trendingSection = document.querySelector('.trending-prices');
+    const mainContent = document.querySelector('main.container');
+    const heroSection = document.querySelector('.hero');
+    if (trendingParam === 'true') {
+        trendingSection.style.display = 'block';
+        mainContent.style.display = 'none';
+        heroSection.style.display = 'none';
+        fetchCryptoPrices(true);
+    } else {
+        trendingSection.style.display = 'none';
+        mainContent.style.display = 'block';
+        heroSection.style.display = 'block';
+    }
     if (projectParam) {
         // Extract the project ID from the URL (format: project-name-ID)
         const projectId = projectParam.split('-').pop();
@@ -1922,16 +1956,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Simulate clicking the details button for this airdrop
             setTimeout(() => {
                 // First render airdrops to ensure they're on the page
-                renderAirdrops();
-                
-                // Then find and click the button
+                renderAirdrops(filterParam, pageParam);
                 const detailsBtn = document.querySelector(`.details-btn[data-id="${projectId}"]`);
                 if (detailsBtn) detailsBtn.click();
             }, 100);
         }
+    } else {
+        renderAirdrops(filterParam, pageParam);
     }
     // Pre-fetch prices in the background
-    fetchCryptoPrices(true);
+    fetchCryptoPrices(false);
+});
     
     // Add click event to all navigation links
     const navLinks = document.querySelectorAll('nav ul li a');
@@ -1939,9 +1974,15 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            
+            const urlParams = new URLSearchParams(window.location.search);
+
             // Check if this is the Trending link
             if (this.innerHTML.includes('fa-fire') && this.innerHTML.includes('Trending')) {
+                urlParams.set('trending', 'true');
+                urlParams.delete('project');
+                window.history.pushState({ 
+                    trending: true 
+                }, '', `?${urlParams.toString()}`);
                 // Hide airdrop content
                 document.querySelector('.hero').style.display = 'none';
                 document.querySelector('main.container').style.display = 'none';
@@ -1955,12 +1996,20 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Check if this is the Home/Inicio link
             if (this.innerHTML.includes('fa-home') && this.innerHTML.includes('Inicio')) {
+                urlParams.delete('trending');
+                urlParams.delete('project');
+                window.history.pushState({ 
+                    home: true 
+                }, '', `?${urlParams.toString()}`);
                 // Show airdrop content
                 document.querySelector('.hero').style.display = 'block';
                 document.querySelector('main.container').style.display = 'block';
                 
                 // Hide trending section
                 trendingSection.style.display = 'none';
+                const currentFilter = urlParams.get('filter') || 'all';
+                const currentPage = parseInt(urlParams.get('page')) || 1;
+                renderAirdrops(currentFilter, currentPage);
             }
         });
     });
@@ -2078,29 +2127,53 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.addEventListener('popstate', function(event) {
-    try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const filter = urlParams.get('filter') || 'all';
-        const page = parseInt(urlParams.get('page')) || 1;
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectParam = urlParams.get('project');
+    const filterParam = urlParams.get('filter') || 'all';
+    const pageParam = parseInt(urlParams.get('page')) || 1;
+    const trendingParam = urlParams.get('trending');
+    
+    // Mostrar/ocultar secciones según parámetros
+    const trendingSection = document.querySelector('.trending-prices');
+    const mainContent = document.querySelector('main.container');
+    const heroSection = document.querySelector('.hero');
+    
+    if (trendingParam === 'true') {
+        trendingSection.style.display = 'block';
+        mainContent.style.display = 'none';
+        heroSection.style.display = 'none';
+        fetchCryptoPrices(true);
+    } else {
+        trendingSection.style.display = 'none';
+        mainContent.style.display = 'block';
+        heroSection.style.display = 'block';
+    }
+    
+    // Resetear búsqueda si existe
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.value = '';
+    
+    // Ocultar resultados de autocompletado
+    const autocompleteResults = document.getElementById('autocomplete-results');
+    if (autocompleteResults) autocompleteResults.style.display = 'none';
+    
+    // Actualizar UI de filtros
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === filterParam);
+    });
+    
+    // Manejar proyecto abierto
+    if (projectParam) {
+        const projectId = projectParam.split('-').pop();
+        const airdrop = airdrops.find(a => a.id == projectId);
         
-        // Resetear búsqueda si existe
-        const searchInput = document.getElementById('search-input');
-        if (searchInput) searchInput.value = '';
-        
-        // Actualizar UI
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
-        });
-        
-        // Ocultar resultados de autocompletado
-        const autocompleteResults = document.getElementById('autocomplete-results');
-        if (autocompleteResults) autocompleteResults.style.display = 'none';
-        
-        renderAirdrops(filter, page);
-    } catch (error) {
-        console.error('Error handling popstate:', error);
-        // Fallback seguro
-        renderAirdrops('all', 1);
+        if (airdrop) {
+            renderAirdrops(filterParam, pageParam);
+            const detailsBtn = document.querySelector(`.details-btn[data-id="${projectId}"]`);
+            if (detailsBtn) detailsBtn.click();
+        }
+    } else {
+        renderAirdrops(filterParam, pageParam);
     }
 });
 </script>
