@@ -590,15 +590,11 @@ const airdrops = [
             
             // Otros airdrops serán agregados después
         ];
-function getSortedAirdrops() {
-    return [...airdrops].sort((a, b) => {
-        const dateA = a.publishDate ? new Date(a.publishDate) : new Date(0);
-        const dateB = b.publishDate ? new Date(b.publishDate) : new Date(0);
-        return dateB - dateA;
+document.addEventListener('DOMContentLoaded', function() {
+    airdrops.forEach(airdrop => {
+        if (airdrop.investors && airdrop.investors.length) {
+            // Reemplazar los nombres con los objetos completos de inversores
+            airdrop.investors = getMultipleInvestorsData(airdrop.investors);
+        }
     });
-}
-
-// Función para obtener un airdrop por ID
-function getAirdropById(id) {
-    return airdrops.find(airdrop => airdrop.id === id);
-}
+});
