@@ -817,6 +817,10 @@ let currentPage = 1;
 const itemsPerPage = 12;
 
 function renderAirdrops(filterType = 'all', page = 1) {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('filter', filterType);
+    urlParams.set('page', page);
+    window.history.replaceState({}, '', `?${urlParams.toString()}`);
     const grid = document.getElementById('airdrop-grid');
     grid.innerHTML = '';
     
@@ -1192,8 +1196,19 @@ function renderFilteredResults(filteredAirdrops) {
 
 // Update event listener section in your DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialFilter = urlParams.get('filter') || 'all';
+    const initialPage = parseInt(urlParams.get('page')) || 1;
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-filter') === initialFilter) {
+            btn.classList.add('active');
+
+        } else {
+            btn.classList.remove('active');
+        }
+    });
     // Render initial airdrops
-    renderAirdrops('all', currentPage);
+    renderAirdrops(initialFilter, initialPage);
     
     // Configure filters
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -1205,8 +1220,13 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             // Clear search input
             document.getElementById('search-input').value = '';
+            const filterType = this.getAttribute('data-filter');
             // Render filtered airdrops
-            renderAirdrops(this.getAttribute('data-filter'), currentPage);
+            renderAirdrops(filterType, currentPage);
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('filter', filterType);
+            urlParams.set('page', 1);
+            window.history.pushState({ filter: filterType, page: 1 }, '', `?${urlParams.toString()}`);
         });
     });
     
