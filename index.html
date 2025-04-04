@@ -816,6 +816,19 @@
 let currentPage = 1;
 const itemsPerPage = 12;
 
+function saveAppState() {
+    const state = {
+        currentPage: currentPage,
+        currentFilter: document.querySelector('.filter-btn.active').getAttribute('data-filter'),
+        searchQuery: document.getElementById('search-input').value
+
+    };
+    localStorage.setItem('airdropAppState', JSON.stringify(state));
+}
+function loadAppState() {
+    const savedState = localStorage.getItem('airdropAppState');
+    return savedState ? JSON.parse(savedState) : null;
+}
 function renderAirdrops(filterType = 'all', page = 1) {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('filter', filterType);
@@ -2078,30 +2091,27 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.addEventListener('popstate', function(event) {
-    try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const filter = urlParams.get('filter') || 'all';
-        const page = parseInt(urlParams.get('page')) || 1;
-        
-        // Resetear búsqueda si existe
-        const searchInput = document.getElementById('search-input');
-        if (searchInput) searchInput.value = '';
-        
-        // Actualizar UI
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
-        });
-        
-        // Ocultar resultados de autocompletado
-        const autocompleteResults = document.getElementById('autocomplete-results');
-        if (autocompleteResults) autocompleteResults.style.display = 'none';
-        
+    const urlParams = new URLSearchParams(window.location.search);
+    const filter = urlParams.get('filter') || 'all';
+    const page = parseInt(urlParams.get('page')) || 1;
+    const search = urlParams.get('search') || '';
+    
+    // Actualizar UI
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
+    });
+    
+    // Aplicar búsqueda si existe
+    const searchInput = document.getElementById('search-input');
+    searchInput.value = search;
+    
+    if (search) {
+        searchAutocomplete(search);
+    } else {
         renderAirdrops(filter, page);
-    } catch (error) {
-        console.error('Error handling popstate:', error);
-        // Fallback seguro
-        renderAirdrops('all', 1);
     }
+    
+    saveAppState();
 });
 </script>
 </body>
