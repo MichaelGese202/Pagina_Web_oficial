@@ -592,14 +592,13 @@ const airdrops = [
         ];
 function getSortedAirdrops() {
     return [...airdrops].sort((a, b) => {
-        if (!a.publishDate) return 1;
-        if (!b.publishDate) return -1;
-        const dateA = a.publishDate instanceof Date ? a.publishDate : new Date(a.publishDate);
-        const dateB = b.publishDate instanceof Date ? b.publishDate : new Date(b.publishDate);
+        const dateA = a.publishDate ? new Date(a.publishDate) : new Date(0);
+        const dateB = b.publishDate ? new Date(b.publishDate) : new Date(0);
         return dateB - dateA;
     });
 }
 
+// Función para obtener un airdrop por ID
 function getAirdropById(id) {
-    return airdrops.find(airdrop => airdrop.id == id);
+    return airdrops.find(airdrop => airdrop.id === id);
 }
