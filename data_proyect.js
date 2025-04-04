@@ -590,11 +590,4 @@ const airdrops = [
             
             // Otros airdrops serán agregados después
         ];
-document.addEventListener('DOMContentLoaded', function() {
-    airdrops.forEach(airdrop => {
-        if (airdrop.investors && airdrop.investors.length) {
-            // Reemplazar los nombres con los objetos completos de inversores
-            airdrop.investors = getMultipleInvestorsData(airdrop.investors);
-        }
-    });
-});
+ 
