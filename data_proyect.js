@@ -591,48 +591,23 @@ const airdrops = [
             // Otros airdrops serán agregados después
         ];
 function getSortedAirdrops() {
-    return airdrops.sort((a, b) => {
-        const dateA = new Date(a.publishDate || 0);
-        const dateB = new Date(b.publishDate || 0);
+    return [...airdropsData].sort((a, b) => {
+        const dateA = a.publishDate instanceof Date ? a.publishDate : new Date(a.publishDate);
+        const dateB = b.publishDate instanceof Date ? b.publishDate : new Date(b.publishDate);
         return dateB - dateA; // Orden descendente (más reciente primero)
     });
 }
 
+/**
+ * Función para buscar un airdrop por su ID
+ * @param {string} id - ID del airdrop a buscar
+ * @returns {Object|null} - Objeto del airdrop o null si no se encuentra
+ */
 function getAirdropById(id) {
-    return airdrops.find(airdrop => airdrop.id === id) || null;
+    return airdropsData.find(airdrop => airdrop.id === id) || null;
 }
 
-function filterAirdropsByType(type) {
-    if (type === 'all') return airdrops;
-    return airdrops.filter(airdrop => airdrop.type === type);
-}
-
-// Exportar solo si es Node.js (no necesario para navegador)
+// Exportar para usar en otros archivos
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        airdrops,
-        getSortedAirdrops,
-        getAirdropById,
-        filterAirdropsByType
-    };
+    module.exports = { getSortedAirdrops, getAirdropById };
 }
-// --- Código para probar la visualización ---
-document.addEventListener("DOMContentLoaded", () => {
-    const airdropsContainer = document.createElement("div");
-    airdropsContainer.id = "airdrops-container";
-    document.body.appendChild(airdropsContainer);
-
-    // Mostrar los primeros 3 airdrops como prueba
-    const sortedAirdrops = getSortedAirdrops().slice(0, 3);
-    sortedAirdrops.forEach(airdrop => {
-        const airdropElement = document.createElement("div");
-        airdropElement.innerHTML = `
-            <h2>${airdrop.title}</h2>
-            <p>${airdrop.description}</p>
-            <img src="${airdrop.image}" alt="${airdrop.title}" width="100">
-        `;
-        airdropsContainer.appendChild(airdropElement);
-    });
-
-    console.log("Airdrops cargados:", sortedAirdrops); // Verifica en la consola
-});
