@@ -821,6 +821,7 @@ function renderAirdrops(filterType = 'all', page = 1) {
     urlParams.set('filter', filterType);
     urlParams.set('page', page);
     window.history.replaceState({}, '', `?${urlParams.toString()}`);
+     // Resto del código de la función permanece igual...
     const grid = document.getElementById('airdrop-grid');
     grid.innerHTML = '';
     
@@ -967,7 +968,12 @@ function renderAirdrops(filterType = 'all', page = 1) {
         prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
         prevBtn.disabled = page === 1;
         if (page > 1) {
-            prevBtn.addEventListener('click', () => renderAirdrops(filterType, page - 1));
+            prevBtn.addEventListener('click', () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('page', page - 1);
+                window.history.pushState({}, '', `?${urlParams.toString()}`);
+                renderAirdrops(filterType, page - 1);
+            });
         }
         
         // Botones de página
@@ -983,7 +989,12 @@ function renderAirdrops(filterType = 'all', page = 1) {
             const pageBtn = document.createElement('button');
             pageBtn.className = `pagination-btn ${i === page ? 'active' : ''}`;
             pageBtn.textContent = i;
-            pageBtn.addEventListener('click', () => renderAirdrops(filterType, i));
+            pageBtn.addEventListener('click', () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('page', i);
+                window.history.pushState({}, '', `?${urlParams.toString()}`);
+                renderAirdrops(filterType, i);
+            });
             pageButtons.appendChild(pageBtn);
         }
         
@@ -993,7 +1004,12 @@ function renderAirdrops(filterType = 'all', page = 1) {
         nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
         nextBtn.disabled = page === totalPages;
         if (page < totalPages) {
-            nextBtn.addEventListener('click', () => renderAirdrops(filterType, page + 1));
+            nextBtn.addEventListener('click', () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('page', page + 1);
+                window.history.pushState({}, '', `?${urlParams.toString()}`);
+                renderAirdrops(filterType, page + 1);
+            });
         }
         
         paginationContainer.appendChild(prevBtn);
@@ -1199,6 +1215,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const initialFilter = urlParams.get('filter') || 'all';
     const initialPage = parseInt(urlParams.get('page')) || 1;
+    // Marcar el filtro activo
     document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.getAttribute('data-filter') === initialFilter) {
             btn.classList.add('active');
@@ -1223,6 +1240,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const filterType = this.getAttribute('data-filter');
             // Render filtered airdrops
             renderAirdrops(filterType, currentPage);
+             // Actualizar la URL con el nuevo filtro
             const urlParams = new URLSearchParams(window.location.search);
             urlParams.set('filter', filterType);
             urlParams.set('page', 1);
@@ -2057,6 +2075,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+});
+
+window.addEventListener('popstate', function(event) {
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const filter = urlParams.get('filter') || 'all';
+        const page = parseInt(urlParams.get('page')) || 1;
+        
+        // Resetear búsqueda si existe
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) searchInput.value = '';
+        
+        // Actualizar UI
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
+        });
+        
+        // Ocultar resultados de autocompletado
+        const autocompleteResults = document.getElementById('autocomplete-results');
+        if (autocompleteResults) autocompleteResults.style.display = 'none';
+        
+        renderAirdrops(filter, page);
+    } catch (error) {
+        console.error('Error handling popstate:', error);
+        // Fallback seguro
+        renderAirdrops('all', 1);
+    }
 });
 </script>
 </body>
