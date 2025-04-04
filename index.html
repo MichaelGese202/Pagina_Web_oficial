@@ -817,6 +817,9 @@ let currentPage = 1;
 const itemsPerPage = 12;
 
 function renderAirdrops(filterType = 'all', page = 1) {
+    sessionStorage.setItem('lastFilter', filterType);
+    sessionStorage.setItem('lastPage', page.toString());
+    
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('filter', filterType);
     urlParams.set('page', page);
@@ -1683,7 +1686,14 @@ document.addEventListener('click', function(e) {
         // Cerrar modal con botón de regresar
         modal.querySelector('.back-button').addEventListener('click', function() {
             document.body.removeChild(modal);
-            window.history.pushState({}, '', window.location.pathname);
+            const lastFilter = sessionStorage.getItem('lastFilter') || 'all';
+            const lastPage = parseInt(sessionStorage.getItem('lastPage')) || 1;
+            const urlParams = new URLSearchParams();
+            urlParams.set('filter', lastFilter);
+            urlParams.set('page', lastPage);
+
+            window.history.pushState({}, '', `?${urlParams.toString()}`);
+            renderAirdrops(lastFilter, lastPage);
         });
         
         // Actualizar el botón de bookmark
@@ -1904,12 +1914,16 @@ async function fetchCryptoPrices(showLoadingIndicator = true) {
 }
     // Inicializar la obtención de precios cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
-    // Hide trending section initially
-    const trendingSection = document.querySelector('.trending-prices');
-    trendingSection.style.display = 'none';
-
+    
     const urlParams = new URLSearchParams(window.location.search);
     const projectParam = urlParams.get('project');
+
+    if (!projectParam) {
+        const filter = urlParams.get('filter') || 'all';
+        const page = parseInt(urlParams.get('page')) || 1;
+        sessionStorage.setItem('lastFilter', filter);
+        sessionStorage.setItem('lastPage', page);
+    }
     if (projectParam) {
         // Extract the project ID from the URL (format: project-name-ID)
         const projectId = projectParam.split('-').pop();
@@ -1927,8 +1941,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Then find and click the button
                 const detailsBtn = document.querySelector(`.details-btn[data-id="${projectId}"]`);
                 if (detailsBtn) detailsBtn.click();
+                const lastFilter = sessionStorage.getItem('lastFilter') || 'all';
+                const lastPage = parseInt(sessionStorage.getItem('lastPage')) || 1;
+                renderAirdrops(lastFilter, lastPage);
             }, 100);
         }
+    } else {
+        const filter = urlParams.get('filter') || sessionStorage.getItem('lastFilter') || 'all';
+        const page = parseInt(urlParams.get('page')) || parseInt(sessionStorage.getItem('lastPage')) || 1;
+        renderAirdrops(filter, page);
     }
     // Pre-fetch prices in the background
     fetchCryptoPrices(true);
