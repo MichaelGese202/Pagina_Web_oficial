@@ -1,4 +1,31 @@
 const airdrops = [
+                                    {
+                id: 26,
+                title: "Synthelix ",
+                type: "depin",
+                description: "Complete the tasks to qualify for potential  airdrops and rewards ",
+                launchDate: " March 31, 2025",
+                publishDate: new Date(2025, 3,5 ),
+                status: "Confirmed", 
+                image: "https://pbs.twimg.com/profile_images/1879550317223673856/nqhMSJP9_400x400.jpg ",
+                referenceImage: " https://pbs.twimg.com/media/GmqBTYUXkAA6g65?format=jpg&name=small",
+                webUrl: "https://dashboard.synthelix.io/r/63qSl4vB ",
+                docsUrl: " https://synthelix.gitbook.io/docs ",
+                xUrl: "https://x.com/Synthelix ",
+                badges: ["Web","Docs","X"],
+                info: " Synthelix AI is a next-generation AI-powered DePIN platform purpose-built to secure and scale decentralized connectivity. By fusing artificial intelligence with blockchain architecture, Synthelix transforms how intelligent systems interact, process, and secure data across decentralized environments. Focused on efficiency, security, and real-world integration, it establishes the foundation for AI-driven decentralized ecosystems.",
+                funds:"$ 0.00 ",
+                 
+                link: "https://dashboard.synthelix.io/r/63qSl4vB ",
+                participationSteps: [
+                    { step: "Connect your wallet", icon: "fa-wallet" },
+                    { step: "Start the node", icon: "fa-network-wired" },
+                    {step:  "Mine points", icon: "fa-coins" },
+                    { step: "complete the available tasks", icon: "fa-tasks" },
+                    { step: "Invite your friends and perform tasks",icon: "fa-users" }
+                ]
+ 
+            },
                            {
                 id: 5,
                 title: "3DOS",
