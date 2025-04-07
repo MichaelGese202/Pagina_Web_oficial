@@ -518,8 +518,9 @@ const airdrops = [
                 description: "LayerEdge is the first decentralized network that enhances the capabilities of Bitcoin Blockspace with ZK & BitVM, enabling every layer to be secured on Bitcoin.",
                 launchDate: " January 22, 2025",
                 status: "Potencial", 
-                 
-                image: "Imagen/layeredge.png",
+                lastModified: "2025-04-06", // Fecha de la última modificación (formato ISO)
+                publishDate: "2025-04-01",  // Fecha de publicación original
+                image: "https://pbs.twimg.com/profile_images/1837132336011280384/XpzvFeA7_400x400.jpg",
                 webUrl: "https://layeredge.io/",
                 docsUrl: "https://docs.layeredge.io/",
                 xUrl: "https://x.com/LayerEdge",
