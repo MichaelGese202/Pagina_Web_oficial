@@ -829,25 +829,12 @@ function loadAppState() {
     const savedState = localStorage.getItem('airdropAppState');
     return savedState ? JSON.parse(savedState) : null;
 }
-
-// Función para ordenar los airdrops por fecha de modificación (más reciente primero)
-function sortAirdropsByLastModified() {
-    airdrops.sort((a, b) => {
-        const dateA = new Date(a.lastModified || a.publishDate || 0);
-        const dateB = new Date(b.lastModified || b.publishDate || 0);
-        return dateB - dateA; // Orden descendente (más reciente primero)
-    });
-}
-
 function renderAirdrops(filterType = 'all', page = 1) {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('filter', filterType);
     urlParams.set('page', page);
     window.history.replaceState({}, '', `?${urlParams.toString()}`);
-    
-    // Ordenar los airdrops antes de renderizarlos
-    sortAirdropsByLastModified();
-    
+     // Resto del código de la función permanece igual...
     const grid = document.getElementById('airdrop-grid');
     grid.innerHTML = '';
     
