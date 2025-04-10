@@ -36,7 +36,7 @@ const investorsData = {
         url: " https://www.longhash.vc/",
         logo: "https://img.cryptorank.io/funds/150x150.longhash%20ventures1649418223202.png "
     },
-    "Protocol Labs": {
+    "Protocolo Labs": {
         url: " https://www.protocol.ai/",
         logo: "https://img.cryptorank.io/funds/150x150.protocol_labs1662643032114.png "
     },
