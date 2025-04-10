@@ -6,6 +6,7 @@ const airdrops = [
                 description: " Huddle01 has launched a testnet with confirmed airdrop! We can perform social tasks, invite friends, stream and earn points for it. The points will be converted into project tokens in the future. A total of up to 10M $HUDL tokens are allocated for this activity. ",
                 launchDate: " ",
                 publishDate: new Date(2025, 3,10),
+                modifiedDate: new Date(2024, 3, 10),
                 status: "Confirmed", 
                 image: " https://img.cryptorank.io/coins/huddle_011680857179191.png ",
                 referenceImage: " https://pbs.twimg.com/media/GoMvgkIWgAAG8xa?format=jpg&name=small",
