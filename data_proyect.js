@@ -15,7 +15,7 @@ const airdrops = [
                 badges: ["Web","Docs","X"],
                 info: "Huddle01’s dRTC network is a high throughput, low latency, and multipurpose network that facilitates real-time communications over cyberspace. This DePIN network is designed to provide performant, secure, and 95% cheaper borderless connectivity across applications in SocialFi, GameFi, the Metaverse, and decentralized AI.",
                 funds:"$ 2.80 M ",
-                 
+                investorNames: ["LongHash Ventures"," Protocolo Labs","Superscrypt "],
                 link: " https://testnet.huddle01.com/r/0x5c32ac3db8e5061421fc5f1a8f11ea619437f749 ",
                 participationSteps: [
                     { step: "Connect your wallet", icon: "fa-wallet", image:" https://img.cryptorank.io/image-hub/hudd1744303096867.png"},
@@ -42,7 +42,7 @@ const airdrops = [
                 badges: ["Web","Docs","X"],
                 info: " Synthelix AI is a next-generation AI-powered DePIN platform purpose-built to secure and scale decentralized connectivity. By fusing artificial intelligence with blockchain architecture, Synthelix transforms how intelligent systems interact, process, and secure data across decentralized environments. Focused on efficiency, security, and real-world integration, it establishes the foundation for AI-driven decentralized ecosystems.",
                 funds:"$ 0.00 ",
-                investorNames: ["LongHash Ventures"," Protocolo Labs","Superscrypt "],
+               
                 link: "https://dashboard.synthelix.io/r/63qSl4vB ",
                 participationSteps: [
                     { step: "Connect your wallet", icon: "fa-wallet" },
