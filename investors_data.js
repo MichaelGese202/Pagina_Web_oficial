@@ -32,23 +32,23 @@ const investorsData = {
         url: " https://x.com/StaniKulechov",
         logo: "https://img.cryptorank.io/funds/150x150.stani_kulechov1678784089440.png "
     },
-        "LongHash Ventures ": {
+        "LongHash Ventures": {
         url: " https://www.longhash.vc/",
         logo: "https://img.cryptorank.io/funds/150x150.longhash%20ventures1649418223202.png "
     },
-        "Protocol Labs  ": {
+        "Protocol Labs": {
         url: " https://www.protocol.ai/",
         logo: "https://img.cryptorank.io/funds/150x150.protocol_labs1662643032114.png "
     },
-        "Superscrypt  ": {
+        "Superscrypt": {
         url: " https://www.superscrypt.xyz/ ",
         logo: " https://img.cryptorank.io/funds/150x150.superscrypt1666886838346.png "
     },
-        "East Ventures   ": {
+        "East Ventures": {
         url: "  https://east.vc/ ",
         logo: "  https://img.cryptorank.io/funds/150x150.east_ventures1668163971760.png "
     },
-        "M31 Capital   ": {
+        "M31 Capital": {
         url: "  https://m31.capital/ ",
         logo: "  https://img.cryptorank.io/funds/150x150.m_31_capital1680859419002.png "
     }
