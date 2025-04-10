@@ -16,14 +16,14 @@ const airdrops = [
                 badges: ["Web","Docs","X"],
                 info: "Huddle01’s dRTC network is a high throughput, low latency, and multipurpose network that facilitates real-time communications over cyberspace. This DePIN network is designed to provide performant, secure, and 95% cheaper borderless connectivity across applications in SocialFi, GameFi, the Metaverse, and decentralized AI.",
                 funds:"$ 2.80 M ",
-                investorNames: ["LongHash Ventures"," Protocolo Labs","Superscrypt "],
+                investorNames: ["LongHash Ventures"," Protocolo Labs","Superscrypt ","M31 Capital","East Ventures","Good News Ventures"],
                 link: " https://testnet.huddle01.com/r/0x5c32ac3db8e5061421fc5f1a8f11ea619437f749 ",
                 participationSteps: [
                     { step: "Connect your wallet", icon: "fa-wallet", image:" https://img.cryptorank.io/image-hub/hudd1744303096867.png"},
-                    { step: "Open the Quests Arena and complete all available quests", icon: "fa-tasks" },
-                    { step: "Start interacting with the apps in the Apps Arena tab. You can stream and chat with your friends there", icon: "fa-chalkboard-teacher" },
-                    { step: "Request test tokens from the faucet. You'll need them to mint badges, invite friends, and track your progress on the leaderboard", icon: "fa-trophy" },
-                    { step: "Open your profile and try to collect all badges. Click on a badge to find out how to get it", icon: "fa-medal" }
+                    { step: "Open the Quests Arena and complete all available quests", icon: "fa-tasks" ,image:"https://img.cryptorank.io/image-hub/hudd_11744303608875.png"},
+                    { step: "Start interacting with the apps in the Apps Arena tab. You can stream and chat with your friends there", icon: "fa-chalkboard-teacher", image: "https://img.cryptorank.io/image-hub/hudd_21744303630769.png" },
+                    { step: "Request test tokens from the faucet. You'll need them to mint badges, invite friends, and track your progress on the leaderboard", icon: "fa-trophy" , image: "https://img.cryptorank.io/image-hub/hudd_31744303768652.png"},
+                    { step: "Open your profile and try to collect all badges. Click on a badge to find out how to get it", icon: "fa-medal" , image: "https://img.cryptorank.io/image-hub/hadd_41744303904518.png"}
                 ]
  
             },
