@@ -10,13 +10,16 @@ const airdrops = [
                 status: "Confirmed", 
                 image: " https://img.cryptorank.io/coins/huddle_011680857179191.png ",
                 referenceImage: " https://pbs.twimg.com/media/GoMvgkIWgAAG8xa?format=jpg&name=small",
+                additionalImages:[
+                  "https://pbs.twimg.com/media/GoL0_jFXYAAyjOP?format=jpg&name=small"
+                ],
                 webUrl: " https://testnet.huddle01.com/r/0x5c32ac3db8e5061421fc5f1a8f11ea619437f749 ",
                 docsUrl: "  https://huddle01.com/blog ",
                 xUrl:  "https://x.com/huddle01com ",
                 badges: ["Web","Docs","X"],
                 info: "Huddle01’s dRTC network is a high throughput, low latency, and multipurpose network that facilitates real-time communications over cyberspace. This DePIN network is designed to provide performant, secure, and 95% cheaper borderless connectivity across applications in SocialFi, GameFi, the Metaverse, and decentralized AI.",
                 funds:"$ 2.80 M ",
-                investorNames: ["LongHash Ventures"," Protocolo Labs","Superscrypt ","M31 Capital","East Ventures","Good News Ventures"],
+                investorNames: ["LongHash Ventures"," Protocolo Labs","Superscrypt ","M31 Capital","East Ventures","Good News Ventures","Balaji Srinivasan","Dan Romero","Stani Kulechov"],
                 link: " https://testnet.huddle01.com/r/0x5c32ac3db8e5061421fc5f1a8f11ea619437f749 ",
                 participationSteps: [
                     { step: "Connect your wallet", icon: "fa-wallet", image:" https://img.cryptorank.io/image-hub/hudd1744303096867.png"},
