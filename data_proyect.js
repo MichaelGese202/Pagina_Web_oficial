@@ -32,6 +32,7 @@ const airdrops = [
                 type: "depin",
                 description: "3DOS™ is a global, decentralized manufacturing network for everyone.",
                 launchDate: "February 2, 2025",
+                modifiedDate: new Date(2024, 3, 10),
                 status: "Confirmed", 
                 
                 image: "Imagen/3dos.png",
@@ -41,7 +42,7 @@ const airdrops = [
                 badges: ["Web","Docs","X"
                 ],
                 info: "",
-                funds:"$ 1.05 M",
+                funds:"$ 3.00  M",
                 link: "https://dashboard.3dos.io/register?ref_code=caf5d1",
                 investorNames: ["Red Beard Ventures"],
                 
