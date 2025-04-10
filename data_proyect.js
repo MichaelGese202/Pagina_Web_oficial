@@ -53,6 +53,7 @@ const airdrops = [
                
                 description: "The Gradient Network project is similar to Grass, Nodepay and Dawn",
                 launchDate: "11 SEP, 2024",
+                modifiedDate: new Date(2024, 3, 10),
                 image: "Imagen/gradient_network.png",
                 referenceImage:"https://pbs.twimg.com/media/Gfim2W-bYAAI07C?format=jpg&name=small",
                 additionalImages:[
@@ -64,7 +65,13 @@ const airdrops = [
                 info: "Over the past decade, cloud computing has profoundly reshaped the world, consolidating power in the hands of big tech companies. As we approach an AI-driven future, the risk of centralization looms larger. Now is the time to reconsider the trajectory of global compute infrastructure and explore how we can all play a role in building a more open system. We strongly believe that edge compute will lead the way in this transformation.",
                 funds: "$0",
                 investorNames: ["Multicoin Capital","Pantera Capital","HongShan (ex-Sequoia China)"],
-                link: " https://app.gradient.network/signup?code=SCCMOG"
+                link: " https://app.gradient.network/signup?code=SCCMOG",
+                participationSteps: [
+                  { step: "Sign up with your email", icon: "fa-envelope" },
+                  { step: "Download the browser extension", icon: "fa-download" },
+                  { step: "Run the extension daily", icon: "fa-play-circle" }
+  
+                ]
             },
                                       {
                 id: 25,
