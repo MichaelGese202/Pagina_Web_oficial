@@ -42,7 +42,7 @@ const airdrops = [
                 badges: ["Web","Docs","X"],
                 info: " Synthelix AI is a next-generation AI-powered DePIN platform purpose-built to secure and scale decentralized connectivity. By fusing artificial intelligence with blockchain architecture, Synthelix transforms how intelligent systems interact, process, and secure data across decentralized environments. Focused on efficiency, security, and real-world integration, it establishes the foundation for AI-driven decentralized ecosystems.",
                 funds:"$ 0.00 ",
-                 
+                investorNames: ["LongHash Ventures"," Protocolo Labs","Superscrypt "],
                 link: "https://dashboard.synthelix.io/r/63qSl4vB ",
                 participationSteps: [
                     { step: "Connect your wallet", icon: "fa-wallet" },
