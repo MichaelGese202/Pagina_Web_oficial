@@ -1,4 +1,33 @@
 const airdrops = [
+                                        {
+                id: 28,
+                title: "Solix ",
+                type: "depin",
+                description: "  Solix is the first MCP-powered DePIN, creating a borderless, censorship-resistant Internet while rewarding participation. ",
+                launchDate: " ",
+                publishDate: new Date(2025, 3,12),
+                modifiedDate: new Date(2024, 3, 12),
+                status: "Confirmed", 
+                image: "  https://dashboard.solixdepin.net/_next/image?url=%2Flogo.png&w=32&q=75 ",
+                referenceImage: "https://ml.globenewswire.com/Resource/Download/cfefada4-59af-416a-9bbf-1083025c7ea3/solix-feat-image.jpg",
+                additionalImages:[
+                  " https://ml.globenewswire.com/Resource/Download/06e89a86-bc69-45c0-a3d1-314d8316a81c/solix-mcp-depin.jpg"
+                ],
+                webUrl: "  https://dashboard.solixdepin.net/sign-up?ref=RMan3ueD ",
+                docsUrl: "  https://dashboard.solixdepin.net/sign-up?ref=RMan3ueD",
+                xUrl:  "  ",
+                badges: ["Web","Docs","X"],
+                info: "  Solix is a decentralized physical infrastructure network (DePIN) that empowers users to monetize their unused internet bandwidth through a browser extension, earning SLIX Points. Utilizing its proprietary Model Context Protocol (MCP), Solix employs AI-driven optimization to dynamically allocate bandwidth, ensuring efficient sharing without compromising user experience.",
+                funds:"$ 29.5 M ",
+                investorNames: ["Eclip Foundation"],
+                link: " https://dashboard.solixdepin.net/sign-up?ref=RMan3ueD",
+                participationSteps: [
+                    { step: "Register with Email", icon: "fa-envelope" },
+                    { step: "Log in & Run Node", icon: "fa-network-wired" },
+                    { step: "Complete Simple Tasks", icon: "fa-tasks" }
+                ]
+ 
+            },
                                       {
                 id: 27,
                 title: "Huddle01 ",
