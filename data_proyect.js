@@ -8,7 +8,7 @@ const airdrops = [
                 publishDate: new Date(2025, 3,12),
                 modifiedDate: new Date(2024, 3, 12),
                 status: "Confirmed", 
-                image: "  https://dashboard.solixdepin.net/_next/image?url=%2Flogo.png&w=32&q=75 ",
+                image: "  https://pbs.twimg.com/profile_images/1910993189344796672/UkfLqUAO_400x400.jpg ",
                 referenceImage: "https://ml.globenewswire.com/Resource/Download/cfefada4-59af-416a-9bbf-1083025c7ea3/solix-feat-image.jpg",
                 additionalImages:[
                   " https://ml.globenewswire.com/Resource/Download/06e89a86-bc69-45c0-a3d1-314d8316a81c/solix-mcp-depin.jpg"
