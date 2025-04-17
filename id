@@ -1,28 +1,30 @@
 const airdrops = [
-                                  {
+                                        {
                 id: ,
                 title: " ",
-                type: "depin",
-                description: "Complete the tasks to qualify for potential  airdrops and rewards ",
+                type: " ",
+                description: "    ",
                 launchDate: " ",
-                publishDate: new Date(2025, 3, ),
+                publishDate: new Date(2025, 3,12),
+                modifiedDate: new Date(2024, 3, 12),
                 status: "Confirmed", 
-                image: " ",
+                image: "    ",
                 referenceImage: " ",
-                webUrl: " ",
-                docsUrl: "  ",
-                xUrl: " ",
+                additionalImages:[
+                  "  "
+                ],
+                webUrl: "   ",
+                docsUrl: "   ",
+                xUrl:  "  ",
                 badges: ["Web","Docs","X"],
-                info: " ",
-                funds:"$ 0.00 ",
-                code: " ",
-                link: " ",
+                info: "   ",
+                funds:"$ 29.5 M ",
+                investorNames: ["Eclip Foundation"],
+                link: "  ",
                 participationSteps: [
-                    { step: " Register with your email address.", icon: "fa-envelope"},
-                    { step: "Download the ​​extension ", icon: "fa-download" },
-                    {step: "introduzca un código de referido", icon: "fa-code"},
-                    { step: "complete the available tasks", icon: "fa-tasks" },
-                    { step: "Invite your friends and perform tasks",icon: "fa-users" }
+                    { step: "Register with Email", icon: "fa-envelope" },
+                    { step: "Log in & Run Node", icon: "fa-network-wired" },
+                    { step: "Complete Simple Tasks", icon: "fa-tasks" }
                 ]
  
             },
