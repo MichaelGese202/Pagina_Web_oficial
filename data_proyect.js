@@ -1,4 +1,34 @@
 const airdrops = [
+                                          {
+                id: 29,
+                title: " GPU Network",
+                type: "node ",
+                description: "  GPU.NET has launched the Road to TGE campaign. We can perform tasks and earn GXP (points). These points will be converted into project tokens in the future. More points - more rewards.  ",
+                launchDate: " 15 Apr 2025",
+                publishDate: new Date(2025, 3,16),
+                modifiedDate: new Date(2024, 3, 16),
+                status: "Confirmed", 
+                image: "  https://img.cryptorank.io/coins/gpu_network1702031737092.png  ",
+                referenceImage: " https://pbs.twimg.com/media/GopUt-EWoAABZmW?format=jpg&name=small",
+                additionalImages:[
+                  " https://pbs.twimg.com/media/Goqj3DbWEAADGQa?format=jpg&name=large "
+                ],
+                webUrl: "  https://token.gpu.net?ref=W9N7T7 ",
+                docsUrl: " https://gpu-network.gitbook.io/gpu-network-whitepaper/introduction/overview  ",
+                xUrl:  " https://x.com/gpunet ",
+                badges: ["Web","Docs","X"],
+                info: " The GPU Network is a decentralized graphics processing unit on demand infrastructure that powers the next generation of Generative AI, Web3 Metaverses, High-end graphics rendering and cryptocurrency mining.The GPU Network project is a visionary initiative that aims towards tackling the current surging demand for GPU resources across the globe by leveraging blockchains core decentralized nature.   ",
+                funds:"$ 6.00 M ",
+                investorNames: ["BlackDragon"],
+                code: "W9N7T7 ",
+                link: " https://token.gpu.net?ref=W9N7T7 ",
+                participationSteps: [
+                    { step: "Go to the site and connect your wallet", icon: "fa-link" , image:"https://img.cryptorank.io/image-hub/gpu1744847606560.png"},
+                    { step: "Invite your friends and collect free points daily", icon: "fa-users", image:"https://img.cryptorank.io/image-hub/gpu_11744847763839.png" },
+                    { step: "Complete Simple Tasks", icon: "fa-tasks" , image: "https://img.cryptorank.io/image-hub/gpu_21744847860202.png"}
+                ]
+ 
+            },
                                         {
                 id: 28,
                 title: "Solix ",
