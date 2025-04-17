@@ -1,5 +1,17 @@
 // investors_data.js (versión simplificada)
 const investorsData = {
+    "AZA Ventures": {
+        url: "https://www.aza.ventures/#",
+        logo: "https://img.cryptorank.io/funds/150x150.aza_ventures1717594924385.png"
+    },
+    "ExNetwork Capital": {
+        url: "https://exnetworkcapital.com/",
+        logo: "https://img.cryptorank.io/funds/150x150.exnetwork%20capital1648497301377.png"
+    },
+    "BlackDragon": {
+        url: "https://www.blackdragon.io/",
+        logo: "https://img.cryptorank.io/funds/150x150.black_dragon1676371014514.png"
+    },
     "ChainLink": {
         url: "https://chain.link/",
         logo: "https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/cache/e6/b5/e6b515e9edd0113bd6a5f363c5d0e85f.webp"
