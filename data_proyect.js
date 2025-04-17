@@ -2,7 +2,7 @@ const airdrops = [
                                           {
                 id: 29,
                 title: " GPU Network",
-                type: "node ",
+                type: "node",
                 description: "  GPU.NET has launched the Road to TGE campaign. We can perform tasks and earn GXP (points). These points will be converted into project tokens in the future. More points - more rewards.  ",
                 launchDate: " 15 Apr 2025",
                 publishDate: new Date(2025, 3,16),
