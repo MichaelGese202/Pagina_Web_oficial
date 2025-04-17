@@ -4,7 +4,7 @@ const investorsData = {
         url: "https://alphablockz.io/",
         logo: "https://img.cryptorank.io/funds/150x150.alphablockz1702032088497.png"
     },
-    "SMomentum 6": {
+    "Momentum 6": {
         url: "https://momentum6.com/",
         logo: "https://img.cryptorank.io/funds/150x150.momentum_61666014123882.png"
     },
