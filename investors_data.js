@@ -1,5 +1,17 @@
 // investors_data.js (versión simplificada)
 const investorsData = {
+    "Alphablockz": {
+        url: "https://alphablockz.io/",
+        logo: "https://img.cryptorank.io/funds/150x150.alphablockz1702032088497.png"
+    },
+    "SMomentum 6": {
+        url: "https://momentum6.com/",
+        logo: "https://img.cryptorank.io/funds/150x150.momentum_61666014123882.png"
+    },
+    "Spicy Capital": {
+        url: "https://spicy.capital/",
+        logo: "https://img.cryptorank.io/funds/150x150.spicy_capital1702292964044.png"
+    },
     "AZA Ventures": {
         url: "https://www.aza.ventures/#",
         logo: "https://img.cryptorank.io/funds/150x150.aza_ventures1717594924385.png"
@@ -41,28 +53,28 @@ const investorsData = {
         logo: "https://img.cryptorank.io/funds/150x150.blockchain_founders_fund1666619105678.png"
     },
     "Stani Kulechov": {
-        url: " https://x.com/StaniKulechov",
-        logo: "https://img.cryptorank.io/funds/150x150.stani_kulechov1678784089440.png "
+        url: "https://x.com/StaniKulechov",
+        logo: "https://img.cryptorank.io/funds/150x150.stani_kulechov1678784089440.png"
     },
     "LongHash Ventures": {
-        url: " https://www.longhash.vc/",
-        logo: "https://img.cryptorank.io/funds/150x150.longhash%20ventures1649418223202.png "
+        url: "https://www.longhash.vc/",
+        logo: "https://img.cryptorank.io/funds/150x150.longhash%20ventures1649418223202.png"
     },
     "Protocolo Labs": {
-        url: " https://www.protocol.ai/",
-        logo: "https://img.cryptorank.io/funds/150x150.protocol_labs1662643032114.png "
+        url: "https://www.protocol.ai/",
+        logo: "https://img.cryptorank.io/funds/150x150.protocol_labs1662643032114.png"
     },
     "Superscrypt": {
-        url: " https://www.superscrypt.xyz/ ",
-        logo: " https://img.cryptorank.io/funds/150x150.superscrypt1666886838346.png "
+        url: "https://www.superscrypt.xyz/",
+        logo: "https://img.cryptorank.io/funds/150x150.superscrypt1666886838346.png"
     },
     "East Ventures": {
-        url: " https://east.vc/ ",
-        logo: "https://img.cryptorank.io/funds/150x150.east_ventures1668163971760.png "
+        url: "https://east.vc/",
+        logo: "https://img.cryptorank.io/funds/150x150.east_ventures1668163971760.png"
     },
     "M31 Capital": {
-        url: "  https://m31.capital/ ",
-        logo: "  https://img.cryptorank.io/funds/150x150.m_31_capital1680859419002.png "
+        url: "https://m31.capital/",
+        logo: "https://img.cryptorank.io/funds/150x150.m_31_capital1680859419002.png"
     }
     
 };
