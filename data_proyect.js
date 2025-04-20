@@ -37,12 +37,13 @@ const airdrops = [
                 description: "  Solix is the first MCP-powered DePIN, creating a borderless, censorship-resistant Internet while rewarding participation. ",
                 launchDate: " ",
                 publishDate: new Date(2025, 3,12),
-                modifiedDate: new Date(2024, 3, 12),
+                modifiedDate: new Date(2024, 3, 20),
                 status: "Confirmed", 
                 image: "  https://pbs.twimg.com/profile_images/1910993189344796672/UkfLqUAO_400x400.jpg ",
                 referenceImage: "https://ml.globenewswire.com/Resource/Download/cfefada4-59af-416a-9bbf-1083025c7ea3/solix-feat-image.jpg",
                 additionalImages:[
-                  " https://ml.globenewswire.com/Resource/Download/06e89a86-bc69-45c0-a3d1-314d8316a81c/solix-mcp-depin.jpg"
+                  " https://ml.globenewswire.com/Resource/Download/06e89a86-bc69-45c0-a3d1-314d8316a81c/solix-mcp-depin.jpg",
+                  "https://media.discordapp.net/attachments/1353599142894501929/1363478557728440520/Go-RszgacAA659_.jpeg?ex=68062ddc&is=6804dc5c&hm=f552f05b403ec479205ed04a9e15e83929eadaa2e93b7c5da08c21962507dddd&=&format=webp&width=822&height=462"
                 ],
                 webUrl: "  https://dashboard.solixdepin.net/sign-up?ref=RMan3ueD ",
                 docsUrl: "  https://dashboard.solixdepin.net/sign-up?ref=RMan3ueD",
