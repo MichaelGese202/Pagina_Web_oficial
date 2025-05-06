@@ -19,7 +19,7 @@ const airdrops = [
                 badges: ["Web","Docs","X"],
                 info: " We capture public web traffic from our data scouts. This public traffic allows us to build datasets in the Open Data Marketplace that fulfill key enterprise needs.  ",
                 funds:"$  ",
-            
+                code: "WZDF5V",
                 link: " https://app.chakra.dev/?ref=WZDF5V ",
                 participationSteps: [
                     { step: "Register with Email", icon: "fa-envelope" },
