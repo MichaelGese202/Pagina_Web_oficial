@@ -2,7 +2,7 @@ const airdrops = [
                                           {
                 id:  30,
                 title: " Chakra AI ",
-                type: "depin ",
+                type: "depin",
                 description: "The web, reimagined as a permissionless database. ",
                 launchDate: " O5 May 2025 ",
                 publishDate: new Date(2025, 4,6),
