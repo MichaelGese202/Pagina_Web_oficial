@@ -1,5 +1,34 @@
 const airdrops = [
                                           {
+                id:  30,
+                title: " Chakra AI ",
+                type: "depin ",
+                description: "The web, reimagined as a permissionless database. ",
+                launchDate: " O5 May 2025 ",
+                publishDate: new Date(2025, 4,6),
+                modifiedDate: new Date(2024, 4, 6),
+                status: "Confirmed", 
+                image: "  https://lh3.googleusercontent.com/A7wnHUThqIoOMlycGanmyySCtQQM5Fj3cRYhuoY4yg-l6LaOqa0z5Bnr7ItxNLDXfkT9Bndq_EPjN7Yq9ofwWDVWZXA=s60  ",
+                referenceImage: "https://pbs.twimg.com/media/GqRe7MbbAAI7kJe?format=jpg&name=medium ",
+                additionalImages:[
+                  "  "
+                ],
+                webUrl: "  https://app.chakra.dev/?ref=WZDF5V ",
+                docsUrl: " https://docs.chakra.dev/scout/faq#what-is-chakra  ",
+                xUrl:  " https://x.com/chakra_ai ",
+                badges: ["Web","Docs","X"],
+                info: " We capture public web traffic from our data scouts. This public traffic allows us to build datasets in the Open Data Marketplace that fulfill key enterprise needs.  ",
+                funds:"$  ",
+            
+                link: " https://app.chakra.dev/?ref=WZDF5V ",
+                participationSteps: [
+                    { step: "Register with Email", icon: "fa-envelope" },
+                    { step: "Log in & Run Node", icon: "fa-network-wired" },
+                    { step: "Complete Simple Tasks", icon: "fa-tasks" }
+                ]
+ 
+            },
+                                          {
                 id: 29,
                 title: " GPU Network",
                 type: "node",
