@@ -4,7 +4,7 @@ const airdrops = [
                 title: "Kinzoo Protocol",
                 type: "depin",
                 description: "The wait is finally over — and the gates to Kinzoo Energy have officially opened. ",
-                launchDate: "16 de mayo de 2025 ",
+                launchDate: "May 16, 2025 ",
                 publishDate: new Date(2025, 4,17),
                 modifiedDate: new Date(2024, 4, 17),
                 status: "Confirmed", 
