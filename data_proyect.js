@@ -1,4 +1,35 @@
 const airdrops = [
+                              {
+                id: 31,
+                title: "Kinzoo Protocol",
+                type: "depin",
+                description: "The wait is finally over — and the gates to Kinzoo Energy have officially opened. ",
+                launchDate: "16 de mayo de 2025 ",
+                publishDate: new Date(2025, 4,17),
+                modifiedDate: new Date(2024, 4, 17),
+                status: "Confirmed", 
+                image: " https://pbs.twimg.com/profile_images/1916162167176323072/v8nvEnAS_400x400.jpg ",
+                referenceImage: "https://pbs.twimg.com/media/GrC9t6kWQAAcSkt?format=jpg&name=small",
+                additionalImages:[
+                  " https://pbs.twimg.com/media/GrJ6D9WWoAAMYCO?format=jpg&name=small ",
+                  "https://pbs.twimg.com/media/GqcIM6ZW0AACi6C?format=jpg&name=small "
+                ],
+                webUrl: " https://energy.kinzoo.xyz/?ref=CZ935M  ",
+                docsUrl: " https://doc.kinzoo.xyz/ ",
+                xUrl:  " https://x.com/Kinzoo_Protocol ",
+                badges: ["Web","Docs","X"],
+                info: " If you’ve been hunting for real alpha, this is it. Kinzoo Protocol just launched its Kinzoo Energy initiative — a limited-time event where early adopters can run nodes, earn energy points, and secure their share of the $KINZ airdrop that’s coming soon. But here’s where it gets BIG:🧬 40% of the entire $KINZ token supply is reserved exclusively for the community airdrop. Yes, you read that right — 40%. ",
+                funds:"$  M ",
+                code: "CZ935M",
+                investorNames: [" "],
+                link: " https://energy.kinzoo.xyz/?ref=CZ935M",
+                participationSteps: [
+                    { step: "Register with Wallet", icon: "fa-wallet" },
+                    { step: "Log in & Run Node", icon: "fa-network-wired" },
+                    { step: "Complete Simple Tasks", icon: "fa-tasks" }
+                ]
+ 
+            },
                                           {
                 id:  30,
                 title: " Chakra AI ",
