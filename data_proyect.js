@@ -25,7 +25,7 @@ const airdrops = [
                 participationSteps: [
                     { step: "Go to the website and connect your wallet", icon: "fa-wallet", image:"https://img.cryptorank.io/image-hub/csh1747628381857.png" },
                     { step: "Complete the available tasks and do not forget daily check-ins", icon: "fa-tasks", image: "https://img.cryptorank.io/image-hub/shc_11747628498945.png"},
-                    { step: "Invite friends and track your progress on the leaderboard", icon: "fa-users",image: "" },
+                    { step: "Invite friends and track your progress on the leaderboard", icon: "fa-users",image: "Imagen/Captura de pantalla 2025-05-19 131934.png" },
                 ]
  
             },
