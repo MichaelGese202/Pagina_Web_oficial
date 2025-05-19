@@ -20,6 +20,7 @@ const airdrops = [
                 info: "Coinshift simplifies treasury operations for users, delivers actionable insights to financial managers, and increases transparency for communities and investors. We are creating the foundational toolkit for on-chain treasury management covering payments, reporting, and asset management.   ",
                 funds:"$ 15.00 M ",
                 investorNames: [" DeFi Alliance","Quiet Capital","HashKey Capital","The Spartan","Sandeep Nailwal"],
+                code: "wPslbpbGYBLW",
                 link: " https://campaign.coinshift.xyz/?referral=wPslbpbGYBLW ",
                 participationSteps: [
                     { step: "Go to the website and connect your wallet", icon: "fa-wallet", image:"https://img.cryptorank.io/image-hub/csh1747628381857.png" },
