@@ -1,4 +1,33 @@
 const airdrops = [
+                           {
+                id: 32,
+                title: "Coinshift",
+                type: "social",
+                description: "Coinshift launched a campaign with social tasks. We can complete them, earn points and qualify for future rewards from the project.    ",
+                launchDate: " 05 May 2025 ",
+                publishDate: new Date(2025, 4,19),
+                modifiedDate: new Date(2024, 4, 19),
+                status: "Confirmed", 
+                image: " https://img.cryptorank.io/coins/coinshift1747641506947.png   ",
+                referenceImage: "https://pbs.twimg.com/media/FS91JTlagAAHsZL?format=jpg&name=large ",
+                additionalImages:[
+                  "https://pbs.twimg.com/media/GpUBrA3bYAAleVb?format=jpg&name=small  "
+                ],
+                webUrl: " https://campaign.coinshift.xyz/?referral=wPslbpbGYBLW  ",
+                docsUrl: " https://docs.coinshift.xyz/  ",
+                xUrl:  "https://x.com/0xCoinshift  ",
+                badges: ["Web","Docs","X"],
+                info: "Coinshift simplifies treasury operations for users, delivers actionable insights to financial managers, and increases transparency for communities and investors. We are creating the foundational toolkit for on-chain treasury management covering payments, reporting, and asset management.   ",
+                funds:"$ 15.00 M ",
+                investorNames: [" DeFi Alliance","Quiet Capital","HashKey Capital","The Spartan","Sandeep Nailwal"],
+                link: " https://campaign.coinshift.xyz/?referral=wPslbpbGYBLW ",
+                participationSteps: [
+                    { step: "Go to the website and connect your wallet", icon: "fa-wallet", image:"https://img.cryptorank.io/image-hub/csh1747628381857.png" },
+                    { step: "Complete the available tasks and do not forget daily check-ins", icon: "fa-tasks", image: "https://img.cryptorank.io/image-hub/shc_11747628498945.png"},
+                    { step: "Invite friends and track your progress on the leaderboard", icon: "fa-users",image: "" },
+                ]
+ 
+            },
                               {
                 id: 31,
                 title: "Kinzoo Protocol",
