@@ -24,7 +24,7 @@ const airdrops = [
                 link: "https://chromewebstore.google.com/detail/ping-network-vpn/geeedmdpncfeomhgbjeafcahepjelimg?utm_source=main ",
                 participationSteps: [
                     { step: "Install the app on your phone or browser", icon: "fa-mobile-alt", image: "https://img.cryptorank.io/image-hub/pingg_11746583787420.png" },
-                    { step: "Launch the app/extension, create an account and enter code *3935RV* to get 10% bonus to point farming", icon: "fa-user-plus" },
+                    { step: "Launch the app/extension, create an account and enter code <strong>3935RV</strong> to get 10% bonus to point farming", icon: "fa-user-plus" },
                     { step: "Use the VPN as normal; earn 1 point every 10 minutes until Season 1 ends when all users have earned 1 billion points", icon: "fa-clock" },
                 ]
  
