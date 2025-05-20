@@ -1,4 +1,34 @@
 const airdrops = [
+                                          {
+                id: 33,
+                title: "Ping Network ",
+                type: "depin",
+                description: "Ping Network has launched a VPN app for Chrome and Android/IOS. We can use VPN and earn points. The activity started (May 6), so you can become an early user by starting earning points now.    ",
+                launchDate: " 05 May 2025 ",
+                publishDate: new Date(2025, 4,21),
+                modifiedDate: new Date(2024, 4, 21),
+                status: "Confirmed", 
+                image: "https://img.cryptorank.io/coins/ping_network1734623044704.png   ",
+                referenceImage: "https://pbs.twimg.com/media/GrZwVNYXEAANFte?format=jpg&name=large ",
+                additionalImages:[
+                  "  "
+                ],
+                webUrl: "https://pingnetwork.io/   ",
+                docsUrl: "https://docs.pingnetwork.io/quickstart  ",
+                xUrl:  "https://x.com/PingNetwork_io ",
+                badges: ["Web","Docs","X"],
+                info: "Ping Network is a universal decentralized bandwidth layer. By utilizing global resources from data centers to smartphones, we offer businesses scalable, affordable networking solutions.  ",
+                funds:"$ 0.00 M ",
+                investorNames: ["Cogitent Ventures","Native Crypto","devops199fan","more"],
+                 code: "3935RV",
+                link: "https://chromewebstore.google.com/detail/ping-network-vpn/geeedmdpncfeomhgbjeafcahepjelimg?utm_source=main ",
+                participationSteps: [
+                    { step: "Install the app on your phone or browser", icon: "fa-mobile-alt", image: "https://img.cryptorank.io/image-hub/pingg_11746583787420.png" },
+                    { step: "Launch the app/extension, create an account and enter code **3935RV** to get 10% bonus to point farming", icon: "fa-user-plus" },
+                    { step: "Use the VPN as normal; earn 1 point every 10 minutes until Season 1 ends when all users have earned 1 billion points", icon: "fa-clock" },
+                ]
+ 
+            },
                            {
                 id: 32,
                 title: "Coinshift",
