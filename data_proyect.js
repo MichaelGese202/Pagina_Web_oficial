@@ -1,4 +1,34 @@
 const airdrops = [
+                                                 {
+                id:34 ,
+                title: "Avitus ",
+                type: "social",
+                description: "Avitus has announced a Waitlist! We can join it to be among the first to get access to future product.  ",
+                launchDate: " 15 May 2025 ",
+                publishDate: new Date(2025, 4,22),
+                modifiedDate: new Date(2024, 4, 22),
+                status: "Confirmed", 
+                image: "https://img.cryptorank.io/coins/avitus1723122861329.png    ",
+                referenceImage: "https://pbs.twimg.com/media/GrFvpYvWEAELfoN?format=jpg&name=small  ",
+                additionalImages:[
+                  "  "
+                ],
+                webUrl: "portal.avituslabs.xyz/AIRDROPSANP0D77F8",
+                docsUrl: "https://avitus.gitbook.io/avitus-docs   ",
+                xUrl:  " https://x.com/avituslabsxyz ",
+                badges: ["Web","Docs","X"],
+                info: "Avitus is the largest perpetual DEX built on the Movement Chain With 700K+ participants, $60M+ Total Value Locked (TVL) on devnet, and a thriving community of over 400K+ users, designed to combine top of the line performance with advanced trading tools for a seamless and secure trading experience. Our mission is to set new standards in decentralized finance by providing a platform that is fast, reliable, and packed with features for both traders and liquidity providers.  ",
+                funds:"$ 0.00 M ",
+                investorNames: [" "],
+                code: "AIRDROPSANP0D77F8 ",
+                link: "portal.avituslabs.xyz/AIRDROPSANP0D77F8  ",
+                participationSteps: [
+                    { step: "Go to the website, enter your email and connect your X account", icon: "fa-envelope", image:"https://img.cryptorank.io/image-hub/avii1747702836592.png" },
+                    { step: "Invite friends to earn extra points", icon: "fa-user-plus", image:"https://img.cryptorank.io/image-hub/avii_11747703209484.png" }
+                     
+                ]
+ 
+            },
                                           {
                 id: 33,
                 title: "Ping Network ",
