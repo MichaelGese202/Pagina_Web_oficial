@@ -1,15 +1,15 @@
 const airdrops = [
-                                        {
+                                               {
                 id: ,
                 title: " ",
                 type: " ",
-                description: "    ",
-                launchDate: " ",
-                publishDate: new Date(2025, 3,12),
-                modifiedDate: new Date(2024, 3, 12),
+                description: "  ",
+                launchDate: " 05 May 2025 ",
+                publishDate: new Date(2025, 4,21),
+                modifiedDate: new Date(2024, 4, 21),
                 status: "Confirmed", 
                 image: "    ",
-                referenceImage: " ",
+                referenceImage: "  ",
                 additionalImages:[
                   "  "
                 ],
@@ -17,14 +17,15 @@ const airdrops = [
                 docsUrl: "   ",
                 xUrl:  "  ",
                 badges: ["Web","Docs","X"],
-                info: "   ",
-                funds:"$ 29.5 M ",
-                investorNames: ["Eclip Foundation"],
+                info: "  ",
+                funds:"$ 0.00 M ",
+                investorNames: ["Cogitent Ventures","Native Crypto","devops199fan","more"],
+                code: " ",
                 link: "  ",
                 participationSteps: [
-                    { step: "Register with Email", icon: "fa-envelope" },
-                    { step: "Log in & Run Node", icon: "fa-network-wired" },
-                    { step: "Complete Simple Tasks", icon: "fa-tasks" }
+                    { step: " ", image: " " },
+                    { step: " ", icon: "fa-user-plus" },
+                    { step: " ", icon: "fa-clock" },
                 ]
  
             },
