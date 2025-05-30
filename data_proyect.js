@@ -765,20 +765,29 @@ const airdrops = [
                 title: "LayerEdge",
                 type: "depin",
                 description: "LayerEdge is the first decentralized network that enhances the capabilities of Bitcoin Blockspace with ZK & BitVM, enabling every layer to be secured on Bitcoin.",
-                launchDate: " January 22, 2025",
-                modifiedDate: new Date(2024, 3, 10),
-                status: "Potential", 
+                launchDate: " May 30, 2025",
+                modifiedDate: new Date(2024, 4, 30),
+                status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1837132336011280384/XpzvFeA7_400x400.jpg",
                 webUrl: "https://layeredge.io/",
                 docsUrl: "https://docs.layeredge.io/",
                 xUrl: "https://x.com/LayerEdge",
                 badges: ["Docs","X"
                 ],
-                info: "",
+                referenceImage: "https://lh3.googleusercontent.com/lvlRbIasurPd_gg3o0p5an2Lqa2gvaN8wSUi9lkMz733ctyCbOYj_MOSQNjmH2-d5c5KtCkqnmmHy2hyuDVDOvhTFRw=s800-w800-h500 ",
+                additionalImages:[
+                  "https://lh3.googleusercontent.com/TOuZunlMqurykjwndzzCWFOpVhNlFhSEENlK3PQz8Pdvfl3jz0YKQN9S811OH_iLec-LGj-bjduV505LZdxXzv0QMA=s800-w800-h500  "
+                ],
+                info: "LayerEdge is a decentralized verification layer that enables scalable, cost-efficient, and secure zk-proof verification, backed by Bitcoin. It is designed to serve as a universal infrastructure layer for verifying off-chain computation.",
                 funds:"$ 0",
                 code: "9VfoH6D0",
                 link: "https://dashboard.layeredge.io/",
                 investorNames: ["Founderheads","BreakOrbit","Normie Capital","Blockchain Founders Fund ","Paul Taylor"],
+                participationSteps: [
+                    {step: "Connect your wallet", icon: "fa-wallet", image:"https://img.cryptorank.io/image-hub/avii1747702836592.png" },
+                    {step: "Enter your referral code <strong>9VfoH6D0</strong> to start earning points", icon: "fa-user-plus" },
+                    {step: "Download the extension and start farming rewards. <a href=\"https://chromewebstore.google.com/detail/edgenos-light-node-layere/fnjlbckpopjmpgkjgoiegmnnhahegbcb?authuser=1&hl=en-GB\" target=\"_blank\" rel=\"noopener\">Install here</a>", icon: "fa-download"},
+                    {step: "Generate your edgenOS key here", icon: "fa-key", image: " "}
                
                 
             },
