@@ -789,6 +789,8 @@ const airdrops = [
                 type: "depin",
                 description: "Naoris Protocol is a self-validating cybersecurity enforcement protocol that restores cyber-trust across digital systems.",
                 launchDate: "January 30, 2025",
+                publishDate: new Date(2025, 4,29),
+                modifiedDate: new Date(2024, 4, 29),
                 status: "Confirmed", 
                 
                 image: "Imagen/naoris_protocol.png",
@@ -797,7 +799,7 @@ const airdrops = [
                 xUrl: "https://x.com/naorisprotocol",
                 badges: ["Web","Docs","X"],
                 info: "",
-                funds:"$ 11.5 M",
+                funds:"$ 14.5 M",
                 code: "oaWdlGjNa3N08eit",
 
                 link: "https://naorisprotocol.network/testnet/tasks",
