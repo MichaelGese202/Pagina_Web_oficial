@@ -765,7 +765,7 @@ const airdrops = [
                 title: "LayerEdge",
                 type: "depin",
                 description: "LayerEdge is the first decentralized network that enhances the capabilities of Bitcoin Blockspace with ZK & BitVM, enabling every layer to be secured on Bitcoin.",
-                launchDate: " May 30, 2025",
+                launchDate: "May 30, 2025",
                 modifiedDate: new Date(2024, 4, 30),
                 status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1837132336011280384/XpzvFeA7_400x400.jpg",
