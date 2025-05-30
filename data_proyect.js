@@ -768,7 +768,7 @@ const airdrops = [
                 launchDate: "May 30, 2025",
                 modifiedDate: new Date(2024, 4, 30),
                 status: "Confirmed", 
-                image: "https://pbs.twimg.com/profile_images/1837132336011280384/XpzvFeA7_400x400.jpg",
+                image: "https://img.cryptorank.io/coins/layer_edge1737992618894.png",
                 webUrl: "https://layeredge.io/",
                 docsUrl: "https://docs.layeredge.io/",
                 xUrl: "https://x.com/LayerEdge",
