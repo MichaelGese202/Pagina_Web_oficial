@@ -788,7 +788,7 @@ const airdrops = [
                     {step: "Enter your referral code <strong>9VfoH6D0</strong> to start earning points", icon: "fa-user-plus" },
                     {step: "Download the extension and start farming rewards. <a href=\"https://chromewebstore.google.com/detail/edgenos-light-node-layere/fnjlbckpopjmpgkjgoiegmnnhahegbcb?authuser=1&hl=en-GB\" target=\"_blank\" rel=\"noopener\">Install here</a>", icon: "fa-download"},
                     {step: "Generate your edgenOS key here", icon: "fa-key", image: "image2/7.png"}
-               
+               ]
                 
             },
 
