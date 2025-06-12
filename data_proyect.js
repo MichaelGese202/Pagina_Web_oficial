@@ -1,5 +1,39 @@
 const airdrops = [
                                                  {
+                id: 35,
+                title: "Datagram ",
+                type: "depin",
+                description: "Datagram has launched a testnet with a confirmed airdrop! You can install the app on your PC and farm points by providing unused capacity. Additional points can be earned by inviting friends. The activity started a few hours ago, so we can become early users!  ",
+                launchDate: "June 12, 2025 ",
+                publishDate: new Date(2025, 5,12),
+                modifiedDate: new Date(2024, 5, 12),
+                status: "Confirmed", 
+                image: "https://img.cryptorank.io/coins/datagram1749685893118.png   ",
+                referenceImage: "https://pbs.twimg.com/card_img/1932994705966632960/YGTNWJHp?format=png&name=small  ",
+                additionalImages:[
+                  "  "
+                ],
+                webUrl: "https://dashboard.datagram.network?ref=460876421",
+                docsUrl: "https://cdn.prod.website-files.com/6727f99b308f1e113922fd91/680a82609c890004edee4ee3_241224%20Datagram_White%20Paper_DesignUpdates.docx%20(2).pdf  ",
+                xUrl:  "https://x.com/DGramNetwork  ",
+                badges: ["Web","Docs","X"],
+                info: "Datagram is a Global Hyper Fabric Network designed to provide the foundational infrastructure for launching scalable, decentralized physical infrastructure (DePIN projects. Just as AWS abstracts infrastructure complexities for applications like Netflix, Datagram enables enterprises, developers, and service providers (e.g., agencies, and freelancers) to deploy DePIN solutions without needing to manage a custom network. By leveraging a fully distributed architecture, businesses can instantly scale and inherit blockchain’s advantages (including cost efficiency, security, and automation) while ensuring a seamless Web2-like experience for end users. ",
+                funds:"$ 0.00 M ",
+                investorNames: [ ],
+                code: "460876421 ",
+                link: "https://dashboard.datagram.network?ref=460876421",
+                participationSteps: [
+                  {step: 'Go to the <a href="https://dashboard.datagram.network?ref=460876421" target="_blank" rel="noopener">website</a> and register using your email', icon: 'fa-user-plus', image: "https://img.cryptorank.io/image-hub/data1749686203930.png"
+                  {step: 'Find your referral link in the Referrals tab and invite your Friends', icon: 'fa-user-friends'},
+                  {step: 'Open the Wallet tab and install the app on your PC', icon: 'fa-wallet', image: "https://img.cryptorank.io/image-hub/data_21749686555513.png"},
+                  {step: 'Log in to the app using the same email address you used to register earlier', icon: 'fa-sign-in-alt', image: "https://img.cryptorank.io/image-hub/data_31749686595369.png"},
+                  {step: 'Once you launch the app, you will start earning points (the first points may not appear immediately). Try to keep the app running as often as possible to earn more points', icon: 'fa-play-circle', image: "https://img.cryptorank.io/image-hub/data_41749687282700.png"},
+                  {step: 'Additional interactions. Claim $DATA. To do this, click Claim and enter any 3 numbers',  icon: 'fa-coins', image: "https://img.cryptorank.io/image-hub/data_51749687916738.png"},
+                  {step: 'Test Datagram products: create a video chat with a friend and chat with AI', icon: 'fa-comments', image: "https://img.cryptorank.io/image-hub/data_61749687990007.png"}
+                ]
+ 
+            },
+                                                 {
                 id:34 ,
                 title: "Avitus ",
                 type: "social",
@@ -17,7 +51,7 @@ const airdrops = [
                 docsUrl: "https://avitus.gitbook.io/avitus-docs   ",
                 xUrl:  " https://x.com/avituslabsxyz ",
                 badges: ["Web","Docs","X"],
-                info: "Avitus is the largest perpetual DEX built on the Movement Chain With 700K+ participants, $60M+ Total Value Locked (TVL) on devnet, and a thriving community of over 400K+ users, designed to combine top of the line performance with advanced trading tools for a seamless and secure trading experience. Our mission is to set new standards in decentralized finance by providing a platform that is fast, reliable, and packed with features for both traders and liquidity providers.  ",
+                info: "Avitus is the largest perpetual DEX built on the Movement Chain With 700K+ participants, $60M+ Total Value Locked (TVL) on devnet, and a thriving community of over 400K+ users, designed to combine top of the line performance with advanced trading tools for a seamless and secure trading experience. Our mission is to set new standards in decentralized finance by providing a platform that is fast, reliable, and packed with features for both traders and liquidity providers.",
                 funds:"$ 0.00 M ",
                 investorNames: [" "],
                 code: "AIRDROPSANP0D77F8 ",
@@ -47,7 +81,7 @@ const airdrops = [
                 docsUrl: "https://docs.pingnetwork.io/quickstart  ",
                 xUrl:  "https://x.com/PingNetwork_io ",
                 badges: ["Web","Docs","X"],
-                info: "Ping Network is a universal decentralized bandwidth layer. By utilizing global resources from data centers to smartphones, we offer businesses scalable, affordable networking solutions.  ",
+                info: "Ping Network is a universal decentralized bandwidth layer. By utilizing global resources from data centers to smartphones, we offer businesses scalable, affordable networking solutions.",
                 funds:"$ 0.00 M ",
                 investorNames: ["Cogitent Ventures","Native Crypto","devops199fan","more"],
                  code: "3935RV",
@@ -129,7 +163,7 @@ const airdrops = [
                 publishDate: new Date(2025, 4,6),
                 modifiedDate: new Date(2024, 4, 6),
                 status: "Confirmed", 
-                image: "  https://lh3.googleusercontent.com/A7wnHUThqIoOMlycGanmyySCtQQM5Fj3cRYhuoY4yg-l6LaOqa0z5Bnr7ItxNLDXfkT9Bndq_EPjN7Yq9ofwWDVWZXA=s60  ",
+                image: "  https://lh3.googleusercontent.com/A7wnHUThqIoOMlycGanmyySCtQQM5Fj3cRYhuoY4yg-l6LaOqa0z5Bnr7ItxNLDXfkT9Bndq_EPjN7Yq9ofwWDVWZXA=s60",
                 referenceImage: "https://pbs.twimg.com/media/GqRe7MbbAAI7kJe?format=jpg&name=medium ",
                 additionalImages:[
                   "  "
