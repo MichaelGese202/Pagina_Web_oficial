@@ -17,7 +17,16 @@ const airdrops = [
                 docsUrl: "https://cdn.prod.website-files.com/6727f99b308f1e113922fd91/680a82609c890004edee4ee3_241224%20Datagram_White%20Paper_DesignUpdates.docx%20(2).pdf  ",
                 xUrl:  "https://x.com/DGramNetwork  ",
                 badges: ["Web","Docs","X"],
-                info: "Datagram is a Global Hyper Fabric Network designed to provide the foundational infrastructure for launching scalable, decentralized physical infrastructure (DePIN) projects. Just as AWS abstracts infrastructure complexities for applications like Netflix, Datagram enables enterprises, developers, and service providers to deploy DePIN solutions without needing to manage a custom network. By leveraging a fully distributed architecture, businesses can instantly scale and inherit blockchain’s advantages (including cost efficiency, security, and automation) while ensuring a seamless Web2-like experience for end users.",
+                info: `
+Datagram is a Global Hyper Fabric Network designed to provide the foundational infrastructure
+for launching scalable, decentralized physical infrastructure (DePIN) projects. Just as AWS
+abstracts infrastructure complexities for applications like Netflix, Datagram enables
+enterprises, developers, and service providers to deploy DePIN solutions without needing to
+manage a custom network. By leveraging a fully distributed architecture, businesses can
+instantly scale and inherit blockchain’s advantages (including cost efficiency, security, and
+automation) while ensuring a seamless Web2-like experience for end users.
+`,
+
                 funds:"$ 0.00 M ",
                 investorNames: [ ],
                 code: "460876421 ",
