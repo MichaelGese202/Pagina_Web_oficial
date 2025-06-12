@@ -6,12 +6,12 @@ const airdrops = [
                 description: "Datagram has launched a testnet with a confirmed airdrop! You can install the app on your PC and farm points by providing unused capacity. Additional points can be earned by inviting friends. The activity started a few hours ago, so we can become early users!  ",
                 launchDate: "June 12, 2025 ",
                 publishDate: new Date(2025, 5,12),
-                modifiedDate: new Date(2024, 5, 12),
+                modifiedDate: new Date(2024, 5, 13),
                 status: "Confirmed", 
-                image: "https://img.cryptorank.io/coins/datagram1749685893118.png   ",
+                image: "https://img.cryptorank.io/coins/datagram1749685893118.png",
                 referenceImage: "https://pbs.twimg.com/card_img/1932994705966632960/YGTNWJHp?format=png&name=small  ",
                 additionalImages:[
-                  "  "
+                
                 ],
                 webUrl: "https://dashboard.datagram.network?ref=460876421",
                 docsUrl: "https://cdn.prod.website-files.com/6727f99b308f1e113922fd91/680a82609c890004edee4ee3_241224%20Datagram_White%20Paper_DesignUpdates.docx%20(2).pdf  ",
