@@ -24,7 +24,7 @@ const airdrops = [
                 link: "https://dashboard.datagram.network?ref=460876421",
                 participationSteps: [
                   {step: 'Go to the <a href="https://dashboard.datagram.network?ref=460876421" target="_blank" rel="noopener">website</a> and register using your email', icon: 'fa-user-plus', image: "https://img.cryptorank.io/image-hub/data1749686203930.png"
-                  {step: 'Find your referral link in the Referrals tab and invite your Friends', icon: 'fa-user-friends'},
+                  {step: 'Find your referral link in the Referrals tab and invite your Friends', icon: 'fa-user-friends', image: "image2/datagram.png"},
                   {step: 'Open the Wallet tab and install the app on your PC', icon: 'fa-wallet', image: "https://img.cryptorank.io/image-hub/data_21749686555513.png"},
                   {step: 'Log in to the app using the same email address you used to register earlier', icon: 'fa-sign-in-alt', image: "https://img.cryptorank.io/image-hub/data_31749686595369.png"},
                   {step: 'Once you launch the app, you will start earning points (the first points may not appear immediately). Try to keep the app running as often as possible to earn more points', icon: 'fa-play-circle', image: "https://img.cryptorank.io/image-hub/data_41749687282700.png"},
