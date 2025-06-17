@@ -339,17 +339,19 @@ automation) while ensuring a seamless Web2-like experience for end users.
                
                 description: "The Gradient Network project is similar to Grass, Nodepay and Dawn",
                 launchDate: "11 SEP, 2024",
-                modifiedDate: new Date(2024, 3, 10),
+                modifiedDate: new Date(2024, 3, 17),
+                
                 image: "Imagen/gradient_network.png",
-                referenceImage:"https://pbs.twimg.com/media/Gfim2W-bYAAI07C?format=jpg&name=small",
+                referenceImage:"https://pbs.twimg.com/media/Gtpji1ha8AE2moQ?format=jpg&name=4096x4096",
                 additionalImages:[
+                  "https://pbs.twimg.com/media/Gfim2W-bYAAI07C?format=jpg&name=small"
                   " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/covers/gradient-network_cover_1740116504.webp",
                   " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Gradient-Network-Investors.webp"
                 ],
                 type: "depin",
                 badges: ["Web", "X"],
                 info: "Over the past decade, cloud computing has profoundly reshaped the world, consolidating power in the hands of big tech companies. As we approach an AI-driven future, the risk of centralization looms larger. Now is the time to reconsider the trajectory of global compute infrastructure and explore how we can all play a role in building a more open system. We strongly believe that edge compute will lead the way in this transformation.",
-                funds: "$0",
+                funds: "$ 10.00",
                 investorNames: ["Multicoin Capital","Pantera Capital","HongShan (ex-Sequoia China)"],
                 link: " https://app.gradient.network/signup?code=SCCMOG",
                 participationSteps: [
