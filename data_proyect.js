@@ -23,7 +23,7 @@ const airdrops = [
                 code: "J7nYm ",
                 link: "https://beta.publicai.io/?r=J7nYm  ",
                 participationSteps: [
-                    { step: 'Follow the <a href="https://beta.publicai.io/?r=J7nYm" target="_blank" rel="noopener">link</a> and sign up with an X account:', icon: 'fa-user-plus', image:"https://img.cryptorank.io/image-hub/puba1737981365773.png"},
+                    { step: 'Follow the <a href="https://beta.publicai.io/?r=J7nYm" target="_blank" rel="noopener">link</a> and sign up with an X account:', icon: 'fa-user-plus'},
                     { step: 'Install the <a href="https://chromewebstore.google.com/detail/publicai-data-hunter/icbbdjflabjciapbohkkkmaangfjaanl" target="_blank" rel="noopener">extension</a>.', icon: 'fa-clock' },
                     { step: 'Start earning points using this instruction:', icon: 'fa-star', image:"https://img.cryptorank.io/image-hub/puba_11737981476892.png" }
                 ]
