@@ -344,7 +344,7 @@ automation) while ensuring a seamless Web2-like experience for end users.
                 image: "Imagen/gradient_network.png",
                 referenceImage:"https://pbs.twimg.com/media/Gtpji1ha8AE2moQ?format=jpg&name=4096x4096",
                 additionalImages:[
-                  "https://pbs.twimg.com/media/Gfim2W-bYAAI07C?format=jpg&name=small"
+                  "https://pbs.twimg.com/media/Gfim2W-bYAAI07C?format=jpg&name=small",
                   " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/covers/gradient-network_cover_1740116504.webp",
                   " https://dropsearn.fra1.cdn.digitaloceanspaces.com/media/projects/screenshots/Gradient-Network-Investors.webp"
                 ],
