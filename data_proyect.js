@@ -1,5 +1,35 @@
 const airdrops = [
                                                  {
+                id:36,
+                title: "PublicAi ",
+                type: "depin",
+                description: "On January 15, PublicAI launched a campaign with point farming. We can earn them for interacting with popular tweets using AI. The campaign started recently, so we can become early users!",
+                launchDate: " 14 Jan 2025",
+                publishDate: new Date(2025, 5,17),
+                modifiedDate: new Date(2025, 5, 17),
+                status: "Confirmed", 
+                image: "https://img.cryptorank.io/coins/public_ai1706542569577.png",
+                referenceImage: "https://pbs.twimg.com/media/GtpZV5XasAAVxOC?format=jpg&name=small",
+                additionalImages:[
+                  "https://pbs.twimg.com/media/GtXhXmnbMAMc8Eu?format=jpg&name=small  "
+                ],
+                webUrl: "https://beta.publicai.io/?r=J7nYm",
+                docsUrl: "   ",
+                xUrl:  "https://x.com/PublicAIData  ",
+                badges: ["Web","Docs","X"],
+                info: "  ",
+                funds:"$ 10.00 M ",
+                investorNames: ["IBC Ventures","IOBC Capital","Everstate Capital","more"],
+                code: "J7nYm ",
+                link: "https://beta.publicai.io/?r=J7nYm  ",
+                participationSteps: [
+                    { step: 'Follow the <a href="https://beta.publicai.io/?r=J7nYm" target="_blank" rel="noopener">link</a> and sign up with an X account:', icon: 'fa-user-plus' },
+                    { step: 'Install the <a href="https://chromewebstore.google.com/detail/publicai-data-hunter/icbbdjflabjciapbohkkkmaangfjaanl" target="_blank" rel="noopener">extension</a>.', icon: 'fa-clock' },
+                    { step: 'Start earning points using this instruction:', icon: 'fa-star' }
+                ]
+ 
+            },
+                                                 {
                 id: 35,
                 title: "Datagram ",
                 type: "depin",
@@ -339,7 +369,7 @@ automation) while ensuring a seamless Web2-like experience for end users.
                
                 description: "The Gradient Network project is similar to Grass, Nodepay and Dawn",
                 launchDate: "11 SEP, 2024",
-                modifiedDate: new Date(2024, 3, 17),
+                modifiedDate: new Date(2025, 5, 17),
                 
                 image: "Imagen/gradient_network.png",
                 referenceImage:"https://pbs.twimg.com/media/Gtpji1ha8AE2moQ?format=jpg&name=4096x4096",
