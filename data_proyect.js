@@ -1,5 +1,35 @@
 const airdrops = [
                                                  {
+                id:37,
+                title: "depin ",
+                type: "WizoLayer",
+                description: "  ",
+                launchDate: " 24 Jun 2025 ",
+                publishDate: new Date(2025, 5,28),
+                modifiedDate: new Date(2024, 5, 28),
+                status: "Confirmed", 
+                image: "https://pbs.twimg.com/profile_images/1919053962894061568/1EGoTJYB_400x400.jpg",
+                referenceImage: "https://pbs.twimg.com/media/GuKSdV6bMAAToIq?format=jpg&name=small  ",
+                additionalImages:[
+                  "https://pbs.twimg.com/media/GuOQeb4WwAAnKKi?format=jpg&name=small  "
+                ],
+                webUrl: "https://wizolayer.xyz?ref=9363372759   ",
+                docsUrl: "   ",
+                xUrl:  "https://x.com/WizoLayer  ",
+                badges: ["Web","Docs","X"],
+                info: "  ",
+                funds:"$ 6.00 M ",
+                investorNames: ["SW Foundation"],
+                code: "9363372759 ",
+                link: "https://wizolayer.xyz?ref=9363372759  ",
+                participationSteps: [
+                    { step: "Sign up with your email", icon: "fa-user-plus"},
+                    { step: "Complete a simple task", icon: "fa-tasks"},
+                    { step: "Open the browser and mining will auto-start",  icon: "fa-chrome"}
+                ]
+ 
+            },
+                                                 {
                 id:36,
                 title: "PublicAi ",
                 type: "depin",
