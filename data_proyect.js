@@ -1,12 +1,12 @@
 const airdrops = [
                                                  {
                 id:37,
-                title: "depin ",
-                type: "WizoLayer",
+                title: "WizoLayer",
+                type: "depin",
                 description: "  ",
-                launchDate: " 24 Jun 2025 ",
+                launchDate: "24 Jun 2025 ",
                 publishDate: new Date(2025, 5,28),
-                modifiedDate: new Date(2024, 5, 28),
+                modifiedDate: new Date(2025, 5, 28),
                 status: "Confirmed", 
                 image: "https://pbs.twimg.com/profile_images/1919053962894061568/1EGoTJYB_400x400.jpg",
                 referenceImage: "https://pbs.twimg.com/media/GuKSdV6bMAAToIq?format=jpg&name=small  ",
